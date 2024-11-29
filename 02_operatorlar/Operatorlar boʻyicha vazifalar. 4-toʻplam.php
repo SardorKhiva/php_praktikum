@@ -72,7 +72,8 @@ function masala_01()
     if (is_numeric($a)) {
         echo ($a % 2 == 1) ? "$a toq son" : "$a juft son";
     } else {
-        echo "Son kiriting\n";
+        echo "Son kiriting!\n\n";
+        masala_01();
     }
     echo PHP_EOL;
 }
@@ -93,7 +94,8 @@ function masala_02()
     if (is_numeric($a) && is_numeric($b)) {
         echo ($a > $b) ? "$a katta $b dan" : "$b katta $a dan";
     } else {
-        echo "Son kiriting!\n";
+        echo "Son kiriting!\n\n";
+        masala_02();
     }
     echo PHP_EOL;
 }
@@ -106,8 +108,20 @@ function masala_03()
     Masalan:
     A = 43, B = 55; Natija: A va B sonlarining yig`indisi 100 dan katta emas
     A = 53, B = 55; Natija: A va B sonlarining yig`indisi 100 dan katta */
+    echo "\t3-masala:\n";
+    echo "2 ta son kiriting: ";
+    $a = trim(fgets(STDIN));
+    $b = trim(fgets(STDIN));
 
-
+    if (is_numeric($a) && is_numeric($b)) {
+        echo ($a + $b > 100) ?
+            "$a + $b 100 dan katta" :
+            "$a + $b 100 dan katta emas";
+    } else {
+        echo "Son kiriting!\n\n";
+        masala_03();
+    }
+    echo PHP_EOL;
 }
 
 function masala_04()
@@ -116,9 +130,22 @@ function masala_04()
     A, B, C sonlari berilgan. Jumlani rostlikka tekshiring:
     "C soni A va B sonlari orasida yotadi".
     Masalan:
-    A = 4, B = 3, C = 6;  Natija: C soni A va B sonlari orasida yotmaydi
-    A =2, B = 13, C = 6;  Natija: C soni A va B sonlari orasida yotadi. */
-
+    A = 4, B = 3, C = 6; Natija: C soni A va B sonlari orasida yotmaydi
+    A =2, B = 13, C = 6; Natija: C soni A va B sonlari orasida yotadi. */
+    echo "\t4-masala:\n";
+    echo "3 ta son kiriting: \n";
+    $a = trim(fgets(STDIN));
+    $b = trim(fgets(STDIN));
+    $c = trim(fgets(STDIN));
+    if (is_numeric($a) && is_numeric($b) && is_numeric($c)) {
+        echo ($a < $c && $c < $b) ?
+            "$c soni $a va $b orasida yotadi" :
+            "$c soni $a va $b orasida yotamaydi";
+    } else {
+        echo "Son kiriting!\n\n";
+        masala_04();
+    }
+    echo PHP_EOL;
 }
 
 function masala_05()
@@ -126,7 +153,20 @@ function masala_05()
     /*  5-masala.
     Ikkita A va B soni berilgan. Jumlani rostlikka tekshiring:
     "A va B sonlarining hech bo'lmaganda 1 tasi toq". */
+    echo "\t5-masala:\n";
+    echo "2 ta son kiriting: ";
+    $a = trim(fgets(STDIN));
+    $b = trim(fgets(STDIN));
 
+    if (is_numeric($a) && is_numeric($b)) {
+        echo ($a % 2 == 1 || $b % 2 == 1) ?
+            "$a va $b sonlarning hech bo'lmaganda birisi toq" :
+            "$a va $b sonlarning birisi ham toq emas";
+    } else {
+        echo "Son kiriting!\n\n";
+        masala_05();
+    }
+    echo PHP_EOL;
 }
 
 function masala_06()
@@ -138,15 +178,29 @@ function masala_06()
     A = 17 Natija: "Berilgan son ikki xonali juft son emas"
     A = 4 Natija: "Berilgan son ikki xonali juft son emas" */
 
+    echo "\t6-masala:\n";
+    echo "Son kiriting: ";
+    $a = trim(fgets(STDIN));
+    if (is_numeric($a)) {
+        echo ($a > 9 && $a < 100 && $a % 2 == 0) ?
+            "$a soni 2 xonali juft son" :
+            "$a soni 2 xonali juft son emas";
+    } else {
+        echo "Son kiriting!\n\n";
+        masala_06();
+    }
+    echo PHP_EOL;
 }
 
 function masala_07()
 {
     /*  7-masala.
     Shaxmat doskasining X va Y koordinatalari berilgan.
-    1-8 oraliqda yotuvchi sonlar. Doskaning chap pastki maydoni (1, 1) qora rang
+    1-8 oraliqda yotuvchi sonlar.
+    Doskaning chap pastki maydoni (1, 1) qora rang
     ekanligini bilgan holda, jumlani rostlikka tekshiring:
     "Berilgan (X, Y) maydon OQ rangda" */
+    echo "\t7-masala:\n";
 
 }
 
