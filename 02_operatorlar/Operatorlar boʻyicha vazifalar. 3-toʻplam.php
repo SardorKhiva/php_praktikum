@@ -46,5 +46,55 @@ Hafta kunlari quyidagicha tartibda berilgan:
 4 - payshanba   5 - juma    6 - shanba
 1-365  oraliqda yotuvchi K soni berilgan. Agar 1-yanvar dushanba bo`lsa,
 berilgan K - kun, haftaning qaysi kuniga to`g`ri keladi. */
-echo "\t3-masala:\n";
+echo "\n\t3-masala:\n";
+$yil_kuni = "";
 
+do {
+    echo "\nDasturni tugatish uchun 0 ni kiriting\n";
+    echo "Yil kuni K ni kiriting: ";
+    enter($yil_kuni);
+} while ($yil_kuni !== "0");
+function enter(&$yil_kuni)
+{
+    // ma'lumot kiritish:
+    $yil_kuni = trim(fgets(STDIN));
+
+    // agar yil kuni 0 bo'lsa funksiya sinsin, tugasin:
+    if ($yil_kuni === 0) {
+        return;
+    }
+
+    // yil kuni 1 - 365 oraliqda ekanligini aniqlash:
+    if (is_numeric($yil_kuni)) {
+        if ($yil_kuni > 0 && $yil_kuni < 366) {
+            // yil kuni haftani qaysi kuniga to'g'ri kelishini aniqlash:
+            $hafta_kuni = $yil_kuni % 7;
+
+
+            switch ($hafta_kuni) {
+                case 0:
+                    echo "Yakshanba";
+                    break;
+                case 1:
+                    echo "Dushanba";
+                    break;
+                case 2:
+                    echo "Seshanba";
+                    break;
+                case 3:
+                    echo "Chorshanba";
+                    break;
+                case 4:
+                    echo "Payshanba";
+                    break;
+                case 5:
+                    echo "Juma";
+                    break;
+                case 6:
+                    echo "Shanba";
+                    break;
+            }
+            echo PHP_EOL;
+        }
+    }
+}
