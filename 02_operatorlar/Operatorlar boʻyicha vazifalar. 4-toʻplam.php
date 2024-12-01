@@ -53,11 +53,7 @@ switch ($num) {
         masala_10();
         break;
     }
-    case 11:
-    {
-        masala_11();
-        break;
-    }
+
     default:
     {
         echo "Bunday masala yo'q!\n";
