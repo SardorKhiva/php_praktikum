@@ -136,14 +136,14 @@ function masala_06(): void
     // 1-usul:
 
     // massivdagi 1-element:
-    $element_first = reset($massiv); //echo $element_first . PHP_EOL;
+//    $element_first = reset($massiv); //echo $element_first . PHP_EOL;
 
     // massivdagi oxirgi element:
-    $element_last = end($massiv); // echo $element_last . PHP_EOL;
+//    $element_last = end($massiv); // echo $element_last . PHP_EOL;
 
     // 1-va oxirgi index, qiymat emas!
-    $index_first = array_search($element_first, $massiv); //    echo $index_first . PHP_EOL;
-    $index_last = array_search($element_last, $massiv);
+//    $index_first = array_search($element_first, $massiv); //    echo $index_first . PHP_EOL;
+//    $index_last = array_search($element_last, $massiv);
 
     // 8 xonali parol so'ralgani uchun sikl ochamiz:
     for ($i = 1; $i <= 8; $i++) {
@@ -186,7 +186,7 @@ function masala_07(): void
 
     $matn = "Assalomu alaykum O'zbekiston";
     $jon = "jonajon ";
-    $uzb = "O'zbekiston";
+//    $uzb = "O'zbekiston";
 
     // dastlabki 2 so'zni olamiz:
     $ikki_str = mb_substr($matn, 0, 17); // Assalomu alaykum
@@ -243,7 +243,7 @@ function masala_09(): void
 
     // chapdan 0 llarni olib tashlash:
     echo '6-usul: ', ltrim($son_1, '0') . PHP_EOL;
-    
+
     echo 'Dastlabki qiymat: ', $son_1 . PHP_EOL;
 }
 
@@ -253,6 +253,19 @@ function masala_10(): void
     https://kun.uz/50487176 - ushbu urldan 50487176 ni ajratib oling. */
     echo "10-masala:\n";
 
+    $url = 'https://kun.uz/50487176';
+
+    // oxirdan boshlab 8 ta belgini ko'rsatish:
+    echo substr($url, -8) . PHP_EOL;
+
+    // satrdan sonlarni regulyar ifodalar orqali izlab olish:
+    if (preg_match('/\d+/', $url, $matches)) {
+        echo $matches[0];
+    }
+    echo PHP_EOL;
+
+    // barcha sonlarni regulyar ifodalar orqali ajratish:
+    echo preg_replace('/\D/', '', $url) . PHP_EOL;
 }
 
 function masala_11(): void
@@ -261,8 +274,19 @@ function masala_11(): void
     "/Users/sardordushamov/darslar/kurs/index.php" - ushbu matndan
     file nomini va kengaytmasini ajratib oling.
     Natija: index.php */
-    echo "11-masala:\n";
+    echo "\t11-masala:\n";
 
+    $file_url = '/Users/sardordushamov/darslar/kurs/index.php';
+
+    echo "1-usul: ", substr($file_url, -9) . PHP_EOL;
+
+    // so'zlar massivini olish:
+    $natija = str_word_count($file_url, 1);
+
+    // 4-va 5-indexdagi elementlarni . bilan qo'shish, concatination:
+    $natija = $natija[4] . '.' . $natija[5];
+
+    echo "2-usul: " . $natija . PHP_EOL;
 }
 
 function masala_12(): void
@@ -274,27 +298,169 @@ function masala_12(): void
     "252233" - xatolik deb chiqsin, chunki soat 25:22:33 vaqt bo'lmaydi. */
     echo "12-masala:\n";
 
+    echo "Soatni soatdaqiqasoniya niqobida kiriting (misol: 112233): " . PHP_EOL;
+    $vaqt = (trim(fgets(STDIN)));
+
+    // agar kiritilgan son bo'lsa:
+    if (is_numeric($vaqt)) {
+        // agar kiritilgan 6 ta belgi bo'lsa:
+        if (mb_strlen($vaqt) == 6) {
+            // soat uchun 6 ta raqamdan 0-indexdan boshlab 2 ta raqam olish:
+            $soat = mb_substr($vaqt, 0, 2);
+
+            // daqiqa uchun 6 ta raqamdan 2-indexdan boshlab 2 ta raqam olish:
+            $daqiqa = mb_substr($vaqt, 2, 2);
+
+            // soniya uchun 6 ta raqamdan 4-indexdan boshlab 2 ta raqam olish:
+            $soniya = mb_substr($vaqt, 4, 2);
+
+            // soat 0 va 24 oraliqda ekanligi rost bo'lsa:
+            if (($soat > 0 && $soat < 24) &&
+
+                // daqiqa 0 va 60 oraliqda ekanligi rost bo'lsa:
+                ($daqiqa > 0 && $daqiqa < 60) &&
+
+                // soniya 0 va 60 oraliqda ekanligi rost bo'lsa:
+                ($soniya > 0 && $soniya < 60)) {
+                $vaqt = $soat . ':' . $daqiqa . ':' . $soniya;
+            }
+        } else {
+            echo "Vaqt 6 xona bo'lsin.\n";
+        }
+    } else {
+        echo "Son kiriting.\n";
+    }
+
+    echo $vaqt . PHP_EOL;
 }
 
 function masala_13(): void
 {
     /* 13-masala.
-    Berilgan qiymat telefon nomermi yoki yoq aniqlang. (O'zbekistondagi telefon nomerlar)
+    Berilgan qiymat telefon nomermi yoki yoq aniqlang.
+    (O'zbekistondagi telefon nomerlar)
     Masalan: "+998999999999" Natija: telefon nomer
     "+99899999999912" Natija: telefon nomer emas. */
     echo "13-masala:\n";
+
+    print "Telefon raqamni + siz kiriting: ";
+    // kiritilgan raqamdan ochiq joylarni olib tashlash:
+    $tel = trim(fgets(STDIN));
+
+    // oldidan + kiritilgan bo'lsa olib tashlash:
+    $tel = ltrim($tel, '+');
+
+    // raqam kiritilganligini tekshirish:
+    if (is_numeric($tel)) {
+
+        // 12 xonali ekanligini tekshirish:
+        if (mb_strlen($tel) === 12) {
+            // raqam O'zbekistonni ekanligini tekshirish:
+            if (mb_substr($tel, 0, 3) == 998) {
+                echo "Siz kiritgan raqam O'zbekistonniki.\n";
+            } else {
+                echo "Siz kiritgan raqam boshqa davlatniki\n";
+            }
+        } else {
+            echo "Siz kiritgan raqam boshqa davlatniki\n";
+        }
+    } else {
+        echo "Son kiriting.\n";
+    }
+
+    echo PHP_EOL . PHP_EOL;
+//    masala_13();
 
 }
 
 function masala_14(): void
 {
     /* 14-masala.
-    "+998999999999"  telefon nomermi yoki yo`q aniqlang. Agar telefon  nomer bo`lsa
+    "+998999999999"  telefon nomermi yoki yo`q aniqlang.
+    Agar telefon  nomer bo`lsa
     qaysi kompanyaga tegishligini aniqlang
     90, 91 - beeline
     93, 94 - ucell
         97 - mobiuz
         99 - uzmobile */
     echo "14-masala:\n";
+    print "Telefon raqamni + siz kiriting: ";
+    // kiritilgan raqamdan ochiq joylarni olib tashlash:
+    $tel = trim(fgets(STDIN));
+
+    // oldidan + kiritilgan bo'lsa olib tashlash:
+    $tel = ltrim($tel, '+');
+
+    // raqam kiritilganligini tekshirish:
+    if (is_numeric($tel)) {
+
+        // 12 xonali ekanligini tekshirish:
+        if (mb_strlen($tel) === 12) {
+            // raqam O'zbekistonni ekanligini tekshirish:
+            if (mb_substr($tel, 0, 3) == 998) {
+                echo "Siz kiritgan raqam O'zbekistonniki va ";
+                switch (mb_substr($tel, 3, 2)) {
+                    case 55:
+                    case 33:
+                    {
+                        echo "Humans operatori";
+                        break;
+                    }
+
+                    case 90:
+                    case 91:
+                    {
+                        echo "Beeline operatori";
+                        break;
+                    }
+
+                    case 93:
+                    case 94:
+                    {
+                        echo "Ucell operatori";
+                        break;
+                    }
+
+                    case 88:
+                    case 97:
+                    {
+                        echo "MobiUz operatori";
+                        break;
+                    }
+
+                    case 98:
+                    {
+                        echo "Perfectum Mobile operatori";
+                        break;
+                    }
+
+                    case 77:
+                    case 95:
+                    case 99:
+                    {
+                        echo "Uzmobile";
+                        break;
+                    }
+                    default:
+                    {
+                        echo "Operatorni hozircha aniqlay olmadim.
+                    \nHali balkim yangiliklar va qo'shimchalar kiritishimiz kerakdir.";
+                    }
+                }
+
+            } else {
+                echo "Siz kiritgan raqam boshqa davlatniki\n";
+            }
+        } else {
+            echo "Siz kiritgan raqam boshqa davlatniki\n";
+        }
+    } else {
+        echo "Son kiriting.\n";
+    }
+
+
+    echo PHP_EOL . PHP_EOL;
+    masala_14();
+
 
 }
