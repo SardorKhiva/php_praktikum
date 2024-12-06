@@ -94,7 +94,7 @@ function masala_03(): void
 function masala_04(): void
 {
     /* 4-masala.
-    Ismingizdagi oxirgi 3 ta harfni ekranga chiqaring.
+    Ismingizdagi last_upper 3 ta harfni ekranga chiqaring.
     Masalan: "Eshmat". Natija: "mat" */
 
     echo "4-masala:\n";
@@ -138,10 +138,10 @@ function masala_06(): void
     // massivdagi 1-element:
 //    $element_first = reset($massiv); //echo $element_first . PHP_EOL;
 
-    // massivdagi oxirgi element:
+    // massivdagi last_upper element:
 //    $element_last = end($massiv); // echo $element_last . PHP_EOL;
 
-    // 1-va oxirgi index, qiymat emas!
+    // 1-va last_upper index, qiymat emas!
 //    $index_first = array_search($element_first, $massiv); //    echo $index_first . PHP_EOL;
 //    $index_last = array_search($element_last, $massiv);
 
@@ -191,7 +191,7 @@ function masala_07(): void
     // dastlabki 2 so'zni olamiz:
     $ikki_str = mb_substr($matn, 0, 17); // Assalomu alaykum
 
-    // $matn ning oxirgi so'zini olamiz:
+    // $matn ning last_upper so'zini olamiz:
     // oxirdan boshlab 11 ta belgi olamiz:
     $uzb = mb_substr($matn, -11);   // O'zbekiston
 
@@ -462,5 +462,5 @@ function masala_14(): void
     echo PHP_EOL . PHP_EOL;
     masala_14();
 
-
+// KEYINCHALIK FUNKSIYALAR BILAN YANADA IXCHAMROQ CODE YOZARMAN INSHA ALLOH
 }
