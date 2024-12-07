@@ -82,34 +82,117 @@ katta harfga aylantiring.
 Agar so`zning harflari soni 3 tadan kichik bo`lsa
 barchasini katta harfga aylantiring.
 Misol: "sardoroga"=>"sardorOGA", "js" => "JS".  */
+/*
 echo "\t3-masala:\n";
 echo "matn kiriting: ";
 $matn = trim(fgets(STDIN));
 
-$last_upper = strtoupper(substr($matn, -3));
+// oxirgi 3 ta harf va qolgan qismini o'zida saqlovchi o'zgaruvchi:
+$start = $end = "";
 
-// oxirgi 3 ta belgidan boshqa pozitsiyalar soni:
-$last = mb_strlen($matn) - mb_strlen($last_upper);  //echo $last . PHP_EOL;
+// agar matndagi harflar soni 4 dan kam bo'lsa
+// hammasi katta harflarga o'tsin:
+$uzunlik = mb_strlen($matn);
+if ($uzunlik < 4) {
+    $matn = strtoupper($matn);
+} else {
+    // oxirgi 3 harfni katta harfga o'tkazish:
+    $end = strtoupper(substr($matn, -3));
 
+    // oxirgi 3 ta belgidan boshqa belgilar soni:
+    $start_char = mb_strlen($matn) - 3;
 
-echo "last_upper: $last_upper\n";
+    // oxirgi 3 ta  belgidan boshqa harflarni olish:
+    $start = substr($matn, 0, $start_char);
 
+    // katta harfli qism + kichik harfli qism = matn:
+    $matn = $start . $end;
+}
+echo $matn . PHP_EOL . PHP_EOL;
+*/
 
 // 4-masala:
 /*  4-masala.
-Berilgan so`zning boshlang`ich va last_upper harflarini tekshiradigan dastur qiling.
+Berilgan so`zning boshlang`ich va last_upper
+harflarini tekshiradigan dastur qiling.
 Agar so`z O harfi bilan boshlansa "OleOle" deb chiqarsin.
 Agar so`z A harfi bilan tugasa "GoGo" deb chiqarsin.
 Agar so`z O harfi bilan boshlanib, A harfi bilan tugasa: "OleOleGoGo" chiqsin.
 Boshqa holatlarda so`zning o`zi chiqsin.
 IF va SWITCH ikkalasi bilan ham qilinsin    */
+
+/*
 echo "\t4-masala:\n";
 
+echo "So`z kiriting: ";
+$soz = trim(fgets(STDIN));
+$soz2 = $soz;
+
+$last_upper = substr($soz, -1);
+$first_upper = substr($soz, 0, 1);
+
+// boshdagi harf O va oxirgi harf A ekanligini tekshirish:
+$OA_ok = $first_upper == 'O' && $last_upper == 'A';
+
+// oxirgi harf A ekanligi:
+$A_ok = $last_upper == 'A';
+
+// 1-harf O ekanligi:
+$O_ok = $first_upper == 'O';
+
+echo 'if orqali: ' . PHP_EOL;
+if ($OA_ok) {
+    $soz = "OleOleGoGo";
+} elseif ($A_ok) {
+    $soz = "GoGo";
+} elseif ($O_ok) {
+    $soz = "OleOle";
+}
+echo $soz . PHP_EOL;
+
+echo 'switch orqali: ' . PHP_EOL;
+switch ($soz2) {
+    case $O_ok:
+        $soz2 = "OleOleGoGo";
+        break;
+    case $A_ok:
+        $soz2 = "GoGo";
+        break;
+    case $O_ok:
+        $soz2 = "OleOle";
+        break;
+}
+echo $soz2 . PHP_EOL;
+*/
 
 // 5-masala:
 /*  5-masala.
-4 ta son berilgan. Shulardan nechtasi musbat va nechtasi manfiyligini aniqlang. */
+4 ta son berilgan.
+Shulardan nechtasi musbat va nechtasi manfiyligini aniqlang. */
+/*
 echo "\t5-masala:\n";
+
+$son = array(0, 0, 0, 0);
+$musbat = 0;
+$manfiy = 0;
+
+echo '4 ta son kiriting: ' . PHP_EOL;
+for ($i = 0; $i < count($son); $i++) {
+    $son[$i] = trim(fgets(STDIN));
+    if ($son[$i] > 0) {
+        $musbat++;
+    } elseif ($son[$i] < 0) {
+        $manfiy++;
+    }
+    if (!is_numeric($son[$i])) {
+        echo 'Son kiriting!' . PHP_EOL;
+        exit;
+    }
+}
+echo 'Musbat sonlar soni: ' . $musbat . PHP_EOL;
+echo 'Manfiy sonlar soni: ' . $manfiy . PHP_EOL;
+echo PHP_EOL . PHP_EOL;
+*/
 
 // 6-masala:
 /*  6-masala.
@@ -120,7 +203,20 @@ agar harid qilgan narsalaringizni narxi
 300 ming so`mdan ko`p bo`lsa, 10% chegirma,
 agar 500 ming so`mdan ko`p bo’lsa 20% chegirma bor ekan.
 Eshmat sotib olgan haridlariga qancha to’laganini aniqlang.   */
+/*
 echo "\t6-masala:\n";
+
+echo "Harajatlar jami: ";
+$n = trim(fgets(STDIN));
+if (is_numeric($n)) {
+    if ($n > 300_000 && $n <= 500_000) {
+        $n = $n - ($n / 10);
+    } elseif ($n > 500_000) {
+        $n = $n - ($n / 20);
+    }
+}
+echo "Eshmat {$n} so'mlik harajat qildi" . PHP_EOL . PHP_EOL;
+*/
 
 // 7-masala:
 /*  7-masala.
@@ -131,6 +227,8 @@ Eshmat ovqatlanmoqchi. Uning N so'm puli bor.
 Eshmatning puli yuqoridagilarning qaysi birilarini sotib olishiga yetishi aniqlang. */
 echo "\t7-masala:\n";
 
+echo "Eshmatni yoniga yeb-ichish uchun qancha berasiz: ";
+$choy_chaqa = trim(fgets(STDIN));
 
 // 8-masala:
 /*  8-masala.

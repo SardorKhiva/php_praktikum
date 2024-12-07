@@ -35,12 +35,12 @@ echo PHP_EOL;
 // -6  -5  -4  -3  -2  -1
 
 $ismim = 'Sardor';
-echo substr($ismim, 0) . PHP_EOL;
-echo substr($ismim, 1) . PHP_EOL;
-echo substr($ismim, 2) . PHP_EOL;
-echo substr($ismim, 3) . PHP_EOL;
-echo substr($ismim, 4) . PHP_EOL;
-echo substr($ismim, 5) . PHP_EOL;
+echo 'substr($ismim, 0): ' . substr($ismim, 0, 1) . PHP_EOL;
+echo substr($ismim, 1, 1) . PHP_EOL;
+echo substr($ismim, 2, 1) . PHP_EOL;
+echo substr($ismim, 3, 1) . PHP_EOL;
+echo substr($ismim, 4, 1) . PHP_EOL;
+echo substr($ismim, 5, 1) . PHP_EOL;
 echo substr($ismim, -1) . PHP_EOL;
 echo substr($ismim, -2) . PHP_EOL;
 echo substr($ismim, -3) . PHP_EOL;
