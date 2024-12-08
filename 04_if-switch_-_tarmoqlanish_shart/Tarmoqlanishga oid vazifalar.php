@@ -219,16 +219,43 @@ echo "Eshmat {$n} so'mlik harajat qildi" . PHP_EOL . PHP_EOL;
 */
 
 // 7-masala:
-/*  7-masala.
-Eshmat ovqatlanmoqchi. Uning N so'm puli bor.
+/* Eshmat ovqatlanmoqchi.
+Uning N so'm puli bor.
 - Oshni narxi 17500 so`m.
 - Nonni narxi 1500 so’m.
 - Salatni narxi 4000 so’m.
-Eshmatning puli yuqoridagilarning qaysi birilarini sotib olishiga yetishi aniqlang. */
+Eshmatning puli yuqoridagilarning qaysi
+birilarini sotib olishiga yetishi aniqlang. */
+/*
 echo "\t7-masala:\n";
 
-echo "Eshmatni yoniga yeb-ichish uchun qancha berasiz: ";
-$choy_chaqa = trim(fgets(STDIN));
+echo "Eshmatni yonida qancha pul bor: ";
+$n = trim(fgets(STDIN));
+
+// 1500 dan 4000 gacha bo'lsa nonga yetadi:
+$non = $n >= 1_500 && $n < 4_000;
+
+// 4000 dan 17_500 gacha salatga yetadi:
+$salat = ($n >= 4_000) && ($n < 17_500);
+
+// 17_500 va undan ko'p pul bo'lsa oshga yetadi:
+$osh = $n >= 17_500;
+
+switch ($n) {
+    case $osh:
+        echo "Oshga ";
+    case $salat:
+        echo "Salatga ";
+    case $non:
+        echo "Nonga ";
+}
+if ($non || $salat || $osh) {
+    echo "pul yetarli.";
+} else {
+    echo "Ovqatlanishga pul yetarli emas.";
+}
+echo PHP_EOL . PHP_EOL;
+*/
 
 // 8-masala:
 /*  8-masala.
@@ -246,26 +273,156 @@ Eshmat o’qishga grantga kirdimi yoki kontraktgami?
 Yoki superkonrtaktgami?
 Yoki umuman kira olmadimi?
 Shuni aniqlang. */
+/*
 echo "\t8-masala:\n";
+
+do {
+    echo "Eshmat matematikadan nechta to'g'ri ishladi: ";
+    $n = intval(trim(fgets(STDIN)));
+} while (!($n > 0 && $n < 31));
+
+do {
+    echo "Eshmat fizikadan nechta to'g'ri ishladi: ";
+    $m = intval(trim(fgets(STDIN)));
+} while (!($m > 0 && $m < 31));
+
+do {
+    echo "Eshmat ona tilidan nechta to'g'ri ishladi: ";
+    $k = intval(trim(fgets(STDIN)));
+} while (!($k > 0 && $k < 31));
+
+$matematika = $n * 3.1;
+$fizika = $m * 2.1;
+$ona_tili = $k * 1.1;
+$kirgan = '';
+
+$grant = 160.4; // (15 * 3.1) + (15 * 2.1) + (15 * 1.1)
+$contract = 100;
+$supercontract = 56;
+
+// ballar yig'indisi:
+$sum = $matematika + $fizika + $ona_tili;
+
+// grant = 160.4 <= ball
+$grantga = $sum >= $grant;
+
+// contract = grant > ball >= 100
+$contractga = $sum >= $contract && $sum <= $grant;
+
+//supercontract = contract > ball >= 56
+$superkontraktga = $sum >= $supercontract && $sum <= $contract;
+
+switch ($sum) {
+    case $grantga :
+        $kirgan = "Eshmat grantga kirdi";
+        break;
+    case $contractga:
+        $kirgan = "Eshmat kontraktga kirdi";
+        break;
+    case $superkontraktga:
+        $kirgan = "Eshmat superkontraktga kirdi";
+        break;
+    default:
+        $kirgan = "Eshmat umuman kira olmadi";
+}
+
+//echo (15 * 3.1) + (15 * 2.1) + (15 * 1.1);    echo PHP_EOL;
+echo '1 - usul: ' . $kirgan . PHP_EOL . PHP_EOL;
+
+$kirgan2 = match (true) {
+    $sum >= $grant => "Eshmat grantga kirdi",
+    $sum >= $contract => "Eshmat kontraktga kirdi",
+    $sum >= $supercontract => "Eshmat superkontraktga kirdi",
+    default => "Eshmat umuman kira olmadi"
+};
+echo '2-usul: ' . $kirgan2 . PHP_EOL . PHP_EOL;
+*/
 
 // 9-masala:
 /*  9-masala.
     Berilgan so`zni last_upper ikkita harfini o`rnini almashtiring.
 Agar berilgan so`z 2 harfdan kam bo`lsa, so`zni o`zi chiqsin.
 Misol: "Python" => "Pythno", "JS" => "SJ", "A" => "A"   */
+
+// MASALA SHARTI VA MISOLDA HAR XIL!  MASALA SHARTIGA QARAB ISHLADIM
+/*
 echo "\t9-masala:\n";
 
+echo "Matn kiriting: ";
+$matn = strval(trim(fgets(STDIN)));
+
+// matnni oxirgi 2 harfi:
+$end = substr($matn, -2);
+
+// katta harflarga o'tkazish:
+$end = strtoupper($end);
+
+// oxirgi 2 harfni o'rnini almashtirish:
+$end = str_shuffle($end);
+//echo $end . PHP_EOL;
+
+// matnni qolgan qismi, oxirgi 2 harfdan tashqari:
+$start = substr($matn, 0, -2);
+//echo $start . PHP_EOL;
+
+if (mb_strlen($matn) > 2) {
+    $matn = $start . $end;
+}
+
+echo $matn . PHP_EOL . PHP_EOL;
+*/
+
+
 // 10-masala:
-/*  10-masala.
-Baytlarda ko'rsatilgan qiymat berilgan.
-Baytdan: - GB - MB - KB ga o`tkazing.
+/*  Baytlarda ko'rsatilgan qiymat berilgan.
+Baytdan: - gb - MB - KB ga o`tkazing.
 Agar berilgan qiymat, 1 KB ga yetmasa bayt holatida chiqsin.
 156 B => 156 B;
 1056 B => 1.03 KB
 10560 B => 10.31KB
 1056000 B => 1.01 MB
-MB ga yetsa MB da chiqsin, GB ga yetsa GB da chiqsin    */
+MB ga yetsa MB da chiqsin, gb ga yetsa gb da chiqsin    */
+
 echo "\t10-masala:\n";
+
+do {
+    echo "Bayt qiymati: ";
+    // qabul qilingan malumotdan bo'shliqlarni olib tashlab,
+    // xavfsizlik yuzasidan int tipiga o'tkazilsin:
+    $scan_byte = (trim(fgets(STDIN)));
+} while (!($scan_byte > 0));    // 0 dan katta bo'ladi
+
+// qaysi o'lchov axborot o'lchov birligi necha baytligi:
+$gb = 1024 ** 4;
+$mb = 1024 ** 3;
+$kb = 1024 ** 2;
+$b = 1024;
+
+// massiv elementidan chap tomonda turuvchi o'zgaruvchi:
+$left_prefix = $scan_byte . ' B => ';
+
+// massivning 1-elementi 1-kiritilgan qiymat:
+$arr_data[] = $scan_byte . " B";
+
+// 2- elementga nuqtadan keyin 2 xona yaxlitlab olish:
+$arr_data[] = round($scan_byte / $kb, 2) . " KB";
+$arr_data[] = round($scan_byte / $mb, 2) . " MB";
+$arr_data[] = round($scan_byte / $gb, 2) . " gb";
+
+
+for ($j = 0; $j < count($arr_data); $j++) {
+    if ($arr_data[$j] < 1): unset($arr_data[$j]);
+    endif;
+}
+
+// natijalarni chiqarish:
+for ($i = 0; $i < count($arr_data); $i++) {
+    // masala shartidagi kabi 0 dan katta
+    // qiymatlardagi birliklarni chiqarilsin:
+    echo $left_prefix . $arr_data[$i] . PHP_EOL;
+}
+echo PHP_EOL . PHP_EOL;
+
 
 // 11-masala:
 /*  11-masala.
@@ -273,3 +430,85 @@ Berilgan qiymat IP yoki IP emasligini aniqlang. Berilgan qiymat matn ko'rinishid
 "123.312.12.222" => IP emas
 "123.212.12.222" => IP  */
 echo "\t11-masala:\n";
+
+/*
+ * Для проверки IP-адресов важно учитывать несколько условий, которые позволяют определить, является ли строка допустимым IP-адресом. В PHP есть встроенная функция `filter_var()`, которая помогает валидировать IP-адреса.
+
+---
+
+### Основные условия для IP-адреса:
+1. **Формат IPv4**:
+   - Содержит 4 числа, разделённых точками.
+   - Каждое число в диапазоне от `0` до `255`.
+   - Пример: `192.168.1.1`.
+
+2. **Формат IPv6**:
+   - Представляет собой 8 групп по 4 символа (шестнадцатеричных).
+   - Группы разделены двоеточиями `:`.
+   - Может содержать сокращённый формат с пропущенными группами, например, `::1`.
+   - Пример: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`.
+
+3. **Проверка публичного/приватного IP**:
+   - Некоторые диапазоны зарезервированы для локальных или специальных сетей, например, `10.0.0.0/8`, `127.0.0.1` (localhost).
+
+4. **Допустимость символов**:
+   - Не допускаются пробелы, буквы (кроме IPv6), или специальные символы (например, `!@#$%^`).
+
+---
+
+### Как проверить IP-адрес в PHP:
+PHP предоставляет удобную функцию `filter_var()` для валидации IP-адресов:
+
+#### Пример проверки IPv4:
+```php
+<?php
+$ip = "192.168.1.1";
+
+if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+    echo "$ip — это допустимый IPv4-адрес.";
+} else {
+    echo "$ip — это невалидный IP-адрес.";
+}
+?>
+```
+
+#### Пример проверки IPv6:
+```php
+<?php
+$ip = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+
+if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+    echo "$ip — это допустимый IPv6-адрес.";
+} else {
+    echo "$ip — это невалидный IP-адрес.";
+}
+?>
+```
+
+#### Пример проверки публичного IP:
+```php
+<?php
+$ip = "8.8.8.8";
+
+if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+    echo "$ip — это публичный IP-адрес.";
+} else {
+    echo "$ip — это частный или специальный IP-адрес.";
+}
+?>
+```
+
+---
+
+### Флаги для `filter_var`:
+| Флаг                             | Описание                                                                 |
+|----------------------------------|--------------------------------------------------------------------------|
+| `FILTER_FLAG_IPV4`               | Проверяет, является ли адрес IPv4.                                       |
+| `FILTER_FLAG_IPV6`               | Проверяет, является ли адрес IPv6.                                       |
+| `FILTER_FLAG_NO_PRIV_RANGE`      | Исключает частные диапазоны (`10.0.0.0/8`, `192.168.0.0/16`, и т.д.).    |
+| `FILTER_FLAG_NO_RES_RANGE`       | Исключает зарезервированные диапазоны (`127.0.0.0/8`, `0.0.0.0/8`).      |
+
+---
+
+Эти условия и методы позволяют эффективно валидировать IP-адреса и применять к ним нужные фильтры.
+ */
