@@ -382,47 +382,88 @@ Agar berilgan qiymat, 1 KB ga yetmasa bayt holatida chiqsin.
 10560 B => 10.31KB
 1056000 B => 1.01 MB
 MB ga yetsa MB da chiqsin, gb ga yetsa gb da chiqsin    */
-
+/*
 echo "\t10-masala:\n";
 
 do {
     echo "Bayt qiymati: ";
-    // qabul qilingan malumotdan bo'shliqlarni olib tashlab,
+    // qabul qilingan ma'lumotdan bo'shliqlarni olib tashlab,
     // xavfsizlik yuzasidan int tipiga o'tkazilsin:
-    $scan_byte = (trim(fgets(STDIN)));
-} while (!($scan_byte > 0));    // 0 dan katta bo'ladi
+    $b = intval(trim(fgets(STDIN)));
+} while (!($b > 0));    // 0 dan katta bo'ladi
 
-// qaysi o'lchov axborot o'lchov birligi necha baytligi:
-$gb = 1024 ** 4;
-$mb = 1024 ** 3;
-$kb = 1024 ** 2;
-$b = 1024;
+// 123 456.78 B => :
+$left_prefix = number_format($b, 2, '.', ' ') . ' B => ';
 
-// massiv elementidan chap tomonda turuvchi o'zgaruvchi:
-$left_prefix = $scan_byte . ' B => ';
+// hisob kitob:
+$kb = round($b / 1024, 2);
+$mb = round($b / 1024 ** 2, 2);
+$gb = round($b / 1024 ** 3, 2);
+$tb = round($b / 1024 ** 4, 2);
+$pb = round($b / 1024 ** 5, 2);
 
-// massivning 1-elementi 1-kiritilgan qiymat:
-$arr_data[] = $scan_byte . " B";
+// formatlab o'qishga qulay chiqarish:
+$b = number_format($b, 2, '.', ' ');
+$kb = number_format($kb, 2, '.', ' ');
+$mb = number_format($mb, 2, '.', ' ');
+$gb = number_format($gb, 2, '.', ' ');
+$tb = number_format($tb, 2, '.', ' ');
+$pb = number_format($pb, 2, '.', ' ');
 
-// 2- elementga nuqtadan keyin 2 xona yaxlitlab olish:
-$arr_data[] = round($scan_byte / $kb, 2) . " KB";
-$arr_data[] = round($scan_byte / $mb, 2) . " MB";
-$arr_data[] = round($scan_byte / $gb, 2) . " gb";
-
-
-for ($j = 0; $j < count($arr_data); $j++) {
-    if ($arr_data[$j] < 1): unset($arr_data[$j]);
-    endif;
+// agar 1 baytdan ko'p bo'lsa chiqar:
+if ($b >= 1) {
+    echo "$left_prefix" . $b . ' B' . PHP_EOL;
+} else {
+    unset($b);      // aks holda $b ni xotiradan o'chirib xotirani tozala
 }
 
-// natijalarni chiqarish:
-for ($i = 0; $i < count($arr_data); $i++) {
-    // masala shartidagi kabi 0 dan katta
-    // qiymatlardagi birliklarni chiqarilsin:
-    echo $left_prefix . $arr_data[$i] . PHP_EOL;
+// agar 1 kb dan ko'p bo'lsa chiqar:
+if ($kb >= 1) {
+    echo "$left_prefix" . $kb . ' KB' . PHP_EOL;
+} else {
+    unset($kb);
 }
+
+// agar 1 mb dan ko'p bo'lsa chiqar:
+if ($mb >= 1) {
+    echo "$left_prefix" . $mb . ' MB' . PHP_EOL;
+} else {
+    unset($mb);
+}
+
+// agar 1 gb dan ko'p bo'lsa chiqar:
+if ($gb >= 1) {
+    echo "$left_prefix" . $gb . ' GB' . PHP_EOL;
+} else {
+    unset($gb);
+}
+
+// agar 1 tb dan ko'p bo'lsa chiqar:
+if ($tb >= 1) {
+    echo "$left_prefix" . $tb . ' TB' . PHP_EOL;
+} else {
+    unset($tb);
+}
+
+// agar 1 pb dan ko'p bo'lsa chiqar:
+if ($pb >= 1) {
+    echo "$left_prefix" . $pb . ' PB' . PHP_EOL;
+} else {
+    unset($pb);
+}
+// Natijaga misol:
+//	10-masala:
+//Bayt qiymati: 1125899906842624
+//1 125 899 906 842 624.00 B => 1 125 899 906 842 624.00 B
+//1 125 899 906 842 624.00 B => 1 099 511 627 776.00 KB
+//1 125 899 906 842 624.00 B => 1 073 741 824.00 MB
+//1 125 899 906 842 624.00 B => 1 048 576.00 GB
+//1 125 899 906 842 624.00 B => 1 024.00 TB
+//1 125 899 906 842 624.00 B => 1.00 PB
+
+
 echo PHP_EOL . PHP_EOL;
-
+*/
 
 // 11-masala:
 /*  11-masala.
@@ -431,8 +472,21 @@ Berilgan qiymat IP yoki IP emasligini aniqlang. Berilgan qiymat matn ko'rinishid
 "123.212.12.222" => IP  */
 echo "\t11-masala:\n";
 
-/*
- * Для проверки IP-адресов важно учитывать несколько условий, которые позволяют определить, является ли строка допустимым IP-адресом. В PHP есть встроенная функция `filter_var()`, которая помогает валидировать IP-адреса.
+echo "IP yoki IP emasligini aniqlang: ";
+$ip = trim(fgets(STDIN));
+
+// tayyor standart usul:
+if (filter_var($ip, FILTER_VALIDATE_IP)) {
+    echo $ip . " => IP" . PHP_EOL;
+} else {
+    echo $ip . " => IP emas" . PHP_EOL;
+}
+
+/* Tushuncha:
+ * Для проверки IP-адресов важно учитывать несколько условий,
+ * которые позволяют определить, является ли строка допустимым IP-адресом.
+ * В PHP есть встроенная функция `filter_var()`,
+ * которая помогает валидировать IP-адреса.
 
 ---
 
@@ -449,7 +503,8 @@ echo "\t11-masala:\n";
    - Пример: `2001:0db8:85a3:0000:0000:8a2e:0370:7334`.
 
 3. **Проверка публичного/приватного IP**:
-   - Некоторые диапазоны зарезервированы для локальных или специальных сетей, например, `10.0.0.0/8`, `127.0.0.1` (localhost).
+   - Некоторые диапазоны зарезервированы для локальных или специальных сетей,
+    например, `10.0.0.0/8`, `127.0.0.1` (localhost).
 
 4. **Допустимость символов**:
    - Не допускаются пробелы, буквы (кроме IPv6), или специальные символы (например, `!@#$%^`).
