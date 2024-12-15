@@ -67,6 +67,7 @@ $qo_y = ($m == 3 && $d >= 21) || ($m == 4 && $d <= 19);
 
 // kabisa yili ekanlikka tekshirish:
 $kabisa = ($d == 29 && $m == 2);
+//$kabisa = ($d == 29 || $m == 2);
 
 switch ($m) {
     case 1: // dekabr-yanvar:
