@@ -163,3 +163,4 @@ logs/
 # Исключаем все файлы с расширением ".idea" и с именем "__MACOSX"
 .idea/
 __MACOSX/
+/darslar jadvali.txt

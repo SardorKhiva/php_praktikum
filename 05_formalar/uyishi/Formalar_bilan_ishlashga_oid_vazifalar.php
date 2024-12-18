@@ -12,11 +12,11 @@ Inputlarga kiritilgan sonlarni yigindisini chiqarsin.
 3. Forma hosil qiling va bitta polya joylang. 1-7 oraliqdagi son kiritilsa,
 shunga qarab hafta kunlarini ekranga chiqarsin.
 
- 
 
-4. Forma hosil qiling va  2 ta polya qoshing. 4 ta radio ham qushing.
+4. Forma hosil qiling va 2 ta polya qoshing. 4 ta radio ham qushing.
 Radiolar: + - * / amallaridan birini bajarish uchun.
-Ikkita polyani toldirib radiodan birortasi tanlansa, masalan + tanlansa, 
+Ikkita polyani toldirib radiodan birortasi tanlansa,
+masalan + tanlansa,
 ikkitasini yigindisini hisoblasin. Xatolarga etibor qiling.
 
 5. Qo'shimcha fayllarda berilgan kalkulyator iinterfeysi ko'rinishidagi sahifa tuzing.
