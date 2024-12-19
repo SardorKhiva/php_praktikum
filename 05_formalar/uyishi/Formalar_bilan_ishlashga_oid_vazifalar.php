@@ -24,9 +24,9 @@ ikkitasini yigindisini hisoblasin. Xatolarga etibor qiling.
 6. Qo'shimcha fayllarda berilgan menyu rasmidagidek forma hosil qilib, hisob kitob qilish.
 
 7. https://whatsabyte.com/P1/byteconverter.htm
-manashu saytga kirib ko`ringlar. Bu yerda convertor qilishgan. 
-Yani ma'lumotlarni hajmini kilobayt, megabayt, terabayt vhkzlarga convert qilib 
-beradi. Sizlar ham shunaqa qilishingiz kerak. 
+manashu saytga kirib ko`ringlar. Bu yerda convertor qilishgan.
+Yani ma'lumotlarni hajmini kilobayt, megabayt, terabayt vhkzlarga convert qilib
+beradi. Sizlar ham shunaqa qilishingiz kerak.
 php html , POST, form lardan foydalanib
 
 8. Pitsa buyurtma qilish formasini hosil qiling. 

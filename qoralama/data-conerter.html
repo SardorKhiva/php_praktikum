@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Converter</title>
+    <style>
+        /* Sahifa stillari */
+        body {
+            font-family: Arial, sans-serif; /* Matn shrifti */
+            margin: 0; /* marginlarni olib tashlash */
+            padding: 0; /* paddinglarni olib tashlash */
+            display: flex; /* Flexbox - mazmunni markazlashtirish */
+            justify-content: center; /* Gorizontal bo'yicha markazlashtirish */
+            align-items: center; /* Vertikal bo'yicha markazlashtirish */
+            min-height: 100vh; /* Ekran balandligi */
+            background: #1e90ff; /* Ko'k fon */
+            color: #fff; /* oq rangli matn */
+        }
+
+        /* Barcha bloklar uchun konteyner */
+        .converter-container {
+            display: flex; /* Flexbox для выравнивания блоков в строку */
+            gap: 20px; /* bloklar orasidagi masofa */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*har bir alohida blok */
+
+        .unit-block {
+            background: #fff; /* oq fon */
+            color: #333; /* qora matn */
+            padding: 20px; /* ichki oraliq */
+            border-radius: 10px; /* burchaklarni aylana qilish */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* blok uchun soya */
+            text-align: center; /* matnni markazlashtirish */
+            width: 150px; /* Ruxsat etilgan blok kengligi */
+        }
+
+
+        /* ma'lumot kiritish: */
+
+        .unit-block input {
+            display: block; /* blok element qilish */
+            margin: 0 auto; /* kiritish maydonini markazlashtirish */
+            width: 100%; /* butun enni olsin */
+            padding: 10px; /* ichki oraliq */
+            border: 1px solid #ddd; /* ochiq ramka */
+            border-radius: 5px; /* burchaklarni aylanasimon qilish */
+            font-size: 18px; /* matn hajmi */
+            text-align: center; /* maydon ichidagi matnni markazlashtirish*/
+            background: #f9f9f9; /* ochiq fon*/
+            color: #333; /* qora rangli matn */
+        }
+
+
+        /* o'lchov birligi nishoni */
+        .unit-block .unit-label {
+            display: block; /* blok element */
+            font-size: 16px; /* shrift hajmi */
+            margin: 10px 0; /* tepadan va pasdan oraliq qoldirish */
+            color: #666; /* kulrang matn */
+        }
+
+        /* tugmalar uchun konteyner */
+        .button-group {
+            display: flex; /* tugmalar uchun Flexbox  */
+            justify-content: center; /* tugmalarni markazlashtirish */
+            gap: 10px; /* tugmalar oarsidagi masofa */
+        }
+
+        /* tugmalar uchun stillar */
+        .button-group button {
+            background: #eee; /* yorqin fon */
+            border: none; /* qolipni olib tashlash */
+            border-radius: 5px; /* burchaklarni aylana qilish */
+            padding: 10px 15px; /* ichki oraliq maydon */
+            cursor: pointer; /* kursor borganda ko'rinishi o'zgarishi */
+            font-size: 16px; /* matn o'lchovi */
+            color: #333; /* qora matn */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* tugmalar uchun soya */
+            transition: background 0.3s; /* Fon rangining silliq o'zgarishi */
+        }
+
+        /* tugmalar uchun hover effekt */
+        .button-group button:hover {
+            background: #ddd; /* kursor yurigandagi orqa fon rangi */
+        }
+    </style>
+</head>
+<body>
+<!-- asosiy konteyner -->
+<div class="converter-container">
+    <!-- "Bytes" konteyneri -->
+    <div class="unit-block">
+        <!-- kiritish-chiqarish uchun maydon -->
+        <input type="number" value="0" placeholder="0">
+        <!-- Метка для единицы измерения -->
+        <span class="unit-label">Bytes</span>
+        <!-- Группа кнопок (в данном случае одна кнопка) -->
+        <div class="button-group">
+            <button>→</button> <!-- Кнопка "вправо" -->
+        </div>
+    </div>
+
+    <!-- Блок для отображения "Kilobytes" -->
+    <div class="unit-block">
+        <input type="number" value="0">
+        <span class="unit-label">Kilobytes</span>
+        <div class="button-group">
+            <button>←</button> <!-- Кнопка "влево" -->
+            <button>→</button> <!-- Кнопка "вправо" -->
+        </div>
+    </div>
+
+    <!-- Блок для отображения "Megabytes" -->
+    <div class="unit-block">
+        <input type="number" value="0">
+        <span class="unit-label">Megabytes</span>
+        <div class="button-group">
+            <button>←</button>
+            <button>→</button>
+        </div>
+    </div>
+
+    <!-- Блок для отображения "Gigabytes" -->
+    <div class="unit-block">
+        <input type="number" value="0">
+        <span class="unit-label">Gigabytes</span>
+        <div class="button-group">
+            <button>←</button>
+            <button>→</button>
+        </div>
+    </div>
+
+    <!-- Блок для отображения "Terabytes" -->
+    <div class="unit-block">
+        <input type="number" value="0">
+        <span class="unit-label">Terabytes</span>
+        <div class="button-group">
+            <button>←</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

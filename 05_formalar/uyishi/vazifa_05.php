@@ -49,7 +49,6 @@ if (isset($_POST['num_1']) && !empty($_POST['num_1']) &&
 }
 ?>
 
-
 <h1>Kalkulyator</h1>
 
 <form action="vazifa_05.php" method="post">
