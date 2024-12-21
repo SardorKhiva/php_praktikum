@@ -20,10 +20,12 @@
 
         /* Barcha bloklar uchun konteyner */
         .converter-container {
-            display: flex; /* Flexbox для выравнивания блоков в строку */
+            display: flex; /* Flexbox bloklarni qatorlarga to'g'irlash */
             gap: 20px; /* bloklar orasidagi masofa */
             justify-content: center;
             align-items: center;
+            max-width: 100%;
+            height: auto;
         }
 
         /*har bir alohida blok */
@@ -95,28 +97,37 @@
     <!-- "Bytes" konteyneri -->
     <div class="unit-block">
         <!-- kiritish-chiqarish uchun maydon -->
-        <input type="number" value="0" placeholder="0">
-        <!-- Метка для единицы измерения -->
+        <input type="number"
+               name="bytes"
+               placeholder="0"
+               value="0">
+        <!-- o'lchov birligi uchun nishon -->
         <span class="unit-label">Bytes</span>
-        <!-- Группа кнопок (в данном случае одна кнопка) -->
+        <!-- tugmalar guruhi -->
         <div class="button-group">
-            <button>→</button> <!-- Кнопка "вправо" -->
+            <button>→</button>
         </div>
     </div>
 
-    <!-- Блок для отображения "Kilobytes" -->
+    <!-- "Kilobytes" bloki -->
     <div class="unit-block">
-        <input type="number" value="0">
+        <input type="number"
+               name="kilobytes"
+               placeholder="0"
+               value="0">
         <span class="unit-label">Kilobytes</span>
         <div class="button-group">
-            <button>←</button> <!-- Кнопка "влево" -->
-            <button>→</button> <!-- Кнопка "вправо" -->
+            <button>←</button>
+            <button>→</button>
         </div>
     </div>
 
-    <!-- Блок для отображения "Megabytes" -->
+    <!-- "Megabytes" -->
     <div class="unit-block">
-        <input type="number" value="0">
+        <input type="number"
+               name="megabytes"
+               placeholder="0"
+               value="0">
         <span class="unit-label">Megabytes</span>
         <div class="button-group">
             <button>←</button>
@@ -124,9 +135,12 @@
         </div>
     </div>
 
-    <!-- Блок для отображения "Gigabytes" -->
+    <!-- "Gigabytes" -->
     <div class="unit-block">
-        <input type="number" value="0">
+        <input type="number"
+               name="gigabytes"
+               placeholder="0"
+               value="0">
         <span class="unit-label">Gigabytes</span>
         <div class="button-group">
             <button>←</button>
@@ -134,9 +148,12 @@
         </div>
     </div>
 
-    <!-- Блок для отображения "Terabytes" -->
+    <!-- "Terabytes" -->
     <div class="unit-block">
-        <input type="number" value="0">
+        <input type="number"
+               name="terabytes"
+               placeholder="0"
+               value="0">
         <span class="unit-label">Terabytes</span>
         <div class="button-group">
             <button>←</button>

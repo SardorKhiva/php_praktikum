@@ -29,7 +29,7 @@ Yani ma'lumotlarni hajmini kilobayt, megabayt, terabayt vhkzlarga convert qilib
 beradi. Sizlar ham shunaqa qilishingiz kerak.
 php html , POST, form lardan foydalanib
 
-8. Pitsa buyurtma qilish formasini hosil qiling. 
+8. Pitsa buyurtma qilish formasini hosil qiling.
 
 Non qanday bo'lsin: Yupqa yoki qalin, ikkalasidan birini select yordamida tanlasin
 
