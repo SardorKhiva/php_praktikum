@@ -1,3 +1,8 @@
+<style>
+    body {
+        background-color: saddlebrown;
+    }
+</style>
 <?php
 // 2. Qo'shimcha fayllardagi kalkulyator
 // interfeysiga mos formani hosil qiling
