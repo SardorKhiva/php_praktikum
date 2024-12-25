@@ -1,5 +1,11 @@
+<?php
+$oq = "<td class=\"oq\"></td>";
+$qora = "<td class=\"qora\"></td>";
+
+// shunaqa qilib tr ni ham php ga olish mumkin
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <title>Shahmat doskasi</title>
@@ -22,53 +28,23 @@
             width: 50px;
         }
 
-        .ch {
-            width: 45px;
-            height: 45px;
-            text-align: center;
-            font-size: 45px;
-        }
-
     </style>
 
 </head>
 <body>
 <table>
     <tr>
-        <td class="ch">8</td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
+        <?= $oq; ?>
+        <?= $qora; ?>
+        <?= $oq; ?>
+        <?= $qora; ?>
+        <?= $oq; ?>
+        <?= $qora; ?>
+        <?= $oq; ?>
+        <?= $qora; ?>
+
     </tr>
     <tr>
-        <td class="ch">7</td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-    </tr>
-    <tr>
-        <td class="ch">6</td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-        <td class="oq"></td>
-        <td class="qora"></td>
-    </tr>
-    <tr>
-        <td class="ch">5</td>
         <td class="qora"></td>
         <td class="oq"></td>
         <td class="qora"></td>
@@ -79,7 +55,6 @@
         <td class="oq"></td>
     </tr>
     <tr>
-        <td class="ch">4</td>
         <td class="oq"></td>
         <td class="qora"></td>
         <td class="oq"></td>
@@ -90,7 +65,6 @@
         <td class="qora"></td>
     </tr>
     <tr>
-        <td class="ch">3</td>
         <td class="qora"></td>
         <td class="oq"></td>
         <td class="qora"></td>
@@ -101,7 +75,6 @@
         <td class="oq"></td>
     </tr>
     <tr>
-        <td class="ch">2</td>
         <td class="oq"></td>
         <td class="qora"></td>
         <td class="oq"></td>
@@ -112,7 +85,6 @@
         <td class="qora"></td>
     </tr>
     <tr>
-        <td class="ch">1</td>
         <td class="qora"></td>
         <td class="oq"></td>
         <td class="qora"></td>
@@ -123,16 +95,26 @@
         <td class="oq"></td>
     </tr>
     <tr>
-        <td class="ch"></td>
-        <td class="ch">1</td>
-        <td class="ch">2</td>
-        <td class="ch">3</td>
-        <td class="ch">4</td>
-        <td class="ch">5</td>
-        <td class="ch">6</td>
-        <td class="ch">7</td>
-        <td class="ch">8</td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
     </tr>
+    <tr>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+        <td class="qora"></td>
+        <td class="oq"></td>
+    </tr>
+
 </table>
 </body>
 </html>
