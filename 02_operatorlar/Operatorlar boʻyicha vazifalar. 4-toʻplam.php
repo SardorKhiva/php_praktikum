@@ -207,7 +207,7 @@ function masala_07(): void
     // shaxmat doskasini qo'shib ko'rmoqchi edim,
     // trim(fgets(STDIN)) funksiyalari brauzerda emas console da ishlagani uchun html bilan birga ishlamadi:
     // html forma qo'shsa ham bo'lardi lekin ish ko'payib ketardi.
-    //require "shahmat_doskasi.html";
+    //require "shahmat_doskasi.php";
     echo "Shaxmat doskasi figurasi x:y koordinatasini kiriting: ";
     $x = trim(fgets(STDIN));
     $y = trim(fgets(STDIN));
