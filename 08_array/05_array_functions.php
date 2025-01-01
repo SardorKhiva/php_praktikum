@@ -375,8 +375,198 @@ print_r($rand);
 echo PHP_EOL;
 */
 
-// list()
+// list() - massivdagi elementlarni alohida o'zgaruvchiga oladi tartib bilan
+/*
+$dasturlash = ["html", "css", "js", "php", "mysql", "C++", "C#"];
+list          ($mysql, $cpp, $csharp) = $dasturlash;
+echo "mysql = $mysql \n";   // $mysql = html
+echo "cpp = $cpp \n";       // $cpp   = css
+echo "csharp = $csharp \n"; // csharp = js
+echo PHP_EOL;
+*/
 
+//  range() - x va y oralig'idagi qiymatlarga ega elementlarni massivga qaytaradi
+//  range($start, $end, $step)
+//  range($boshlanishi, $tugashi, $odim)
+/*
+$massiv = range(1, 20); // 1 dan 20 gacha sonlari bor massiv qaytardi
+print_r($massiv);
+
+// 1 dan 20 gacha har element 3 taga oshirilgan qiymatlarni massivga qaytaradi
+$massiv2 = range(1, 20, 3);
+print_r($massiv2);
+echo PHP_EOL;
+
+$harflar = range('a', 'z'); // a dan z gacha elementlarni qaytaradi
+print_r($harflar);
+echo PHP_EOL;
+*/
+
+// shuffle() - elementlarni random aralashtirib tashlaydi &void
+/*
+$massiv = range(0, 20);
+
+echo "Random aralashtirilmagan massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+
+echo "Random aralashtirilgan massiv: \n";
+shuffle($massiv);
+print_r($massiv);
+echo PHP_EOL;
+*/
+
+// sort()   - massivni o'sish tartibida saralaydi : &void
+/*
+$massiv = range(0, 20);
+//echo "Dastlabki massiv: \n";
+//print_r($massiv);
+
+shuffle($massiv);
+echo "Aralashgan massiv: \n";
+print_r($massiv);
+
+sort($massiv);
+echo "Saralangan massiv: \n";
+print_r($massiv);
+
+$harflar = range('a', 'z');
+//echo "Dastlabki harflar: \n";
+//print_r($harflar);
+
+shuffle($harflar);
+echo "Aralashgan harflar: \n";
+print_r($harflar);
+
+sort($harflar);
+echo "Saralangan harflar: \n";
+print_r($harflar);
+
+$HARFLAR = range("A", "z");
+print_r($HARFLAR);
+echo PHP_EOL;
+
+shuffle($HARFLAR);
+echo "Aralashgan harflar: \n";
+print_r($HARFLAR);
+
+sort($HARFLAR);
+echo "Saralangan harflar: \n";
+print_r($HARFLAR);
+echo PHP_EOL;
+*/
+
+// rsort() - massivni kamayish tartibida saralaydi : &void
+// rsort() - sort() ni teskarisi, revers sorting
+/*
+$massiv = range(0, 20);
+shuffle($massiv);
+echo "Aralashgan massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+
+rsort($massiv);
+echo "Kamayib borish tartibida saralangan massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+*/
+
+// asort() - assotsiativ massiv kalitlarini o'zgartirmasdan qiymatlarini o'sish tartibida saralaydi
+/*
+$dasturlash1 = ["html", "css", "js", "php", "mysql", "C++", "C#"];
+
+echo "Dastlabki massiv: \n";
+print_r($dasturlash1);
+echo PHP_EOL;
+
+$dasturlash2 = [
+    "web1" => "html", "web2" => "css",
+    "web3" => "js", "backend1" => "php",
+    "db" => "mysql", "backend2" => "C++",
+    "windows" => "C#", "mobil" => "java"
+];
+
+
+echo "Assotsiativ saralanmagan massiv: \n";
+print_r($dasturlash2);
+echo PHP_EOL;
+
+
+asort($dasturlash1); // kalitlar saralanmaydi, qiymatlar saralanadi
+echo "Assotsiativ saralangan massiv: \n";
+print_r($dasturlash1);
+*/
+
+// arsort() - assotsiativ massiv kalitlarini o'zgartirmasdan
+// qiymatlarni kamayib borish tartibida saralaydi
+/*
+$massiv = [
+    'bir' => '1', 'ikki' => '2',
+    'uch' => '3', 'tort' => '4'
+];
+
+echo "oddiy massiv: \n";
+print_r($massiv);
+echo "\n";
+
+shuffle($massiv);
+echo "Aralashtriilgan massiv: ";
+print_r($massiv);
+echo "\n";
+
+arsort($massiv);
+echo "Qiymatlari kamayish tartibida saralangan assotsiativ massiv: \n";
+print_r($massiv);
+*/
+
+// ksort() - kalitlarni o'sish tartibida saralaydi
+// qiymatlar kalitlardan ajramaydi
+/*
+$massiv = [
+    "i" => 9,
+    "h" => 8,
+    "g" => 7,
+    "f" => 6,
+    "e" => 5,
+    "d" => 4,
+    "c" => 3,
+    "b" => 2,
+    "a" => 10
+];
+echo "Dastlabki massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+
+ksort($massiv);
+echo "Kalitlari o'sish tartibida saralangan massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+*/
+
+// krsort() - kalitlarni kamayish tartibida saralaydi
+// qiymatlar kalitlardan ajramaydi
+// ksort() ni teskarisi
+/*
+$massiv = [
+    "h" => 8,
+    "i" => 9,
+    "g" => 7,
+    "e" => 5,
+    "f" => 6,
+    "c" => 3,
+    "d" => 4,
+    "a" => 10,
+    "b" => 2
+];
+echo "Dastlabki massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+
+krsort($massiv);
+echo "Kalitlari kamayish tartibida saralangan massiv: \n";
+print_r($massiv);
+echo PHP_EOL;
+*/
 
 function print_massiv($massiv): void
 {
@@ -393,4 +583,3 @@ function prAr($massiv): void
     }
     echo PHP_EOL;
 }
-
