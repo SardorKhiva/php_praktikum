@@ -9,7 +9,7 @@ $soat = $daqiqa = $soniya = null;
 $correct_month = $correct_day = false;
 $oy_nomi = null;
 $currentYear = intval(date("Y"));
-/*
+
 $currentMonth = intval(date("n"));
 $currentDay = intval(date("j"));
 
@@ -17,9 +17,12 @@ $currentHour = intval(date("H")) + 5;   // GMT +5 bizni vaqt
 $currentMinute = intval(date("i"));
 $currentSecond = intval(date("s"));
 
-//echo $currentYear . '-' . $currentMonth . '-' . $currentDay;
+echo "Bugungi sana: ";
+echo $currentYear . '-' . $currentMonth . '-' . $currentDay . PHP_EOL;
+
+echo "Hozirgi vaqt: ";
 echo $currentHour . ":" . $currentMinute . ":" . $currentSecond . PHP_EOL;
-*/
+echo PHP_EOL;
 
 do {
     echo "Yil: ";
