@@ -44,6 +44,7 @@ function printArr($arr, $m, $n): void
 }
 
 // soddaroq ko'rinishda ko'rsatish
+// TODO: sumOfRows($arr, $m, $n);  2-masalada ushbu funksiya qolib ketibdi
 function sumOfRows(array $arr, int $m, int $n): void
 {
     $sumArr = [];
