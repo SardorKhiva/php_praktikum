@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS book(
 # DATE 1001-01-01 ... 9999-12-31
 # DATETIME 1001-01-01 00:00:00 ... 9999-12-31 23:59:59
 # TIMESTAMP GMT li DATETIME
-# TIME -838:59:59 ... 838:59:59 vaqt
+# TIME -838:59:59 ... 838:59:59 ikki holat orasdagi oraliq vaqt,
+# soatdagi kabi maximum 23:59:59 lik vaqt emas
 
 CREATE TABLE IF NOT EXISTS talaba(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -101,4 +102,34 @@ CREATE TABLE IF NOT EXISTS talaba(
     familya VARCHAR(30) NOT NULL,
     tugilgan_sanasi DATE NOT NULL,
     created_at DATETIME NOT NULL
-)
+);
+
+DROP TABLE IF EXISTS turlar;
+
+CREATE TABLE IF NOT EXISTS category(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    # yozilgan vaqtni odatiy (default) qiymat qilib berish
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS lesson(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    start_at TIME NOT NULL,
+    end_at TIME NOT NULL
+);
+
+CREATE TABLE task (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    completed BOOLEAN NOT NULL
+);
+
+CREATE TABLE event (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    event_name VARCHAR(255) NOT NULL,
+    visitor VARCHAR(255) NOT NULL,
+    properties JSON NOT NULL,
+    browser JSON NOT NULL
+);
