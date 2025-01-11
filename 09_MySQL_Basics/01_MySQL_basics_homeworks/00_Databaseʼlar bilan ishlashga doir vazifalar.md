@@ -33,7 +33,7 @@ Misol: ustozlar jadvalini tuzmoqchi bo'lsangiz o'ylang, Ustozni qanday parametrl
 -manzili
 -tel nomeri
 
-4)Telefon kontaktlarini saqlash uchun jadval yarating. Imi, Familyasi, telefon nomeri ustunlari bo'lsin.
+4)Telefon kontaktlarini saqlash uchun jadval yarating. Ismi, Familyasi, telefon nomeri ustunlari bo'lsin.
 Bitta telefon nomer qaytadan kiritish imkoni bo'lmasin.
 
 Yani 1 kishida bir nechta telefon nomer bo'lishi mumkin, lekin 1 ta telefon nomer bir nechta kishida bo'lmasligi kerak.
