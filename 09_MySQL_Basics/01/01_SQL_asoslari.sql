@@ -133,3 +133,13 @@ CREATE TABLE event (
     properties JSON NOT NULL,
     browser JSON NOT NULL
 );
+
+# 02_Jadvallar bilan ishlash. Primary va Unique key. 2-qism
+# PRIMARY KEY - Первичный ключ - Birlamchi kalit:
+# Qatorni jadvalda noyob ekanligini bildiruvchi bir yoki bir nechta ustun
+
+# UNIQUE KEY - Takrorlanmaydigan kalit, bu satrlarda ma'lumotlar takrorlanmasligi uchun
+
+# TRUNCATE - jadvalni tozalaydi
+
+# DELETE - ma'lum bir alohida ma'lumotni o'chiradi
