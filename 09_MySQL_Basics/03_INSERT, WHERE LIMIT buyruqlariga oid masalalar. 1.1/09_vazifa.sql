@@ -22,3 +22,11 @@ SELECT COUNT(*) AS "Familyasi S bilan boshlanadigan ayollar soni"
 FROM `employees`
 WHERE `gender` = 'F'
 AND `first_name` LIKE 'S%';
+
+# C:
+
+SELECT COUNT(*) "\C masala yechimi:"
+FROM `employees`
+WHERE `gender` = 'M'
+  AND `first_name` LIKE 'S%'
+AND `last_name` LIKE '%r';
