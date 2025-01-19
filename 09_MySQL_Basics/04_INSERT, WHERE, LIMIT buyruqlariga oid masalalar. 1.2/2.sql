@@ -64,20 +64,22 @@ IN ('USA', 'France');       -- tepadagini jamlangani in - ichida
 
 SELECT *
 FROM `customers`
-WHERE (`country` = 'USA'
-OR `country` = 'France');
+WHERE (`country` = 'USA'    -- qaysiki davlat Amerika bo'lsa
+OR `country` = 'France');   -- yoki davlat Fransiya bo'lsa
 
 SELECT *
 FROM `customers`
-WHERE
- CASE
-  WHEN
-   `country` = 'USA' OR
-   `country` = 'France'
-    THEN 1
-  ELSE 0
-END = 1;
+WHERE                   -- qaysiki
+ CASE                   -- case ichidagi
+  WHEN                  -- agar, if
+   `country` = 'USA' OR -- shunday
+   `country` = 'France' -- yoki shunday bo'lsa
+    THEN 1              -- true
+  ELSE 0                -- aks holda false
+END = 1;                -- where true bo'lganlarni qaytarsin, chiqarsin
 
+
+-- tepadagidek lekin in - ichida qo'llanilgan
 SELECT *
 FROM `customers`
 WHERE
