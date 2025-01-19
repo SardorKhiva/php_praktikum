@@ -1,0 +1,8 @@
+1. Protocol:
+1) Protocol - ma'lumotlarni formatlash va qayta ishlash uchun standart qoidalar to'plami.
+IP/TCP - Transmission Control Protocol:
+IP - ma'lumotlarni kompyuterdan kompyuterga yuborish uchun ishlatiladigan protocol.
+TCP - ma'lumotlarni kompyuterdagi dasturdan boshqa kompyuterdagi dasturga yuborish uchun ishlatiladigan protocol.
+TCP portlardan foydalanadi, har dasturga alohida port berilishi mumkin xolos!
+Bir tizimda 65 000 dan ziyod portdan foydalanish mumkin.
+HTTP - asosan mijoz va web server orasidagi gipermatn (html) yuborish/qabul qilish uchun mo'ljallangan protocol.

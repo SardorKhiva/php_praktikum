@@ -1,0 +1,25 @@
+Funksiyalarga oid masalalar
+1. Musbat N soni berilgan. N faktorialni qiymatini toping.
+3! - 3 faktorial deyiladi.
+1*2*3 => 6
+
+2. Qo'shimcha fayllardagi kalkulyator interfeysiga mos formani hosil qiling va amallarni funksiya yordamida bajaring.
+
+3. Kun boshidan boshlab N sekund vaqt o’tdi. Kun boshidan boshlab qancha soat ,
+ minut, sekund o’tganini aniqlaydigan funksiya hosil qiling.
+(2 soat, 14 minut, 34 sekund o'tdi)
+
+4. Berilgan son(1 dan 100 gacha bo`lgan sonlar)ni sozlar yordamida ifodalaydigan
+funksiya hosil qiling.
+67 - oltmish yetti
+
+
+5. Forma hosil qiling. Kiritilgan qiymat telefon nomer ekanligiga tekshiradigan
+funksiya hosil qiling.
+(Faqat o`zbekistondagi telefon raqamlariga tekshiring).
+998909999999 - beeline
++998971231233 - mobiuz
+9899899123 - telefon nomer emas
+
+
+6. 1 dan berilgan N gacha bo`lgan toq sonlar yig`indisini hisoblaydigan funksiya hosil qiling.

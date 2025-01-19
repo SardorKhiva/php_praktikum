@@ -1,0 +1,18 @@
+/darslar jadvali.txt
+/qoralama/
+# IDE files
+.idea/
+*.iml
+
+# Composer
+/vendor/
+
+/.env
+
+# Logs and cache
+*.log
+.cache/
+/storage/*.log
+
+# PHP Storm metadata
+*.xml
