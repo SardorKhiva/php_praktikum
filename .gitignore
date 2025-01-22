@@ -16,3 +16,5 @@
 
 # PHP Storm metadata
 *.xml
+/.fleet/
+/.run/
