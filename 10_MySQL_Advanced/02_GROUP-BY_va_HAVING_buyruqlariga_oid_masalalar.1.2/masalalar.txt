@@ -28,5 +28,5 @@ Har bir masalaning so'rovini yozib yuboring.
 5) -har bir produkt jami necha so`mlik sotilganini chiqaring. (summasi)
 6) -Product codi S10_1949, S12_1099, S18_1662, S18_4027, S18_3136 ga teng bo`lgan orderlarning, har bir produktdan jami nechta zakaz qilingani va jami necha sumlik zakaz qilinganini hisoblang
 7) -eng ko'p sotilgan 10 ta produktni "productCode" va nechta sotilganini sonini aniqlang
-8) -eng kam sotilgan 10 ta produktni jami nechta sotilgani va  jami necha summalik sotilganini aniqlang
+8) -eng kam sotilgan 10 ta produktni jami nechta sotilgani va jami necha summalik sotilganini aniqlang
 9) -1000 dan oshiq zakaz qilingan produktlarni codini chiqaring va nechta zakaz qilingan sonini chiqaring
