@@ -1,0 +1,32 @@
+/* `payments` table
+customerNumber - mijoz id
+checkNumber    - chek raqami
+paymentDate    - to'lov sanasi
+amount         - to'lov summasi  */
+
+/* `orders` table
+orderNumber    - buyurtma raqami
+orderDate      - buyurtma olingan sana
+requireDate    - buyurtma yetkazilishi kerak bo'lgan oxirgi muddat
+shippedDate    - buyurtma yetkazilgan sana
+status         - buyurtma holati
+comments       - izohlar
+customerNumber - buyurtma bergan mijoz raqami   */
+
+/* "products" jadvali:
+-productLine - Produkt turi
+-quantityInStock - maxsulotning soni
+-buy_price - narxi
+-quantityOrdered - nechta buyurtma qilingani soni */
+
+/* `products` table
+productCode - tovar id
+productName - tovar ismi
+productLine - tovar kategoriyasi, turi
+productScale - mahsulot masshtabi, nisbati
+productVendor - tovar yetkazib beruvchi
+productDescription - tovarga izoh
+quantityInStock - ombordagi mahsulot soni
+buyPrice - sotib olingan narhi
+MSRP - sotish narhi */
+
