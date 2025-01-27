@@ -255,3 +255,4 @@ SELECT MONTH(CURRENT_DATE), MONTHNAME(CURDATE()), CURDATE();
 
 #       TIMEDIFF()  -  ikkita soat:daqiqa:soniya ni farqini qaytaradi
 SELECT NOW(), TIMEDIFF(TIME(NOW()), '19:34:56');
+SELECT NOW(), TIMEDIFF('19:34:56', TIME(NOW()));
