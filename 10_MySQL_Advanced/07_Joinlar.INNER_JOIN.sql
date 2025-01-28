@@ -152,4 +152,50 @@ ORDER BY `student`.`id`;
 +----+--------+-----------+
 2 rows in set (0.00 sec) */
 
-#                 LEFT JOIN
+#                LEFT JOIN
+# Qolip:
+SELECT `kerakli_ustunlar`
+FROM `jadval_1`
+         LEFT JOIN `jadval_2`
+                   ON boglanish_sharti;
+
+/*
+LEFT JOIN orqali chap tarafdagi
+jadvaldan barcha ma`lumotlar va
+ularga bog`langan jadvaldan,
+o`ziga tegishlilarini oladi.
+
+Yani "student" jadvalidagi barcha
+kursga boradigan va bormaydiganlarni oladi.
+Agar ichida kursga boradiganlar bo`lsa,
+"course" jadvalidan qaysi kursga borishini aniqlaydi.
+Agar kursga bormasa hechnarsa chiqmaydi
+
+LEFT deyilishiga sabab - chap tarafda turgan
+jadvaldan barcha ma`lumotlar olinadi.
+*/
+
+SELECT `student`.`id`,
+       `student`.`name` AS 'ismi',
+       `course`.`name`  AS 'kurs nomi'
+FROM `student`
+LEFT JOIN `course`
+ON `course`.`id` = `student`.`course_id`
+ORDER BY `student`.`id`;
+/*---+----------+-----------+
+| id | ismi     | kurs nomi |
++----+----------+-----------+
+|  1 | Sardor   | C++       |
+|  2 | Eshmat   | NULL      |
+|  3 | Toshmat  | HTML      |
+|  4 | Elyor    | C++       |
+|  5 | Ogabek   | Java      |
+|  6 | Shaxboz  | NULL      |
+|  7 | Ulugbek  | PHP       |
+|  8 | Botir    | C++       |
+|  9 | Sarvar   | Java      |
+| 10 | Muhiddin | JS        |
+| 11 | Jasur    | NULL      |
+| 12 | Samandar | PHP       |
++----+----------+-----------+
+12 rows in set (0.00 sec)   */
