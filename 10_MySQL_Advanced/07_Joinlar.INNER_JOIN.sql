@@ -199,3 +199,123 @@ ORDER BY `student`.`id`;
 | 12 | Samandar | PHP       |
 +----+----------+-----------+
 12 rows in set (0.00 sec)   */
+
+
+/*
+**JOIN** qilish uchun turli shartlar asosida bog'lanish mumkin. Quyida **JOIN** operatsiyasini amalga oshirishda ishlatiladigan ba'zi shartlar:
+
+### 1. **Egalik Sharti (`ON`)**
+Egalik sharti — bu eng keng tarqalgan **JOIN** shartidir. Bu shartda siz ikkita jadvalni bog'lash uchun ustunlarning tengligini ta'minlaysiz.
+
+#### Misol:
+Agar `orders` jadvalida `customerNumber` va `customers` jadvalida `customerNumber` mavjud bo'lsa:
+
+```sql
+SELECT o.orderNumber, o.orderDate, c.customerName
+FROM orders o
+JOIN customers c ON o.customerNumber = c.customerNumber;
+```
+
+Bu yerda `customerNumber` ustunlari bir-biriga teng bo'lishi kerak.
+
+### 2. **Qiyoslash Shartlari (`=`, `<`, `>`, `<=`, `>=`, `<>`)**
+Siz nafaqat tenglik, balki boshqa qiyoslash operatorlaridan ham foydalanishingiz mumkin.
+
+#### Misol:
+Agar `products` jadvalidagi `buyPrice` va `orders` jadvalidagi `amount` ustunlarini qiyoslasangiz:
+
+```sql
+SELECT p.productName, o.amount
+FROM orders o
+JOIN products p ON o.amount > p.buyPrice;
+```
+
+Bu yerda `amount` ustuni `buyPrice` ustunidan katta bo'lishi kerak.
+
+### 3. **Mantiqiy Shartlar (`AND`, `OR`)**
+Bir nechta shartni birlashtirish uchun **AND** yoki **OR** mantiqiy operatorlaridan foydalanishingiz mumkin.
+
+#### Misol:
+Agar `employees` va `departments` jadvallari bo'lsa, va siz xodimlar lavozimi `Manager` bo'lishi, shuningdek bo'lim kodi `1` bo'lishi kerak deb talab qilsangiz:
+
+```sql
+SELECT e.firstName, e.lastName, d.dept_name
+FROM employees e
+JOIN departments d ON e.jobTitle = 'Manager' AND e.dept_no = d.dept_no;
+```
+
+### 4. **`IS NULL` yoki `IS NOT NULL`**
+Agar sizning maqsadingiz **NULL** qiymatlar bilan ishlash bo'lsa, masalan, ma'lum ustunda qiymat mavjud yoki yo'qligini tekshirish.
+
+#### Misol:
+Agar `employees` jadvalidagi `reportsTo` ustunida **NULL** bo'lmagan xodimlarni ko'rsatmoqchi bo'lsangiz:
+
+```sql
+SELECT e.firstName, e.lastName
+FROM employees e
+JOIN employees m ON e.reportsTo = m.employeeNumber
+WHERE e.reportsTo IS NOT NULL;
+```
+
+Bu yerda, `e.reportsTo` ustuni bo'yicha o'zaro bog'lanadi va `reportsTo` ustuni **NULL** bo'lmagan xodimlar chiqariladi.
+
+### 5. **`BETWEEN` Shartlari**
+`BETWEEN` operatori ikki qiymat o'rtasidagi intervalni tekshiradi. Bu shartda siz sonli yoki sana turidagi ustunlar bilan ishlashingiz mumkin.
+
+#### Misol:
+Agar sizda `orders` jadvali bo'lsa va buyurtma sanasi 2020-yil yanvar va fevral o'rtasida bo'lsa:
+
+```sql
+SELECT o.orderNumber, o.orderDate
+FROM orders o
+JOIN customers c ON o.customerNumber = c.customerNumber
+WHERE o.orderDate BETWEEN '2020-01-01' AND '2020-02-29';
+```
+
+### 6. **`LIKE` Operatoridan Foydalanish**
+Agar siz ma'lum bir naqshga mos keluvchi qiymatlarni qidirmoqchi bo'lsangiz, **LIKE** operatoridan foydalanishingiz mumkin.
+
+#### Misol:
+Agar siz xodimlarning ismlari "A" harfi bilan boshlanayotganlarini qidirmoqchi bo'lsangiz:
+
+```sql
+SELECT e.firstName, e.lastName
+FROM employees e
+JOIN departments d ON e.dept_no = d.dept_no
+WHERE e.firstName LIKE 'A%';
+```
+
+Bu yerda `LIKE 'A%'` sharti faqat "A" bilan boshlanadigan ismlar uchun ishlaydi.
+
+### 7. **`IN` Operatoridan Foydalanish**
+Agar siz bir nechta qiymatni tekshirmoqchi bo'lsangiz, **IN** operatoridan foydalanishingiz mumkin.
+
+#### Misol:
+Agar siz `departments` jadvalidagi bo'limlardan faqat `1`, `2`, yoki `3` bo'lim kodiga ega xodimlarni ko'rsatmoqchi bo'lsangiz:
+
+```sql
+SELECT e.firstName, e.lastName, e.dept_no
+FROM employees e
+JOIN departments d ON e.dept_no = d.dept_no
+WHERE e.dept_no IN (1, 2, 3);
+```
+
+### 8. **`EXISTS` Operatoridan Foydalanish**
+**`EXISTS`** operatori yordamida, ma'lum bir subquery mavjud bo'lsa, shartni qo'llashingiz mumkin.
+
+#### Misol:
+Agar sizda `employees` va `departments` jadvallari bo'lsa va faqat xodimlar mavjud bo'lgan bo'limlarni ko'rsatmoqchi bo'lsangiz:
+
+```sql
+SELECT e.firstName, e.lastName
+FROM employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM departments d
+    WHERE e.dept_no = d.dept_no
+);
+```
+
+### Xulosa:
+Siz **JOIN** operatsiyasini turli shartlar asosida amalga oshirishingiz mumkin: tenglik, qiyoslash, mantiqiy operatorlar, **NULL** tekshiruvi, va boshqa shartlar. Bu imkoniyatlar sizga jadvallarni kerakli tarzda bog'lash va ma'lumotlarni olishda moslashuvchanlik beradi.
+ */
