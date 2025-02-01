@@ -95,15 +95,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 /* `payments` table
 customerNumber - mijoz id
 checkNumber    - chek raqami
