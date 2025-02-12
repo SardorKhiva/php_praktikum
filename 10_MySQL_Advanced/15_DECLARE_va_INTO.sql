@@ -5,7 +5,7 @@ Protsedurani ichida o'zgaruvchini e'lon qilish uchun
 DECLARE kalit so'zidan foydalaniladi.
 */
 
-DECLARE `uzgaruvchi_nomi` DATATYPE(size) [DEFAULT boshlangich_qiymat];
+# DECLARE `uzgaruvchi_nomi` DATATYPE(size) [DEFAULT boshlangich_qiymat];
 
 
 # Xuddi yangi jadval hosil qilganda,
@@ -93,3 +93,14 @@ END ::
 DELIMITER ;
 
 CALL test();
+
+USE `mashq`;
+DELIMITER //
+CREATE PROCEDURE IF NOT EXISTS `test_001`()
+BEGIN
+    DECLARE `son_1` DEC(65, 2) DEFAULT 2E65;
+    SELECT `son_1`;
+END //
+DELIMITER ;
+
+CALL test_001();
