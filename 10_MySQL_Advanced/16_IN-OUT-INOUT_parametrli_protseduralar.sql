@@ -155,6 +155,108 @@ SELECT @counter;
 
 Ko'rib turganingizdek natija 8 ga teng.     */
 
+# 1. IN (входной параметр)
+# Используется для передачи значений в процедуру.
+# Значение передается только внутрь и
+# не может быть изменено внутри процедуры.
+SET @customerId := 114;
+DELIMITER //
+CREATE PROCEDURE `GetUser`(IN `customer_id` INT)
+BEGIN
+    SELECT *
+    FROM `customers`
+    WHERE `customerNumber` = `customer_id`;
+END //
+DELIMITER ;
+CALL GetUser(103); -- oddiy sonni yuborish
+CALL GetUser(@customerId);
+-- oddiy o'zgaruvchi sifatida yuborish
+
+DELIMITER //
+CREATE PROCEDURE limitlash(IN n INT UNSIGNED)
+BEGIN
+    SELECT *
+    FROM customers
+    LIMIT n;
+END //
+CALL limitlash(5); -- customers jadvalini 5 ta limit bilan chiqar
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS sqrt_x;
+CREATE PROCEDURE `sqrt_x`(IN x INT UNSIGNED, y INT UNSIGNED)
+BEGIN
+    SELECT SQRT(`x`)   AS "Ildizi",
+           POW(`y`, 2) AS "Kvadrati"
+    INTO `x`, `y`;
+    SELECT `x`, `y`;
+END //
+CALL sqrt_x(36, 5);
+
+
+# 2. OUT (выходной параметр)
+# Используется для возврата значения из процедуры.
+# Внутри процедуры можно изменить OUT параметр,
+# но передавать ему значение при вызове не нужно.
+DELIMITER //
+CREATE PROCEDURE GetCustomerName(IN customer_id INT,
+                                 OUT customer_name VARCHAR(100))
+BEGIN
+    SELECT `customerName`
+    INTO `customer_name`
+    FROM `customers`
+    WHERE `customerNumber` = `customer_id`;
+END //
+DELIMITER ;
+
+CALL GetCustomerName(103, @name);
+# @name ni ko'rsatish
+SELECT @name;
+
+DELIMITER // # ; operator ishini tugatuvchi belgini / /  ga almashtirib turamiz
+DROP PROCEDURE IF EXISTS `getEmployeeName`;
+CREATE PROCEDURE `getEmployeeName`(IN employee_id INT, OUT employee_name VARCHAR(100))
+BEGIN
+    SELECT `firstName`
+    INTO `employee_name`
+    FROM `employees`
+    WHERE `employeeNumber` = `employee_id`
+    ORDER BY `employeeNumber`;
+END //
+CALL getEmployeeName(1002, @emp_name); -- 1-qiymatni(o'zgaruvchini) yuborib 2-qiymatga yozish
+SELECT @emp_name;
+
+
+# 3. INOUT (входной и выходной параметр)
+# Может использоваться и для передачи данных в процедуру,
+# и для возврата измененных данных.
+DELIMITER //
+CREATE PROCEDURE doubleValue(INOUT num INT)
+BEGIN
+    SET num = num * 2;
+END //
+DELIMITER ;
+SET @value = 5;
+CALL DoubleValue(@value);
+SELECT @VALUE; -- 2 holatda ham 10 chiqadi
+SELECT @value;
+
+DROP PROCEDURE IF EXISTS `sonKvadrati`;
+DELIMITER //
+CREATE PROCEDURE `sonKvadrati`(INOUT `x` BIGINT UNSIGNED)
+BEGIN
+    SET `x` = POW(`x`, 2);
+END //
+SET @n = 50; -- shu sessiyadagina mavjud bo'ladigan n o'zgaruvchisi hosil qilib unga 50 qiymatini berish
+CALL sonKvadrati(@n); -- shu proteduraga n ni yuborish
+SELECT @n;
+-- va o'zgartirilgan n ni olish
+
+# Вывод:
+# IN — только ввод, нельзя менять внутри процедуры.
+# OUT — только вывод, перед вызовом значение не передается.
+# INOUT — и ввод, и вывод, можно изменять внутри процедуры.
+
+
 # В MySQL `IN`, `OUT` и `INOUT` используются для объявления параметров в хранимых процедурах.
 
 ### 1. **IN (входной параметр)**
