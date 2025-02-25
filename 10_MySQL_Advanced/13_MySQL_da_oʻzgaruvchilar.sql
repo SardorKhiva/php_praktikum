@@ -18,6 +18,9 @@ SET @jami := 100;
 # SELECT bilan ham qiymat berish mumkin:
 SELECT @variable_name := `value`;
 
+# bunda ishlamaydi:
+SELECT @variable_name2 = `value`;
+
 -- Select qilib qiymat beramiz
 SELECT @buyPrice := `buyprice`  -- @buyPrice o'zgaruvchisi o'zlashtirsin `buyprice` ustunidan
 FROM `products`                 -- `products` jadvalidan
