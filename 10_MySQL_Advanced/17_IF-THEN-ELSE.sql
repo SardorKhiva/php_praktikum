@@ -257,3 +257,21 @@ DROP PROCEDURE sotishNarhlari;
 
 CALL sotishNarhlari('S10_1678', @narhi);
 SELECT @narhi;
+
+/*                          1. IF — Условное выражение
+IF используется для выполнения логических условий внутри запроса или выражения.
+
+Применение IF в SQL-запросах:
+Внутри SELECT для вычислений
+           Внутри SET при изменении переменных
+Внутри UPDATE при обновлении значений
+                             Пример 1: Использование IF в SELECT    */
+SHOW DATABASES;
+USE classicmodels;
+SHOW TABLES;
+
+DESCRIBE `payments`;
+SELECT *,
+       IF(`amount` > 10000, "10 000 $ dan qimmat", " 10 000 $ dan arzon") AS `narh`
+FROM `payments`;
+

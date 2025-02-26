@@ -246,3 +246,6 @@ DROP PROCEDURE IF EXISTS buyurtmalarFasllar;
 -- Вызываем процедуру
 CALL buyurtmalarFasllar();
 
+# 01:31:34
+# 01:31:03
+# 00:00:31
