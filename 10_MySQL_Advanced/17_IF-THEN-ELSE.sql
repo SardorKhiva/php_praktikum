@@ -31,18 +31,18 @@
 DELIMITER $$
 
 CREATE PROCEDURE GetCustomerLevel(
-    IN  pCustomerNumber INT,
-    OUT pCustomerLevel  VARCHAR(20))
+    IN  `pCustomerNumber` INT,
+    OUT `pCustomerLevel`  VARCHAR(20))
 BEGIN
-    DECLARE credit DECIMAL(10,2) DEFAULT 0;
+    DECLARE `credit` DECIMAL(10,2) DEFAULT 0;
 
-    SELECT creditLimit
-    INTO credit
-    FROM customers
-    WHERE customerNumber = pCustomerNumber;
+    SELECT `creditLimit`
+    INTO `credit`
+    FROM `customers`
+    WHERE `customerNumber` = `pCustomerNumber`;
 
     IF credit > 50000 THEN
-        SET pCustomerLevel = 'PLATINUM';
+        SET `pCustomerLevel` = 'PLATINUM';
     END IF;
 END$$
 
@@ -57,14 +57,14 @@ DELIMITER ;
 
 -- creditLimit 50000 dan katta bo'lganlar
 SELECT
-    customerNumber,
-    creditLimit
+    `customerNumber`,
+    `creditLimit`
 FROM
-    customers
+    `customers`
 WHERE
-    creditLimit > 50000
+    `creditLimit` > 50000
 ORDER BY
-    creditLimit DESC;
+    `creditLimit` DESC;
 
 /* Natija:
 +----------------+-------------+
@@ -107,20 +107,20 @@ DROP PROCEDURE GetCustomerLevel;
 DELIMITER $$
 
 CREATE PROCEDURE GetCustomerLevel(
-    IN  pCustomerNumber INT,
-    OUT pCustomerLevel  VARCHAR(20))
+    IN  `pCustomerNumber` INT,
+    OUT `pCustomerLevel`  VARCHAR(20))
 BEGIN
     DECLARE credit DECIMAL DEFAULT 0;
 
-    SELECT creditLimit
-    INTO credit
-    FROM customers
-    WHERE customerNumber = pCustomerNumber;
+    SELECT `creditLimit`
+    INTO `credit`
+    FROM `customers`
+    WHERE `customerNumber` = `pCustomerNumber`;
 
     IF credit > 50000 THEN
-        SET pCustomerLevel = 'PLATINUM';
+        SET `pCustomerLevel` = 'PLATINUM';
     ELSE
-        SET pCustomerLevel = 'NOT PLATINUM';
+        SET `pCustomerLevel` = 'NOT PLATINUM';
     END IF;
     END$$
 
@@ -134,14 +134,14 @@ DELIMITER ;
 # ular orasidan birortasini olib, protseduraga paramter sifatida beramiz:
 
 SELECT
-    customerNumber,
-    creditLimit
+    `customerNumber`,
+    `creditLimit`
 FROM
-    customers
+    `customers`
 WHERE
-    creditLimit <= 50000
+    `creditLimit` <= 50000
 ORDER BY
-    creditLimit DESC;
+    `creditLimit` DESC;
 
 /* Natija:
 +----------------+-------------+
@@ -182,22 +182,22 @@ DROP PROCEDURE GetCustomerLevel;
 DELIMITER $$
 
 CREATE PROCEDURE GetCustomerLevel(
-    IN  pCustomerNumber INT,
-    OUT pCustomerLevel  VARCHAR(20))
+    IN  `pCustomerNumber` INT,
+    OUT `pCustomerLevel`  VARCHAR(20))
 BEGIN
-    DECLARE credit DECIMAL DEFAULT 0;
+    DECLARE `credit` DECIMAL DEFAULT 0;
 
-    SELECT creditLimit
-    INTO credit
-    FROM customers
-    WHERE customerNumber = pCustomerNumber;
+    SELECT `creditLimit`
+    INTO `credit`
+    FROM `customers`
+    WHERE `customerNumber` = `pCustomerNumber`;
 
     IF credit > 50000 THEN
-        SET pCustomerLevel = 'PLATINUM';
-    ELSEIF credit <= 50000 AND credit > 10000 THEN
-        SET pCustomerLevel = 'GOLD';
+        SET `pCustomerLevel` = 'PLATINUM';
+    ELSEIF `credit` <= 50000 AND `credit` > 10000 THEN
+        SET `pCustomerLevel` = 'GOLD';
     ELSE
-        SET pCustomerLevel = 'SILVER';
+        SET `pCustomerLevel` = 'SILVER';
     END IF;
 END $$
 
@@ -267,7 +267,7 @@ IF используется для выполнения логических у�
 Внутри UPDATE при обновлении значений
                              Пример 1: Использование IF в SELECT    */
 SHOW DATABASES;
-USE classicmodels;
+USE `classicmodels`;
 SHOW TABLES;
 
 DESCRIBE `payments`;
