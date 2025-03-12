@@ -1,0 +1,782 @@
+    {
+1. Operatsiyalarning qaysi biri triggerlarda ko'rsatilmaydi?
+UPDATE
+INSERT
+DELETE
+ALTER       -- <--
+    }
+
+    {
+2. MySQL da nechta join turlari bor?
+}
+4       -- bu xato ekan
+5
+6       -- bu to'g'ri
+
+MySQL da JOIN operatori quyidagi asosiy turlarga bo‘linadi:
+
+INNER JOIN – Ikkala jadvaldagi mos keluvchi ma’lumotlarni chiqaradi.
+LEFT JOIN (LEFT OUTER JOIN) – Chap jadvaldagi barcha yozuvlarni va
+o‘ng jadvaldagi mos keluvchi yozuvlarni chiqaradi.
+
+RIGHT JOIN (RIGHT OUTER JOIN) – O‘ng jadvaldagi barcha yozuvlarni va
+chap jadvaldagi mos keluvchi yozuvlarni chiqaradi.
+
+FULL JOIN (FULL OUTER JOIN) – Chap va o‘ng jadvaldagi barcha yozuvlarni
+chiqaradi (MySQL da to‘g‘ridan-to‘g‘ri qo‘llab-quvvatlanmaydi, UNION yordamida amalga oshiriladi).
+
+CROSS JOIN – Har bir jadvalning har bir qatori bilan barcha
+kombinatsiyalarni chiqaradi (kartesian ko‘paytma).
+
+SELF JOIN – Bitta jadval ichida qo‘llaniladi, o‘ziga o‘zi bog‘langan holda ishlaydi.
+
+Ko‘p hollarda INNER JOIN va LEFT JOIN eng ko‘p ishlatiladigan turlar hisoblanadi.
+    }
+
+    {
+3. Quyidagilardan qaysi biri taqqoslash operatori emas?
+==      -- tenglikka tekshirish, taqqoslash
+=       -- o'zlashtirish, shu javob
+<=      -- kichik yoki teng
+>=      -- katta yoki teng
+    }
+
+    {
+4. Index lar qanday so'rovlarni tezlashitirishda yordam beradi?
+Ma'lumotlarni insert qilishda
+Ma'lumotlarni filter qilishda       -- <--
+Index langan ustunlarni ALTER qilishda
+
+Indexlar asosan ma'lumotlarni filter qilishda
+so‘rovlarning tez ishlashiga yordam beradi.
+
+1️⃣ Ma'lumotlarni filter qilishda ✅ (Tezlashtiradi)
+Indexlar WHERE, JOIN, ORDER BY, GROUP BY kabi operatorlar bilan
+ishlaydigan so‘rovlarni sezilarli darajada tezlashtiradi.
+Index qilingan ustun bo‘yicha qidiruv qilish,
+indeks bo‘lmagan ustunga nisbatan ancha tez bajariladi,
+chunki MySQL butun jadvalni skanerlash o‘rniga
+indeksga qarab tezroq natijani topadi.
+Misol:
+
+CREATE INDEX idx_name ON users(name);
+SELECT * FROM users WHERE name = 'Ali';
+
+Natija: Ushbu so‘rov endi to‘liq jadvalni skanerlash o‘rniga
+indeksdan foydalangan holda tezroq ishlaydi.
+
+2️⃣ Ma'lumotlarni insert qilishda ❌ (Sezilarli darajada sekinlashtiradi)
+Har safar INSERT, UPDATE, DELETE amallari bajarilganda,
+indekslar ham yangilanishi kerak bo‘ladi,
+bu esa qo‘shimcha vaqt talab qiladi.
+Agar jadvalda ko‘p indekslar bo‘lsa,
+ma'lumot qo‘shish va o‘zgartirish jarayoni sekinlashadi.
+Shuning uchun: Agar tez-tez ma'lumot qo‘shiladigan jadval bo‘lsa,
+ortiqcha indeks qo‘shishdan saqlanish kerak.
+
+3️⃣ Indexlangan ustunlarni ALTER qilishda ❌ (Sekinlashtiradi)
+ALTER TABLE orqali indekslangan ustunni o‘zgartirish
+(o‘lchamini o‘zgartirish, turini almashtirish) juda sekin bajariladi,
+chunki MySQL indeksni qayta qurishga majbur bo‘ladi.
+Ba'zi holatlarda, avval indeksni o‘chirib (DROP INDEX),
+so‘ng ALTER TABLE bajarib, keyin indeksni qayta yaratish (CREATE INDEX) tavsiya etiladi.
+
+Xulosa:
+✔ Ma'lumotlarni filter qilishda – indekslar so‘rovlarni sezilarli tezlashtiradi.
+❌ Ma'lumotlarni insert qilishda – indekslar ma’lumot qo‘shish jarayonini sekinlashtirishi mumkin.
+❌ Indexlangan ustunlarni ALTER qilishda – indeks mavjud bo‘lsa, o‘zgarishlar sekin ishlaydi.
+    }
+
+    {
+5. Jadvalni o'ziga JOIN qilish nima deyiladi?
+COMPLETE JOIN
+SELF JOIN
+OBSOLETE JOIN
+CROSS JOIN
+
+Jadvalni o‘ziga JOIN qilish SELF JOIN deb ataladi. ✅
+
+SELF JOIN nima?
+SELF JOIN – bu bir jadvalni o‘ziga o‘zi qo‘shish orqali bog‘lash usuli. Bu odatda, jadvaldagi ma’lumotlar orasidagi bog‘liqlikni topish uchun ishlatiladi.
+
+Misol:
+Faraz qilaylik, bizda employee jadvali bor va har bir xodim o‘zining manager_id orqali boshlig‘iga bog‘langan.
+Biz har bir xodimni va ularning boshlig‘ini ko‘rmoqchimiz:
+
+sql
+Copy
+Edit
+SELECT e1.name AS Employee, e2.name AS Manager
+FROM employee e1
+LEFT JOIN employee e2 ON e1.manager_id = e2.id;
+🔹 e1 – oddiy xodimlarni ifodalaydi.
+🔹 e2 – shu xodimlarning boshlig‘ini ifodalaydi.
+
+Agar Alining manager_id si 3 bo‘lsa va 3-ID dagi xodim Hasan bo‘lsa, natija shunday chiqadi:
+
+Employee	Manager
+Ali	Hasan
+Hasan	Umar
+Umar	NULL
+Bu yerda Umar ning manager_id si yo‘qligi sababli u NULL bo‘lib chiqdi.
+
+Qolgan variantlarni tushuntirish:
+❌ COMPLETE JOIN – Bunday JOIN MySQL da mavjud emas.
+❌ OBSOLETE JOIN – Bu JOIN turi mavjud emas.
+❌ CROSS JOIN – Har bir qatorni boshqa jadvalning har bir qatori bilan bog‘laydi (kartesian ko‘paytma).
+
+
+
+1️⃣ COMPLETE JOIN ❌ (Mavjud emas)
+MySQL yoki SQL standartida bunday JOIN turi yo‘q.
+Ehtimol, FULL OUTER JOIN (chap va o‘ng JOIN birikmasi)
+bilan adashtirilgan bo‘lishi mumkin.
+
+2️⃣ OBSOLETE JOIN ❌ (Mavjud emas)
+SQL da bunday JOIN mavjud emas.
+"Obsolete" so‘zi eskirgan, ishlatilmaydigan degan ma’noni anglatadi,
+lekin bu JOIN turi emas.
+Balki eski JOIN sintaksislari haqida gap ketayotgandir
+(masalan, FROM table1, table2 WHERE table1.id = table2.id; kabi eski usul).
+
+3️⃣ CROSS JOIN ✅ (Mavjud)
+CROSS JOIN – bu kartesian ko‘paytma (Cartesian Product) hosil qiladi.
+Har bir jadvalning har bir qatori bilan barcha kombinatsiyalarni yaratadi.
+🔹 Misol:
+Agar A jadvali da 3 qator, B jadvali da 2 qator bo‘lsa, CROSS JOIN natijasida 3 × 2 = 6 qator hosil bo‘ladi.
+
+SELECT * FROM A
+CROSS JOIN B;
+💡 Agar ON sharti berilmasa, CROSS JOIN barcha kombinatsiyalarni chiqaradi.
+
+Xulosa:
+✅ CROSS JOIN – MySQL va SQL da mavjud.
+❌ COMPLETE JOIN – SQL da mavjud emas (ehtimol, FULL OUTER JOIN nazarda tutilgan).
+❌ OBSOLETE JOIN – SQL da mavjud emas (eski sintaksis bilan bog‘liq bo‘lishi mumkin).
+    }
+
+    {
+6. Diskda o'qish va yozish operatsiyalari vaqtini minimallashitirish uchun
+   bulardan qaysi birini tanlash kerak? CHAR yoki VARCHAR?
+CHAR            -- standart holatda CHAR da o'qish yozish tez
+VARCHAR         <-- bu testda ma'lumotlar xotiradan joy egallab sekinlashitirish mumkinligi uchun VARCHAR to'g'ri deb olingan
+Bularning ahamiyati yo'q
+
+To‘g‘ri javob: CHAR ✅
+
+Agar diskda o‘qish va yozish operatsiyalarini minimallashtirish kerak bo‘lsa,
+CHAR turi VARCHAR ga nisbatan yaxshiroq ishlaydi.
+
+Nima uchun CHAR tezroq?
+1️⃣ Fiksirlangan uzunlik
+CHAR har doim belgilangan uzunlikdagi ma’lumotni saqlaydi
+(masalan, CHAR(10) har doim 10 bayt egallaydi,
+hatto ma’lumot 5 ta belgi bo‘lsa ham).
+VARCHAR esa ma’lumot uzunligiga qarab joy egallaydi
+va har bir qator uzunligi bilan bog‘liq qo‘shimcha 2 bayt
+(VARCHAR(255) gacha) yoki 4 bayt (VARCHAR(256 va undan katta) saqlaydi.
+
+2️⃣ Tezroq o‘qish va yozish
+CHAR qat’iy uzunlikda bo‘lgani uchun MySQL qatorlarni diskda doim bir xil
+joyga joylashtiradi, bu esa tezroq qidiruv va o‘qish imkonini beradi.
+VARCHAR esa uzunlik o‘zgarishi sababli diskda parchalanish
+(fragmentation) yuzaga kelishi mumkin, bu esa tezlikni pasaytiradi.
+
+3️⃣ CACHE va INDEX samaradorligi
+CHAR fiksirlangan uzunlikda bo‘lgani uchun index lar
+yaxshiroq ishlaydi va CACHE samaraliroq bo‘ladi.
+
+Qachon VARCHAR ishlatish kerak?
+✅ Agar ma’lumot uzunligi juda o‘zgaruvchan bo‘lsa
+(masalan, ism, manzil, sharh kabi maydonlar)
+– VARCHAR ni ishlatish yaxshiroq, chunki u ortiqcha joy egallamaydi.
+❌ Ammo, agar ma’lumot doim bir xil uzunlikda bo‘lsa
+(masalan, telefon raqami, PIN-kod, mamlakat kodi) – CHAR yaxshi tanlov!
+
+Xulosa:
+✔ Disk o‘qish/yozish vaqtini minimallashtirish uchun – CHAR ✅
+✔ Ma’lumot uzunligi o‘zgaruvchan bo‘lsa – VARCHAR ✅
+    }
+
+    {
+7. Quyidagilarni qaysi biri to'g'ri?
+butun sonni taqqoslash satrlarni taqqoslashdan tezroq
+satrlarni solishtirish butun sonni taqqoslashdan tezroq
+ikkisi ham to'g'ri emas
+
+To'g'ri javob: Butun sonni taqqoslash satrlarni taqqoslashdan tezroq.
+
+Nega?
+Ma'lumotlar turlari va saqlash usuli:
+Butun sonlar (INTEGER, BIGINT, SMALLINT, va h.k.) MySQL tomonidan qat'iy o'lchamda
+va ikkiyuzlik (binary) formatda saqlanadi.
+Bu esa operatsiyalarni tezroq bajarishga imkon beradi.
+Satrlar (VARCHAR, TEXT) esa har xil uzunlikka ega bo'lishi mumkin
+va MySQL ularni taqqoslashda har bir belgini tekshirishiga to'g'ri keladi.
+
+Taqqoslash usuli:
+Butun sonlarni taqqoslash oddiy arifmetik operatsiyalarga asoslanadi
+(<, >, = va h.k.), bu juda tez amalga oshiriladi.
+Satrlarni taqqoslash esa harflarni birma-bir solishtirishni talab qiladi.
+MySQL indekslash va kodlash usuliga qarab, bu nisbatan sekin bo'lishi mumkin.
+
+Indekslash ta'siri:
+MySQL butun son ustunlari uchun B-tree yoki Hash index kabi
+samarali indeks turlaridan foydalana oladi,
+bu esa qidiruv va taqqoslash jarayonlarini tezlashtiradi.
+Satr ustunlari indekslangan bo'lsa ham,
+taqqoslash ko'proq vaqt talab qilishi mumkin,
+chunki MySQL avval satrlarning uzunligini tekshirishi,
+keyin harflarni birma-bir taqqoslashi kerak bo'ladi.
+
+Xulosa:
+Butun sonlarni taqqoslash satrlarni taqqoslashdan tezroq,
+chunki bu jarayon kamroq hisoblash va tekshirish talab qiladi.
+Shu sababli, agar ma'lumotni qidirish va taqqoslash jarayonini
+optimallashtirmoqchi bo'lsangiz,
+imkon qadar butun sonlardan foydalanish tavsiya etiladi.
+    }
+
+
+{
+   8. Qaysi JOIN da boshqa jadval mazmunidan qat'iy nazar
+   Asosiy jadvaldagi qatorlarni barchasi natijada ko'rinadi?
+RIGHT JOIN
+LEFT JOIN       <--
+INNER JOIN
+CROSS JOIN
+}
+
+{
+    9. Virtual jadvalni nimadan yaratish mumkin?
+    bitta jadvaldan
+    ko'p jadvallardan
+    boshqa virtual jadvallardan
+    yuqoridagilarning barchasidan       <--
+}
+
+{
+    10. Subquery qaysi holatda faqat bitta qiymat qaytarish shart?
+    SELECT bandida ishlatilayotganda        <--
+    JADVAL sifatida ishlatilayotganda
+    JOIN qilinayotgan jadval sifatida ishlatilayotganda
+
+    To‘g‘ri javob: SELECT bandida ishlatilayotganda
+
+    Nega?
+    Subquery (SELECT ichidagi qo‘shimcha so‘rov) MySQLda turli holatlarda ishlatiladi,
+    lekin ba’zi joylarda u faqat bitta qiymat (ya’ni, bitta satr va bitta ustun)
+    qaytarishi shart bo‘ladi.
+
+    1. SELECT bandida ishlatilayotganda (Scalar Subquery) – faqat bitta qiymat kerak
+    Agar subquery SELECT bandida ishlatilayotgan bo‘lsa, u faqat bitta qiymat qaytarishi kerak.
+    Aks holda, MySQL xatolik beradi.
+
+    ✗ Xatolik yuzaga keladigan holat:
+    USE classicmodels;
+     SELECT (SELECT customerNumber FROM payments WHERE amount > 2000) AS customerlar FROM payments;
+    ERROR: 1242 (21000): Subquery returns more than 1 row   -- subquery 1 dan ziyoda qator qaytardi
+
+     SELECT (SELECT name FROM users WHERE age > 30) AS user_name;
+    Agar age > 30 shartiga mos keladigan bir nechta foydalanuvchi bo‘lsa,
+    subquery ko‘p natija qaytaradi va MySQL
+    "Subquery returns more than 1 row" xatosini chiqaradi.
+
+    ✔ To‘g‘ri variant:
+    SELECT (SELECT name FROM users WHERE id = 1) AS user_name;
+    Bu yerda subquery faqat bitta qiymat qaytaradi,
+    shuning uchun xatolik yuzaga kelmaydi.
+
+    2. FROM bandida jadval sifatida ishlatilayotganda (Table Subquery) –
+    ko‘p natija qaytarsa ham bo‘ladi
+    Agar subquery FROM bandida ishlatilsa, u jadval sifatida harakat qiladi
+    va bir nechta satr qaytarishi mumkin.
+
+    ✔ To‘g‘ri ishlatish:
+    SELECT * FROM (SELECT id, name FROM users WHERE age > 30) AS sub_users;
+    Bu yerda subquery bir nechta qator qaytarsa ham, MySQL hech qanday xatolik bermaydi.
+
+    3. JOIN qilinayotgan jadval sifatida ishlatilayotganda –
+    ham bitta, ham ko‘p natija qaytarishi mumkin
+    Agar subquery JOIN bandida ishlatilayotgan bo‘lsa,
+    u ham bir nechta qator qaytarishi mumkin.
+    Bu oddiy jadval sifatida ishlaydi.
+
+    ✔ To‘g‘ri ishlatish:
+    SELECT users.name, orders.total
+    FROM users
+    JOIN (SELECT user_id, SUM(amount) AS total FROM orders GROUP BY user_id) AS order_summary
+    ON users.id = order_summary.user_id;
+    Bu yerda subquery bir nechta foydalanuvchi bo‘yicha natija qaytarishi mumkin
+    va hech qanday muammo bo‘lmaydi.
+
+    Xulosa
+    SELECT bandida ishlatilgan subquery faqat bitta qiymat qaytarishi shart,
+    chunki MySQL faqat bitta qiymatni o‘zgaruvchi sifatida ishlata oladi.
+    FROM yoki JOIN bandida ishlatilayotgan subquery bir nechta natija qaytarsa ham bo‘ladi,
+    chunki ular jadval sifatida ishlaydi.
+}
+
+{
+    11. JOIN qilishning qaysi turi asosiy jadvaldan faqat JOIN qilinayotgan jadvalga mos
+    kelganlarini lekin JOIN bo'layotgan jadvaldan hammasini olib chiqadi?
+    LEFT OUTER JOIN (LEFT JOIN)
+    RIGHT OUTER JOIN (RIGHT JOIN)   <--
+    FULL OUTER JOIN (INNER JOIN)
+}
+
+{
+    12. SUBQUERY ni qaysi turida shu so'rovni o'zini alohida so'rov
+    sifatida ishlatib bo'lmaydi?
+    Correlated      <--
+    Uncorrelated
+    Hamma turini ishlatsa bo'ladi
+
+    To‘g‘ri javob: Correlated
+
+    Nega?
+    Subquery turlari ikkita:
+    Uncorrelated (Mustaqil) Subquery – Asosiy so‘rovdan mustaqil ishlaydi.
+    Correlated (Bog‘langan) Subquery – Asosiy so‘rovga bog‘liq bo‘ladi,
+    ya’ni har bir asosiy so‘rov qatori uchun qayta ishlaydi.
+    1. Correlated Subquery – Alohida ishlatib bo‘lmaydi
+    Bog‘langan subquery asosiy so‘rovning har bir qatoriga bog‘liq bo‘lib ishlaydi.
+    Shu sababli, uni asosiy so‘rovdan ajratib, alohida ishga tushirib bo‘lmaydi.
+
+    ✗ Xatolik yuzaga keladigan holat:
+    SELECT name
+    FROM users u
+    WHERE EXISTS (
+        SELECT 1 FROM orders o WHERE o.user_id = u.id
+    );
+    Bu yerda subquery users jadvalidagi u.id ustuniga bog‘langan.
+    Agar biz faqat subqueryni alohida ishlatmoqchi bo‘lsak:
+    SELECT 1 FROM orders o WHERE o.user_id = u.id;  -- XATO! `u.id` mavjud emas
+    Bu ishlamaydi, chunki u.id qiymati asosiy so‘rovdan kelmoqda.
+
+    ✔ To‘g‘ri ishlatish:
+    Correlated subquery faqat asosiy so‘rov ichida ishlaydi.
+
+    2. Uncorrelated Subquery – Alohida ishlatsa bo‘ladi
+    Uncorrelated subquery asosiy so‘rovga bog‘liq emas,
+    shuning uchun uni mustaqil ishlatish mumkin.
+
+    ✔ To‘g‘ri misol:
+    SELECT name FROM users WHERE id IN (
+        SELECT user_id FROM orders WHERE amount > 100
+    );
+    Bu yerda subquery asosiy so‘rovga bog‘liq emas, shuning uchun uni alohida ishlatish mumkin:
+    SELECT user_id FROM orders WHERE amount > 100;  -- Ishlaydi
+
+    Xulosa
+    ✅ Correlated Subquery – Asosiy so‘rovga bog‘liq bo‘lgani uchun uni alohida ishlatib bo‘lmaydi.
+    ✅ Uncorrelated Subquery – Asosiy so‘rovdan mustaqil bo‘lgani uchun uni alohida ishlatish mumkin.
+    ✅ Hamma turini ishlatsa bo‘ladi – noto‘g‘ri, chunki Correlated subquery mustaqil ishlamaydi.
+}
+
+{
+    13. Bir nechta qidiruvlarni birlashitirish uchun biz bir nechta SELECT ifodasini yozamiz
+    va ularning orasiga qaysi kalit so'zni qo'yamiz?
+    COMBINE
+    CONCAT
+    JOIN
+    UNION       <--     jadvallarni birlashitirish nazarda tutilmoqda!
+}
+
+{
+    14. Bulardan qaysi biri virtual jadval deb ham ataladi?
+    SCHEMA      -- DATABASE sinonimi
+    DATABASE
+    JOIN
+    VIEW    <--
+}
+
+{
+    15. Jadval yaratilgan quyidagi index lardan qaysi biri ma'lumotlar bazasi serveri
+    tomonidan avtomatik tarzda yaratiladi?
+    UNIQUE
+    IMPLICIT
+    SINGLE-COLUMN
+    COMPOSITE
+
+    To‘g‘ri javob: IMPLICIT (Yashirin indeks)
+
+    Nega?
+    Ma’lumotlar bazasi serveri IMPLICIT (yashirin) indeksni avtomatik tarzda yaratadi,
+    chunki u birlamchi kalit (PRIMARY KEY) yoki UNIQUE cheklov (CONSTRAINT)
+    bo‘lgan ustunlar uchun avtomatik ravishda indeks yaratadi.
+
+    IMPLICIT (Yashirin) indeks nima?
+    Bu foydalanuvchi qo‘lda yaratmagan, lekin MySQL avtomatik yaratadigan indeks turidir.
+    Quyidagi holatlarda IMPLICIT indeks avtomatik hosil bo‘ladi:
+
+    1️⃣ PRIMARY KEY e'lon qilinganda
+    CREATE TABLE users (
+        id INT PRIMARY KEY,
+        name VARCHAR(100)
+    );
+    ✅ MySQL id ustuni uchun avtomatik indeks yaratadi.
+
+    2️⃣ UNIQUE cheklov e'lon qilinganda
+    CREATE TABLE users (
+        id INT,
+        email VARCHAR(255) UNIQUE
+    );
+    ✅ MySQL email ustuni uchun avtomatik indeks yaratadi, chunki UNIQUE cheklov mavjud.
+
+    Boshqa indekslar avtomatik yaratiladimi?
+    🔹 UNIQUE indeks → Yoq, avtomatik emas
+
+    UNIQUE indeks IMPLICIT indeks yaratishiga sabab bo‘lishi mumkin,
+    lekin foydalanuvchi ham uni qo‘lda yaratishi mumkin.
+    🔹 SINGLE-COLUMN indeks → Yoq, avtomatik emas
+
+    Bu bitta ustun uchun maxsus yaratilgan indeks bo‘lib, uni MySQL avtomatik yaratmaydi.
+    Foydalanuvchi qo‘lda yaratishi kerak:
+    CREATE INDEX idx_name ON users(name);
+    🔹 COMPOSITE indeks (Ko‘p ustunli indeks) → Yoq, avtomatik emas
+
+    Bir nechta ustunlarga asoslangan indeks bo‘lib, MySQL uni avtomatik yaratmaydi.
+    Masalan, foydalanuvchi qo‘lda yaratishi kerak:
+     CREATE INDEX idx_multi ON orders(user_id, product_id);
+    Xulosa
+    ✅ IMPLICIT indeks – MySQL tomonidan PRIMARY KEY yoki UNIQUE mavjud bo‘lganda
+    avtomatik ravishda yaratiladi.
+    ❌ Boshqa indekslar – Foydalanuvchi tomonidan qo‘lda yaratilishi kerak.
+}
+
+{
+    16. WHERE bandida ma'lumotlarni agregat funksiyalar orqali filtr qilsa bo'ladimi?
+    Yo'q;
+    ha, faqat integer bo'lgan ma'lumotlarni;
+    ha, faqat agregat funskiya subquery da foydalanilgan bo'lsa;
+    ha har qanday holatda;
+
+    To‘g‘ri javob: "ha, faqat agregat funksiya subquery da foydalanilgan bo‘lsa"
+
+    Nega agregat funksiyalarni WHERE bandida ishlatib bo‘lmaydi?
+    WHERE bandi qatorlarni filtrlaydi, lekin agregat funksiyalar
+    (SUM(), AVG(), COUNT(), MAX(), MIN())
+    guruhlangan natijalarga ishlaydi.
+
+    Agar agregat funksiyani bevosita WHERE bandida ishlatishga harakat qilsak,
+    MySQL xato beradi, chunki WHERE individual qatorlar bilan ishlaydi,
+    agregat funksiyalar esa guruhlangan natijalarga asoslangan.
+
+    ❌ Xato kod:
+    SELECT * FROM orders
+    WHERE SUM(amount) > 1000;  -- Xatolik! Agregat funksiya WHERE da ishlay olmaydi.
+    MySQL shunday xatolik beradi:
+
+    "Invalid use of group function"
+
+    Agregat funksiyalar qayerda ishlatilishi mumkin?
+    1️⃣ HAVING bandida
+    HAVING – guruhlangan natijalar bo‘yicha filtr qilish uchun ishlatiladi.
+
+    ✔ To‘g‘ri ishlatish:
+    SELECT customer_id, SUM(amount) AS total_amount
+    FROM orders
+    GROUP BY customer_id
+    HAVING SUM(amount) > 1000;
+    ✅ HAVING agregat funksiyalar bilan ishlay oladi, chunki u GROUP BY dan keyin ishlaydi.
+
+    2️⃣ Subquery (ichki so‘rov) bilan WHERE bandida
+    Agregat funksiyalarni WHERE ichida ishlatish uchun subquery kerak.
+
+    ✔ To‘g‘ri ishlatish:
+    SELECT * FROM orders
+    WHERE amount > (SELECT AVG(amount) FROM orders);
+    ✅ Bu yerda subquery birinchi bo‘lib AVG(amount) ni hisoblaydi,
+    so‘ng asosiy WHERE bandi oddiy qiymat bilan taqqoslaydi.
+
+    Boshqa variantlar nega noto‘g‘ri?
+    ❌ "Yo‘q" – noto‘g‘ri, chunki agregat funksiyalarni HAVING
+    yoki subquery orqali ishlatsa bo‘ladi.
+
+    ❌ "Ha, faqat integer bo‘lgan ma’lumotlarni" – noto‘g‘ri,
+    chunki MySQL har qanday turdagi ma’lumotlar bilan ishlay
+    oladi (SUM(), AVG(), COUNT(), va h.k.).
+
+    ❌ "Ha, har qanday holatda" – noto‘g‘ri, chunki WHERE bandida
+    to‘g‘ridan-to‘g‘ri agregat funksiyalar ishlatilmaydi,
+    faqat HAVING yoki subquery bilan ishlaydi.
+
+    Xulosa
+    ✅ Agregat funksiyalarni WHERE bandida ishlatish uchun subquery kerak.
+    ✅ Yoki HAVING bandidan foydalanish mumkin.
+    ❌ To‘g‘ridan-to‘g‘ri WHERE ichida ishlatib bo‘lmaydi.
+}
+
+{
+    17. Ushbu taqqoslashlarning qaysi biri sekinroq ishlaydi?
+    INT/INT
+    INT/BIGINT      <--
+    BIGINT/BIGINT
+
+    To‘g‘ri javob: INT/BIGINT taqqoslash sekinroq ishlaydi.
+
+    Nega INT/BIGINT eng sekin?
+    MySQL taqqoslash vaqtida ma’lumot turlarini moslashtirish
+    (type conversion) kerak bo‘lishi mumkin.
+
+    Quyidagi sabablar tufayli INT/BIGINT taqqoslash sekinroq ishlaydi:
+
+    1️⃣ Ma’lumot turlarini o‘zgartirish (Implicit Type Conversion)
+
+    INT 4 bayt o‘lchamdagi butun son.
+    BIGINT 8 bayt o‘lchamdagi butun son.
+    INT va BIGINT taqqoslanganda, MySQL INT ni avtomatik BIGINT ga aylantiradi,
+    bu esa qo‘shimcha vaqt talab qiladi.
+
+    2️⃣ Qiyoslash uchun qo‘shimcha hisob-kitoblar
+
+    Agar INT va BIGINT ni taqqoslash kerak bo‘lsa,
+    har bir INT qiymati BIGINT formatiga o‘tkaziladi,
+    so‘ngra taqqoslash amalga oshiriladi.
+    Bu qo‘shimcha operatsiyalarni talab qiladi, shuning uchun sekin ishlaydi.
+    Boshqa variantlar qanday ishlaydi?
+
+    ✅ INT/INT – Eng tez
+    Ikkala qiymat ham 4 bayt bo‘lgani uchun hech qanday konversiya kerak emas.
+    MySQL bevosita taqqoslashni amalga oshiradi.
+
+    ✅ BIGINT/BIGINT – Tez
+    Ikkala qiymat ham 8 bayt, hech qanday o‘zgarish kerak emas.
+    INT/INT ga qaraganda ko‘proq xotira talab qilishi mumkin,
+    lekin baribir INT/BIGINT dan tezroq ishlaydi.
+
+    ❌ INT/BIGINT – Eng sekin
+    INT (4 bayt) → BIGINT (8 bayt) konversiya bo‘ladi.
+    Har bir qator uchun bu qo‘shimcha vaqt talab qiladi.
+
+    Xulosa
+    🚀 Eng tez: INT/INT
+    ⚡ O‘rtacha tezlik: BIGINT/BIGINT
+    🐌 Eng sekin: INT/BIGINT (chunki INT → BIGINT konversiya bo‘ladi)
+
+    ➡ Optimallashtirish tavsiyasi: Agar INT ustun bilan BIGINT
+    ustunni taqqoslash kerak bo‘lsa, ikkala ustunni bir xil turga
+    aylantirish yaxshiroq (INT ni BIGINT ga yoki aksincha).
+}
+
+{
+    18. Quyidagilardan qaysi birida tranzaksiyalar haqida noto'g'ri
+    ma'lumot berilgan?
+
+    Tranzaksiya bittadan ortiq operatsiyalarni hammasi muvaffaqiyatli
+    bo'gandagina bazaga o'zgartirish kiritish kerak bo'lganda ishlatiladi;
+    Tranzaksiya ichidagi barcha operatsiyalar muvaffaqiyatli yoki muvaffaqiyatsiz
+    bo'lishi kerak;
+    COMMIT qilingan ma'lumotlarni ROLLBACK qilish imkoni bor;   <--
+
+    To‘g‘ri javob: "COMMIT qilingan ma'lumotlarni ROLLBACK qilish imkoni bor" – noto‘g‘ri.
+
+    Nega noto‘g‘ri?
+    COMMIT qilingan tranzaksiya butunlay bazaga saqlanadi va
+    uni ROLLBACK bilan bekor qilib bo‘lmaydi.
+
+    ✗ Noto‘g‘ri fikr:
+    START TRANSACTION;
+    UPDATE users SET balance = balance - 100 WHERE id = 1;
+    COMMIT;
+    ROLLBACK;  -- Ishlamaydi! Chunki COMMIT allaqachon bajarilgan.
+    ✅ ROLLBACK faqat COMMIT bajarilmagan tranzaksiyalar uchun ishlaydi.
+
+    Agar COMMIT bajarilgan bo‘lsa, faqat quyidagi usullar
+    bilan o‘zgarishlarni qaytarish mumkin:
+
+    Yangi tranzaksiya yaratish va orqaga qaytarish:
+    START TRANSACTION;
+    UPDATE users SET balance = balance + 100 WHERE id = 1;
+    COMMIT;
+    Zaxira nusxadan (backup) qayta tiklash.
+    Boshqa ikkita variant to‘g‘ri
+    ✅ 1. "Tranzaksiya bittadan ortiq operatsiyalarni hammasi
+    muvaffaqiyatli bo‘lgandagina bazaga o‘zgartirish kiritish kerak bo‘lganda ishlatiladi."
+
+    Ha, tranzaksiya ko‘p bosqichli operatsiyalarni xavfsiz bajarish uchun ishlatiladi.
+    Agar tranzaksiya ichidagi barcha operatsiyalar muvaffaqiyatli
+    bajarilsa, COMMIT orqali tasdiqlanadi.
+    Agar xatolik yuz bersa, ROLLBACK orqali bekor qilinadi.
+    ✔ To‘g‘ri misol:
+    START TRANSACTION;
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+    COMMIT;  -- Agar hamma operatsiya muvaffaqiyatli bajarilgan bo‘lsa
+
+    ❌ Agar xatolik yuz bersa:
+    ROLLBACK;  -- Hamma operatsiyalar bekor qilinadi
+
+
+    ✅ 2. "Tranzaksiya ichidagi barcha operatsiyalar muvaffaqiyatli
+    yoki muvaffaqiyatsiz bo‘lishi kerak."
+
+    Ha, tranzaksiya atomik (bo‘linmas) tamoyilga asoslangan.
+    Ya’ni, yoki hamma operatsiya bajariladi, yoki hech biri bajarilmaydi (ROLLBACK).
+
+    Xulosa
+    ❌ Noto‘g‘ri javob:
+
+    "COMMIT qilingan ma'lumotlarni ROLLBACK qilish imkoni bor"
+    → Bu noto‘g‘ri, chunki COMMIT bajargandan keyin ROLLBACK ishlamaydi.
+}
+
+{
+    19. Quyidagilarning qaysi biri jadvallarni birlashtirishning
+    asosiy usullaridan biri hisoblanadi?
+
+    SUBQUERY lar;
+    UNION JOIN;
+    NATURAL JOIN;
+    Yuqaridagilarning barchasi;   <--
+}
+
+{
+    20. Quyidagilarning qaysi biri INDEX yaratish buyrug'i?
+    CREATE INDEX index_nomi ON jadval_nomi;     <--
+    INSERT INDEX index_nomi ON database_nomi;
+    CREATE INDEX index_nomi ON database_nomi;
+    INSERT INDEX index_nomi ON jadval_nomi;
+}
+
+{
+    21. GROUP BY bandi SQL da qaysi banddan oldin qo'yiladi?
+    WHERE
+    ORDER BY    <--
+    FROM
+
+                            SQL yozilish tartibi
+    Yozilish tartibi	SQL operatori	  Vazifasi
+    1️⃣	                SELECT	          Qaytariladigan ustunlarni tanlash
+    2️⃣	                FROM	          Jadval(lar)ni belgilash
+    3️⃣	                JOIN	          Jadvallarni bog‘lash (Agar kerak bo‘lsa)
+    4️⃣	                WHERE	          Qatorlarni filtrlash
+    5️⃣	                GROUP BY	      Guruhlash (Agregat funksiyalar uchun)
+    6️⃣	                HAVING	          Guruhlangan natijalarni filtrlash
+    7️⃣	                ORDER BY	      Natijalarni saralash
+    8️⃣	                LIMIT / OFFSET	  Natijalarni cheklash va sahifalash
+        Xulosa
+    🟢 SQL yozish tartibi doim bir xil bo‘lishi kerak.
+    🟢 WHERE oddiy qatorlarni filtrlash uchun, HAVING guruhlangan natijalarni filtrlash uchun ishlatiladi.
+    🟢 ORDER BY va LIMIT har doim eng oxirida yoziladi.
+
+                        SQL amallari bajarilish tartibi
+    Bajarilish tartibi	        SQL operatori
+    1️⃣ FROM	                    Jadval(lar) tanlanadi
+    2️⃣ JOIN	                    Agar kerak bo‘lsa, bog‘lash amalga oshiriladi
+    3️⃣ WHERE	                Qatorlar filtrlanadi
+    4️⃣ GROUP BY	                Guruhlash amalga oshiriladi
+    5️⃣ HAVING	                Guruhlangan natijalar filtrlanadi
+    6️⃣ SELECT	                Ustunlar tanlanadi, hisob-kitoblar amalga oshiriladi
+    7️⃣ DISTINCT	                Noyob natijalar ajratiladi
+    8️⃣ ORDER BY	                Natijalar saralanadi
+    9️⃣ LIMIT / OFFSET	        Natijalar soni cheklanadi
+
+    Xulosa
+    Birinchi bajariladigan operatorlar: FROM, JOIN, WHERE
+    Agregatlar bilan ishlaydiganlar: GROUP BY, HAVING
+    So‘nggi bajariladigan operatorlar: ORDER BY, LIMIT
+    Yo‘qolgan xatolik: SELECT eng oxirida bajariladi,
+    shuning uchun WHERE ichida agregat funksiyalar ishlamaydi.
+    🚀 Optimallashtirish bo‘yicha tavsiya:
+    ✅ Avval WHERE bilan keraksiz qatorlarni yo‘q qilish, keyin GROUP BY va HAVING ishlatish.
+    ✅ LIMIT va ORDER BY so‘ngida ishlaydi, shuning uchun natijani iloji boricha avval qisqartirish muhim.
+}
+
+{
+    22. JOIN natijalarini filtrlaydigan band _____ deb ataladi.
+    SORT
+    WHERE   <--
+    GROUP
+    GROUP BY
+}
+
+{
+    23. Jadvalning 2 yoki undan ko'p ustunlarini indexlash bu ____.
+    IMPLICT INDEX
+    UNIQUE INDEX
+    SINGLE-COLUMN INDEX
+    COMPOSITE INDEX     <--
+
+    SQL indeks turlari va ularning izohi
+    SQL-da indekslar ma'lumotlarni tezroq qidirish va tanlash uchun ishlatiladi.
+    Quyida indekslarning turlari va ularning farqlari tushuntirilgan.
+
+    1️⃣ IMPLICIT INDEX (Yashirin indeks, avtomatik yaratiladigan indeks)
+    🔹 IMPLICIT INDEX - bu bazaga avtomatik tarzda qo‘shiladigan indeks.
+    🔹 PRIMARY KEY va UNIQUE constraint (takrorlanmas ustun)
+       belgilangan ustunlarda MySQL o‘z-o‘zidan indeks yaratadi.
+    🔹 Foydalanuvchi bunday indeksni qo‘lda yaratishi shart emas.
+
+    ✔ Misol:
+    CREATE TABLE users (
+        id INT PRIMARY KEY,  -- IMPLICIT INDEX avtomatik ravishda yaratildi!
+        email VARCHAR(255) UNIQUE  -- IMPLICIT INDEX avtomatik ravishda yaratildi!
+    );
+    ✅ "id" ustunida PRIMARY KEY bor – MySQL avtomatik indeks yaratadi.
+    ✅ "email" ustuni UNIQUE – MySQL avtomatik indeks yaratadi.
+
+    2️⃣ UNIQUE INDEX (Noyob indeks)
+    🔹 UNIQUE INDEX ustundagi qiymatlar takrorlanmasligini ta’minlaydi.
+    🔹 IMPLICIT INDEX dan farqi – bu indeksni foydalanuvchi o‘zi yaratishi mumkin.
+
+    ✔ Misol:
+    CREATE UNIQUE INDEX idx_email ON users (email);
+    ✅ Endi email ustunida takrorlangan qiymatlar bo‘lishiga ruxsat berilmaydi.
+
+    3️⃣ SINGLE-COLUMN INDEX (Bitta ustunli indeks)
+    🔹 SINGLE-COLUMN INDEX faqat bitta ustun bo‘yicha tezkor qidiruvni ta’minlaydi.
+    🔹 WHERE shartida faqat bitta ustun ishlatilsa, bu indeks yordam beradi.
+
+    ✔ Misol:
+    CREATE INDEX idx_lastname ON users (lastname);
+    ✅ Endi SELECT * FROM users WHERE lastname = 'Smith' so‘rovi tezroq bajariladi.
+
+    4️⃣ COMPOSITE INDEX (Ko‘p ustunli indeks)
+    🔹 COMPOSITE INDEX 2 yoki undan ko‘p ustun bo‘yicha qidiruvni tezlashtiradi.
+    🔹 Ketma-ketlik muhim! Indeks faqat chapdan o‘ngga ishlaydi (col1, col2).
+    🔹 Ko‘p shartli qidiruv (WHERE col1 = X AND col2 = Y) tezroq bajariladi.
+
+    ✔ Misol:
+    CREATE INDEX idx_orders ON orders (customer_id, order_date);
+
+    ✅ Endi quyidagi so‘rov tezroq ishlaydi:
+        SELECT * FROM orders WHERE customer_id = 5 AND order_date > '2024-01-01';
+    ⚠️ Muhim!
+
+    Bu indeks customer_id bo‘yicha ishlaydi, keyin order_date bo‘yicha.
+    Agar faqat order_date bo‘yicha qidirsangiz (WHERE order_date > '2024-01-01'),
+    indeks ishlamasligi mumkin.
+
+    Xulosa
+
+    Indeks turi	          Ta'rifi	                                                                    Misol
+    IMPLICIT INDEX	      MySQL avtomatik yaratadigan indeks (PRIMARY KEY, UNIQUE ustunlar uchun)	    PRIMARY KEY (id)
+    UNIQUE INDEX	      Takrorlanmas qiymatlar bo‘lishini ta’minlaydi	                                CREATE UNIQUE INDEX idx_email ON users(email);
+    SINGLE-COLUMN INDEX	  Bitta ustun bo‘yicha qidiruvni tezlashtiradi	                                CREATE INDEX idx_lastname ON users (lastname);
+    COMPOSITE INDEX	      Ikki yoki undan ortiq ustun uchun indeks yaratadi	                            CREATE INDEX idx_orders ON orders (customer_id, order_date);
+
+    🚀 Tavsiyalar:
+    ✔ Juda ko‘p indeks yaratish noto‘g‘ri – chunki bu yozish (INSERT/UPDATE/DELETE) tezligini pasaytiradi.
+    ✔ Agar qidiruv faqat bitta ustun bo‘yicha bo‘lsa – SINGLE-COLUMN INDEX ishlating.
+    ✔ Agar ko‘p ustun bo‘yicha qidiruv bo‘lsa – COMPOSITE INDEX foydali.
+}
+
+{
+    24. UNION bilan qaysi kalit so'zni ishlatilganda, bittadan ko'p bir xil
+    ma'lumotlarni qaytaradi?
+    NARROW
+    ALL     <--
+    STRICT
+    DISTINCT
+}
+
+{
+    25. Quyidagilarning qaysi biri to'g'ri?
+    LEFT JOIN faqat JOIN shartiga javob beradigan qatorlarni oladi
+    RIGHT JOIN faqat JOIN shartiga javob beradigan qatorlarni oladi
+    INNER JOIN faqat JOIN shartiga javob beradigan qatorlarni oladi <--
+}
+
+TEST TAXLISI TUGADI !
