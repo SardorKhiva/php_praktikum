@@ -1,4 +1,4 @@
-MySQL
+                                   MySQL dagi ba'zi asosiy so'rovlar
 http://www.sqlteaching.com/
 https://www.codecademy.com/learn/learn-sql
 https://www.codecademy.com/catalog/language/sql
@@ -27,7 +27,7 @@ Qaysi db tanlanganini ko'rsatish:
 SELECT DATABASE();
 
 Barcha jadvallarni ko'rish: 
-SHOW TABLES;
+SHOW jadvalS;
 
 Jadval tuzilishini ko'rish: 
 DESC [jadval_nomi]; DESC = DESCRIBE 
@@ -37,17 +37,17 @@ SHOW INDEX
 FROM [jadval_nomi];
 
 Yangi jadval hosil qilish: 
-CREATE TABLE [jadval_nomi] (
+CREATE jadval [jadval_nomi] (
 [ustun_nomi] VARCHAR(120),  
 [boshqa_ustun_nomlari] DATETIME);
 
 Jadvalga yangi ustun qo'shish: 
-ALTER TABLE [jadval_nomi] 
-ADD COLUMN [ustun_nomi] VARCHAR(120); 
+ALTER jadval [jadval_nomi] 
+ADD ustun [ustun_nomi] VARCHAR(120); 
 
 Jadvalga int tipli, primary key va auto_increment (va h.k)li ustun qo'shish:
-ALTER TABLE [jadval_nomi] 
-ADD COLUMN [yangi_ustun_nomi] int NOT NULL AUTO_INCREMENT PRIMARY KEY;
+ALTER jadval [jadval_nomi] 
+ADD ustun [yangi_ustun_nomi] int NOT NULL AUTO_INCREMENT PRIMARY KEY;
 
 Jadvalga yozuv yozish: 
 INSERT INTO [jadval_nomi] ([ustun_1], [ustun_2]) 
@@ -98,8 +98,8 @@ LIKE '%[qidirilayotgan_jumla]%';  -- %shu ikki belgi orasidagi jumla qidiriladi%
 
 Ma'lum bir [qiymat] bilan boshlanuvchi jumani qidrish: 
 SELECT * 
-FROM [table] 
-WHERE [column] 
+FROM [jadval] 
+WHERE [ustun] 
 LIKE '[value]%';
 
 qiy bilan boshlanib mat bilan tugovchi (orasida har qanday bitta harf bor bo'lgan) jumlani qidirish:  
@@ -124,41 +124,41 @@ LIMIT [chegaralovchi_son];      -- nechta satr chiqsin
 (Tartiblash: DESC - kamayuvchi, ASC - oshuvchi)  
 
 Ma'lum shartga mos ustundagi yozuvlarni yangilash: 
-UPDATE [table] 
-SET [column] = '[updated-value]' 
-WHERE [column] = [value];
+UPDATE [jadval] 
+SET [ustun] = '[updated-value]' 
+WHERE [ustun] = [value];
 
 Ma'lum shartga mos ustundagi yozuvlarni o'chirish: 
-DELETE FROM [table] 
-WHERE [column] = [value];
+DELETE FROM [jadval] 
+WHERE [ustun] = [value];
 
 Jadvaldagi barcha yozuvlarni o'chirish (jadvalning o'zini o'chirmasdan): 
 DELETE 
-FROM [table];
+FROM [jadval];
 (Bu, shuningdek, id ustuni kabi avtomatik ravishda yaratilgan ustunlar uchun o'sish hisoblagichini tiklaydi.)
 
 Jadvaldagi barcha yozuvlarni o'chirish, (jadvalni o'zi o'chmaydi): 
-TRUNCATE TABLE [table];
+TRUNCATE jadval [jadval];
 
 Jadval ustunini o'chirish:
-ALTER TABLE [table] 
-DROP COLUMN [column];
+ALTER jadval [jadval] 
+DROP ustun [ustun];
 
 Jadvalni o'chirish: 
-DROP TABLE [table];
+DROP jadval [jadval];
 
 DB ni o'chirish: 
 DROP DATABASE [database];
 
 Ustunlarni qayta nomlab(alias) chiqarish: 
-SELECT [column] AS [custom-column] 
-FROM [table];
+SELECT [ustun] AS [custom-ustun] 
+FROM [jadval];
 
 Ma'lumotlar bazasini eksport qilish: 
 mysqldump -u [username] -p [database] > db_backup.sql
 
 Qulflangan jadvallar uchun 
---lock-tables=false 
+--lock-jadvals=false 
 parametridan foydalaning.
 
 Ma'lumotlar bazasi dumpini import qilish: 
@@ -168,73 +168,75 @@ Chiqish:
 EXIT;
 
         Agregat funksiyalar:
-Select but without duplicates: 
+Dublikatlarsiz(takrorlanishlarsiz) ma'lumotlarni ma'lum shartlar asosida chiqarish: 
 SELECT DISTINCT name, email, acception 
 FROM owners 
 WHERE acception = 1 AND date >= 2015-01-01 00:00:00
 
-Calculate total number of records: 
-SELECT SUM([column]) FROM [table];
+Jadvaldagi ma'lum ustun qiymatlari yig'indisini chiqarish:
+SELECT SUM([ustun]) 
+FROM [jadval];
 
-Count total number of [column] and group by [category-column]: 
-SELECT [category-column], 
-       SUM([column]) 
-FROM [table] 
-GROUP BY [category-column];
+Ma'lum ustunlarni guruhlab qiymatlari yig'indisini chiqarish:
+SELECT [kategoriya-ustun], 
+       SUM([ustun]) 
+FROM [jadval] 
+GROUP BY [kategoriya-ustun];
 
-Get largest value in [column]: 
-SELECT MAX([column]) 
-FROM [table];
+[ustun] dagi maksimal qiymatni topish:
+SELECT MAX([ustun]) 
+FROM [jadval];
 
-Get smallest value: 
-SELECT MIN([column]) 
-FROM [table];
+Minimal qiymatni topish: 
+SELECT MIN([ustun]) 
+FROM [jadval];
 
-Get average value: 
-SELECT AVG([column]) 
-FROM [table];
+O'rtacha qiymatni topish: 
+SELECT AVG([ustun]) 
+FROM [jadval];
 
-Get rounded average value and group by [category-column]: 
-SELECT [category-column], 
-ROUND(AVG([column]), 2) 
-FROM [table] 
-GROUP BY [category-column];
+[kategoriya-ustun]ni guruhlab 2 xona aniqlikda yaxlitlab o'rtacha qiymatlarini chiqarish: 
+SELECT [kategoriya-ustun], 
+ROUND(AVG([ustun]), 2) 
+FROM [jadval] 
+GROUP BY [kategoriya-ustun];
 
-Multiple tables
-Select from multiple tables: 
-SELECT [table1].[column], 
-       [table1].[another-column], 
-       [table2].[column] 
-FROM [table1], [table2];
+Bir nechta jadvalni chiqarish: 
+SELECT [jadval1].[ustun], 
+       [jadval1].[boshqa-ustun], 
+       [jadval2].[ustun] 
+FROM [jadval1], [jadval2];
 
-Combine rows from different tables: 
+INNER JOIN, Bir xil qiymatli 2 ta ustuni bor jadvallarni bir xil ma'lumotlari borlarini birlashitirish: 
 SELECT * 
-FROM [table1] 
-INNER JOIN [table2] 
-ON [table1].[column] = [table2].[column];
+FROM [jadval1] 
+INNER JOIN [jadval2] 
+ON [jadval1].[ustun] = [jadval2].[ustun];
 
-Combine rows from different tables but do not require the join condition: 
+LEFT JOIN: 
 SELECT * 
-FROM [table1] 
-LEFT OUTER JOIN [table2] 
-ON [table1].[column] = [table2].[column]; 
-(The left table is the first table that appears in the statement.)
+FROM [jadval1] 
+LEFT OUTER JOIN [jadval2] 
+ON [jadval1].[ustun] = [jadval2].[ustun];
+(Chapdagi jadval so'rovda paydo bo'ladigan birinchi jadvaldir.)
 
-Rename column or table using an alias: 
-SELECT [table1].[column] AS '[value]', 
-       [table2].[column] AS '[value]' 
-FROM [table1], [table2];
+alias bilan ustunlarni qayta nomlab chiqarish: 
+SELECT [jadval1].[ustun] AS '[value]', 
+       [jadval2].[ustun] AS '[value]' 
+FROM [jadval1], [jadval2];
 
-        Users functions
-List all users: 
+        Foydalanuvchiga oid funksiyalari:
+Barcha foydalanuvchilar ro'yhati: 
 SELECT User, Host 
 FROM mysql.user;
 
-Create new user: 
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+Yangi foydalanuvchi hosil qilish: 
+CREATE USER 'username'@'localhost' 
+IDENTIFIED BY 'password';
 
-Grant ALL access to user for * tables: 
+Barcha jadvallar uchun foydalanuvchiga HAMMA ruxsatni berish:
 GRANT ALL ON database.* TO 'user'@'localhost';
 
-Find out the IP Address of the Mysql Host
-SHOW VARIABLES WHERE Variable_name = 'hostname'; (source)
+Mysql hostining IP manzilini bilib olish:
+SHOW VARIABLES 
+WHERE Variable_name = 'hostname';
