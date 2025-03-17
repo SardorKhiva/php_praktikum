@@ -50,4 +50,31 @@ try {
 }
 
 //  lastInsertId() - so'nggi kiritilgan qator yoki ketma-ketlik IDsi
-echo $conn->lastInsertId();
+echo $conn->lastInsertId() . PHP_EOL;
+
+
+//                        PHP + MySQL:INSERT
+$sql_insert = "INSERT INTO test.varcharTest(matn)
+VALUES ('PDO orqali bazaga matn kiritildi');";
+
+//      PDO
+echo "\texec() bilan insert qilish\n";
+
+try {
+    $conn->exec($sql_insert);
+    echo "PDO exec orqali yangi ma'lumot kiritildi\n" . PHP_EOL;
+} catch (PDOException $e) {
+    echo "PDO exec orqali yangi ma'lumot kiritishda xatolik: " . $e->getMessage() . PHP_EOL;
+}
+
+echo "\tprepare() bilan INSERT qilish\n";
+
+$insert = "INSERT INTO test.talaba(firstname, lastname, email) 
+VALUES (?, ?, ?);";
+$stmt = $conn->prepare($insert);
+try {
+    $stmt->execute(['Shuxrat', 'Shonazarov', 'shuxrat@gmail.com']);
+    echo "prepare() bilan INSERT qilindi\n";
+} catch (Exception $e) {
+    print_r($e->getMessage());
+}
