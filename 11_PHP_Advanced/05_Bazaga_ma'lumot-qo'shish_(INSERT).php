@@ -1,39 +1,53 @@
 <?php
-// Bazaga ma'lumot qo'shish (INSERT)
-//                MySQLi da
-// mysqli orqali mysql ga php dan ulanib olamiz
-$conn = new mysqli('localhost', 'root', '1302', 'test');
+require_once '04_dbconnect.php';
 
-// mysql ga php orqali so'rovni o'zgaruvchiga saqlab qo'yamiz
+//              Bazaga ma'lumot qo'shish (INSERT)
+//        MySQLi da
 $sql_insert = "INSERT INTO test.talaba
-(firstname, lastname, email)
-VALUES ('Maxmud', 'Max', 'max@gmail.com');";
-
-// PHP da MySQLi orqali mysql ga so'rov xatosiz yuborilgan bo'lsa :
-if ($conn->query($sql_insert) === TRUE) {
-    echo "New record created successfully";     // shu yozuv chiqsin
-} else {     // aks holda,
-    echo "Error: " . $sql_insert . "<br>" . $conn->error;   // sql so'rov va xato ko'rsatilsin
-};
-$conn->close();
-echo PHP_EOL;
-
-//                    PDO da
-//  PDO orqali mysql ga ulanish
-$conn_pdo = new PDO ("mysql:host=localhost; dbname=test", 'root', '1302');
-
-// so'rov
-$sql_insert2 = "INSERT INTO test.talaba
 (firstname, lastname, email) 
-VALUES ('Shoxzod', 'Ergashov', 'shoxzod@gmail.com');";
+VALUES ('Maxmud', 'Qobulov', 'maxmud@gmail.com')";
 
-// PDO da
-try {
-    $conn_pdo->exec($sql_insert2);
-    echo "Talaba jadvaliga yangi yozuv qo'shildi";
-} catch (PDOException $e) {
-    echo "Xatolik: " . $e->getMessage();
+// MySQLi
+if ($conn_mysqli->query($sql_insert) === TRUE) {
+    echo "mysqli orqali jadvalga yangi ma'lumot yozildi" . PHP_EOL;
+} else {
+    echo "mysqli orqali jadvalga yangi ma'lumot yozishda xatolik: " . $conn_mysqli->error . PHP_EOL;
 }
-echo PHP_EOL;
-echo "PDO orqali test.talaba ga ma'lumot qo'shildi" . PHP_EOL;
-echo PHP_EOL;
+// $conn_mysqli->close();   // aloqani uzish
+
+//        PDO da
+$sqlInsert = "INSERT INTO test.charTest(matn)
+VALUES ('PDO orqali bazaga matn kiritish');";
+
+try {
+    $conn->exec($sqlInsert);
+    echo "PDO orqali yangi ma'lumot kiritildi" . PHP_EOL;
+} catch (PDOException $e) {
+    echo "PDO orqali yangi ma'lumot kiritishda xatolik: " . $e->getMessage() . PHP_EOL;
+}
+
+//          Bir vaqtni o'zida bir nechta ma'lumot yozish:
+//  MySQLi da
+// multi_query() - funksiyasi orqali amalga oshirish mumkin
+$sql_insert = "INSERT INTO test.varcharTest (matn)
+VALUES ('Bu matn mysqli multi_query orqali bazaga kiritildi_1'),
+       ('Bu matn mysqli multi_query orqali bazaga kiritildi_2'),
+       ('Bu matn mysqli multi_query orqali bazaga kiritildi_3')";
+
+if ($conn_mysqli->multi_query($sql_insert) === TRUE) {
+    echo "mysqli orqali multi_query funskiyasi ishlatilib ma'lumotlar kiritildi" . PHP_EOL;
+} else {
+    echo "mysqli orqali multi_query funskiyasi ishlatilib ma'lumotlar kiritishda xatolik: " . $conn_mysqli->error;
+}
+//$conn_mysqli->close();
+
+//        PDO da
+try {
+    $conn->exec($sql_insert);
+    echo "PDO orqali yangi ma'lumot kiritildi" . PHP_EOL;
+} catch (PDOException $e) {
+    echo "PDO orqali multi_query ishlatishda xatolik: " . $e->getMessage() . PHP_EOL;
+}
+
+//  lastInsertId() - so'nggi kiritilgan qator yoki ketma-ketlik IDsi
+echo $conn->lastInsertId();
