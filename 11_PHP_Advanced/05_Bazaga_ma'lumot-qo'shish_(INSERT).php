@@ -78,3 +78,18 @@ try {
 } catch (Exception $e) {
     print_r($e->getMessage());
 }
+
+// yoki
+$data = [
+    ":firstname" => "Shuxratchik",
+    ":lastname" => "Shonazarov",
+    ":email" => "shuxratchik@gmail.com"
+];
+$insert = "INSERT INTO test.talaba(firstname, lastname, email)
+VALUES (:firstname, :lastname, :email);";
+$stmt = $conn->prepare($insert);
+try {
+    $stmt->execute($data);
+} catch (Exception $e) {
+    print_r($e->getMessage());
+}
