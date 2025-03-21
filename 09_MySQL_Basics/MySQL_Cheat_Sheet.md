@@ -225,6 +225,11 @@ SELECT [jadval1].[ustun] AS '[value]',
        [jadval2].[ustun] AS '[value]' 
 FROM [jadval1], [jadval2];
 
+       EVENT SCHEDULER - Rejalashtirilgan hodisalar:
+EVENT ni yoqish:
+SET GLOBAL event_scheduler = ON;   -- yoqish
+SET GLOBAL event_scheduler = OFF;  -- o'chirish       
+
         Foydalanuvchiga oid funksiyalari:
 Barcha foydalanuvchilar ro'yhati: 
 SELECT User, Host 
