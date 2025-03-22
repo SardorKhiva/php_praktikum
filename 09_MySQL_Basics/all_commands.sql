@@ -190,7 +190,7 @@ WHERE shartlar;          -- shu shartga mos ustunlarni yangilash
 # REPLACE - qiymatni almashtirish
 UPDATE employees.employees
 SET email = REPLACE(email, '@classicmodelcars.com', '@mail.uz')  -- 2-parametrni 3-parametrdagi qiymatlarga almashtirsin
-WHERE officeCode = 6                                             -- officeCode = 6 bo'lganlarini
+WHERE officeCode = 6;                                             -- officeCode = 6 bo'lganlarini
 
 #                     Ma'lumotni o'chirib qayta yozish - REPLACE
 # Jadvalga yangi ma`lumot qo`shayotganda,
@@ -201,3 +201,360 @@ WHERE officeCode = 6                                             -- officeCode =
 
 REPLACE INTO jadval (ustunlar)
 VALUES (qiymatlar);
+
+#                       Ma'lumotlarni o'chirish  -  DELETE
+-- shu shartga mos ma'lumotlar o'chirilsin
+DELETE
+FROM jadvaL_nomi
+WHERE shartlar;
+
+-- shart bo'lmasa jadval to'liq o'chadi
+DELETE
+FROM jadval_nomi;
+
+DELETE
+FROM jadval
+LIMIT 10;   -- boshidan 10 tani o'chirish
+
+#         Jadvalni o'zgartirish - ALTER TABLE
+# ALTER TABLE - jadvalga yangi ustun qo'shish,
+# ustun turini o'zgartirish,
+# ustun nomini o'zgartirish,
+# jadval nomini o'zgartirish yoki
+# ustunni o'chirish uchun ishlatiladi
+
+#     Yangi ustun qo'shish
+# Qolip
+ALTER TABLE jadval_nomi
+ADD yangi_ustun_nomi ustun_turi
+
+# Misol
+ALTER TABLE news
+ADD thumb_image VARBINARY(50)
+DEFAULT 0;
+
+# Yangi ustunni biror ustundan keyin hosil qilish
+ALTER TABLE news
+ADD thumb VARCHAR(50)  -- shu sutn hosil qilinsin
+DEFAULT NULL
+AFTER category_id;  -- shu ustundan keyin hosil qilinsin
+
+# Ustun o'rnini almashtirish
+# Qolip
+ALTER TABLE jadval
+CHANGE COLUMN ustun ustun_turi
+AFTER boshqa_ustun_nomi;
+
+# Misol
+ALTER TABLE employees.employees
+CHANGE COLUMN thumb_image VARCHAR(50)  -- shu ustun
+DEFAULT NULL
+AFTER title;                           -- shu ustundan keyin joylansin
+
+# Jadvalga yangi 2 ustun qo'shish
+ALTER TABLE jadval
+ADD yang_ustun  yangi_ustun_turi,
+ADD yangi_ustun_2 yangi_ustun_turi2;    -- va h.k
+
+# Ustun turini o'zgartirish:
+ALTER TABLE jadval_nomi
+MODIFY ustun_nomi TURI;     -- o'zgartiriladigan ustun turi yoziladi
+
+# Ustunni nomini o'zgartirish
+ALTER TABLE jadval
+CHANGE COLUMN ustun_eski_nomi ustun_yangi_nomi TURI;
+
+# Ustunni o'chirish
+ALTER TABLE jadval_nomi
+DROP COLUMN ustun_nomi;
+
+# Jadval nomini o'zgartirish
+# 1- usul
+ALTER TABLE jadval_nomi
+RENAME TO jadval_yangi_nomi;
+
+
+#             DATE funksiyalari
+# CURDATE - Joriy sanani YYYY-OO-KK formatida qaytarish
+SELECT CURDATE();
+
+# NOW - Joriy sana va vaqtni YYYY-OO-KK SS:DD:SS formatda qaytaradi
+SELECT NOW();
+
+# DATE - Yil-oy-kun ni olish
+SELECT DATE(NOW());     -- natija 2025-03-22
+
+# DAY - Kunni olib berish
+SELECT DAY(NOW());      -- bugungi kunni olib beradi
+
+# YEAR - Yilni olish
+SELECT YEAR(NOW());     -- bu yilni olib beradi, 2025
+
+# MONTH - Oyni olib beradi
+SELECT MONTH(NOW());    -- joriy oy
+
+# HOUR - Soatni olish
+SELECT HOUR(NOW());
+
+# WEEK - Shu kun yilninng nechanchi haftasi ekanligini olib beradi
+SELECT WEEK(NOW());
+
+# WEEKDAY - Hafta kuni indexini olISH
+SELECT WEEKDAY(NOW());  -- shu bugun shanba bo'lsa 5 ni qaytaradi
+
+# DAYOFWEEK - Berilgan sanan haftaning qaysi kuniga to'g'ri kelishi
+SELECT DAYOFWEEK(NOW());
+
+# DAYNAME - Sana kuni haftaning qaysi kunida ekanligini qaytaradi
+SELECT DAYNAME(NOW());
+
+# ADDDATE - Berilgan sanaga kun, soat, daqiqa va boshqalarni qo'shish
+-- sanaga 10 kun qo'shish
+SELECT ADDDATE('2025-03-22', 10);
+
+-- sanaga 10 kun qo'shish
+SELECT ADDDATE(CURDATE(), -10);
+
+-- 10 kunni INTERVAL bilan qo'shish
+SELECT ADDDATE(CURDATE(), INTERVAL 10 day); -- 10 kundan keyingi sana
+
+-- 10 soat qo'shish
+SELECT ADDDATE(CURDATE(), INTERVAL 10 hour);
+/* INTERVAL dan keyin bular yozilishi mumkin + va - orqali
+ year - yil,
+ quarter - 3 oylik (yil boshidan)
+ month - oy
+ week - hafta
+ day - kun
+ hour - soat
+ minute - daqiqa
+ second - soniya
+ */
+
+-- ADDTIME - sanaga vaqt qo'shish
+SELECT ADDTIME(NOW(), '2 02:12:11');    -- 2 kun va shuncha soat:daqiqa:soniya qo'shadi
+
+#           DATE_FORMAT()  -  berilgan sanani kerakli formatda chiqaradi
+# DATE_FORMAT(date, format);        umumiy ko'rinishi
+# date — sanani yoki vaqtni bildiradi (DATE, DATETIME, TIMESTAMP tipidagi ma'lumotlar).
+# format — sanani qanday formatda ko‘rsatishni belgilaydi (bu yerda format belgilaridan foydalaniladi).
+SELECT NOW(), DATE_FORMAT(NOW(), '%Y');
+SELECT NOW(), DATE_FORMAT(NOW(), '%y');
+SELECT NOW(), DATE_FORMAT(NOW(), '%d %m %Y ');
+# DATE_FORMAT() Format belgilarining ro‘yxati:
+/*------------+--------------------------------------+--------------+
+| Format kodi |	Tavsif                               | Misol        |
++-------------+--------------------------------------+--------------+
+| %Y	      | To‘liq yil (4 raqam)                 | 2025         |
+| %y 	      | Oxirgi 2 raqamli yil                 | 25           |
+| %m	      | Oyning raqamli shakli (2)            | 01           |
+| %c	      | Oyning raqamli shakli (1-12)         | 1            |
+| %M		  | Oy nomi (to‘liq)	                 | January      |
+| %b		  | Oy nomi (qisqa)	                     | Jan          |
+| %d		  | Kun (2 raqam bilan)	                 | 27           |
+| %e	      | Kun (1 yoki 2 raqam bilan)	         | 27           |
+| %H	      | Soat (24 soatli format)              | 15           |
+| %h		  | Soat (12 soatli format)	             | 03           |
+| %i	      | Daqiqa (2 raqam)                     | 05           |
+| %s	      | Sekund (2 raqam)	                 | 45           |
+| %p	      | AM yoki PM                           | PM           |
+| %w	      | Haftaning kuni (0-6)                 | 1 (dushanba) |
+| %W	      | Haftaning kuni (nomi bilan)          | Monday       |
+| %j	      | Yil boshlanganidan beri kun          | 027          |
+| %a	      | Haftaning kuni (qisqa nomi)	         | Mon          |
+| %U	      | Yil boshlanganidan beri hafta (1-53) | 04           |
++-------------------------------------------------------------------*/
+
+#     DATEDIFF()  -  2 sana orasidagi kunlar farqi
+SELECT DATEDIFF(CURDATE(), '2001-02-10'),
+       DATEDIFF(CURDATE(), '1997-02-13'),
+       DATEDIFF('2001-02-10', '1997-02-13');
+
+#       DATE_SUB() va SUBDATE()  -  berilgan sanadan biror vaqtni AYIRADI
+SELECT DATE_SUB(NOW(), INTERVAL 1 QUARTER);     -- hozirgi sanadan 1 kvartal (3 oy) ayiradi
+SELECT SUBDATE(NOW(), 330);
+
+#       MONTHNAME()  -  oy nomini inglizcha qaytaradi
+SELECT MONTH(CURRENT_DATE), MONTHNAME(CURDATE()), CURDATE();
+
+#       TIMEDIFF()  -  ikkita soat:daqiqa:soniya ni farqini qaytaradi
+SELECT NOW(), TIMEDIFF(TIME(NOW()), '19:34:56');
+SELECT NOW(), TIMEDIFF('19:34:56', TIME(NOW()));
+
+#                         Ma'lumotlarni guruhlash - GROUP BY
+SELECT ustunlar
+FROM jadval
+GROUP BY guruhlanadigan_ustun;  -- shu nomdagi ustunlardagi bir xil ma'lumotlar guruhlanadi
+# agregat funksiyal;ar bilan birgalikda ishlatiladi
+# misol:
+SELECT dept_no
+FROM dept_emp
+GROUP BY dept_no;
+
+# HAVING - guruhlanib chiqqan natijalarni filtrlash
+SELECT dept_no
+FROM dept_emp
+GROUP BY dept_no
+HAVING dept_no > 1000;  -- guruhlangan ustun ma'lumotlari ichidan shu sondan kattalarni tanlash
+
+# Xulosalash ROLLUP
+SELECT ustun1, ustun2, ..., agregat_funksiya(ustun)
+FROM jadval
+GROUP BY ROLLUP(ustun1, ustun2, ...);
+
+SELECT YEAR(paymentDate) as yil,
+       customerNumber as cus,
+       SUM(amount)
+FROM classicmodels.payments
+GROUP BY customerNumber,
+         YEAR(paymentDate) WITH ROLLUP  -- har bir guruhlangan ustunni summasi chiqarilyapti
+LIMIT 12;
+/* Natija:
++------+-----+-------------+
+| yil  | cus | SUM(amount) |
++------+-----+-------------+
+| 2003 | 103 |    14571.44 |
+| 2004 | 103 |     7742.92 |
+| NULL | 103 |    22314.36 |    <-- ROLLUP summalarni summasi har bir customerNumber uchun
+| 2003 | 112 |    32641.98 |
+| 2004 | 112 |    47539.00 |
+| NULL | 112 |    80180.98 |
+| 2003 | 114 |    53429.11 |
+| 2004 | 114 |   127155.96 |
+| NULL | 114 |   180585.07 |
+| 2004 | 119 |    67426.01 |
+| 2005 | 119 |    49523.67 |
+| NULL | 119 |   116949.68 |
++------+-----+-------------+
+12 rows in set (0.0018 sec)  */
+
+#             Tashqi kalitlar - FOREIGN KEY
+# 1-usul, nomsiz (MySQL ni o'zi nom beradi)
+CREATE TABLE student
+(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    course_id INT DEFAULT NULL,
+    FOREIGN KEY (course_id) -- shu ustun
+        REFERENCES course(id) -- course jadvalidagi id ga bog'lansin
+)
+
+# 2-usul, o'zimiz foreign key ga nom beramiz
+CREATE TABLE  student
+(
+    id INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+    course_id INT DEFAULT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT FK_student_c     -- FOREIGN KEY nomi
+        FOREIGN KEY(course_id)
+            REFERENCES course(id)
+);
+
+# Jadvalga FOREIGN KEY qo'shish
+ALTER TABLE student -- shu jadvaldagi
+ADD FOREIGN KEY (course_id) -- course_id ustuniga FOREIGN KEY qo'shish
+REFERENCES course (id);     -- course jadvalidagi id ustuniga havola qiluvchi
+
+# FOREIGN KEY ni o'chirish
+ALTER TABLE jadval
+DROP FOREIGN KEY foreign_key_name;
+
+#       CASCADE action lar
+# ON DELETE RESTRICT, CASCADE, SET NULL
+CREATE TABLE parent
+(
+    id INT PRIMARY KEY
+);
+
+CREATE TABLE child
+(
+  id INT PRIMARY KEY,
+  parent_id INT,
+  CONSTRAINT FK_child_id
+    FOREIGN KEY (parent_id)
+        REFERENCES parent(id)
+-- parent jadvalidan ma'lumot o'chirilsa, unga bog'langan child jadvalidagi ma'lumot ham o'chadi
+            ON DELETE CASCADE
+            ON DELETE SET NULL  -- NULL bo'ladi
+            ON DELETE RESTRICT  -- o'chirishga ruxsat bermaydi
+);
+
+# DELETE - o'chirilayotganda, UPDATE - yangilanayotganda
+
+#             Birlashitirish (eniga) - JOIN
+/* JOIN turlari:
+INNER JOIN                    - faqat mos keluvchi qatorlar
+LEFT JOIN (LEFT OUTER JOIN)   - chap tomondan barchasi, o'ng tomondan mos kelganlari, mos kelganlar bo'lmasa NULL
+RIGHT JOIN (RIGHT OUTER JOIN) - o'ng tomondan barchasi, chap tomondan mos kelganlari, mos kelganlar bo'lmasa NULL
+FULL JOIN(FULL OUTER JOIN)    - MySQL da UNION orqali amalga oshiriladi
+CROSS JOIN                    - har bir qatorni boshqa jadvaldagi har bir qator bilan birlashtiradi (kartesian ko'paytma)
+SELF JOIN                     - o'zini o'ziga qo'shish
+
+Misol:
+students (talabalar)
+id	name	group_id
+1	Ali	    101
+2	Hasan	102
+3	Bobur	101
+
+groups (guruhlar)
+id	  group_name
+101	   A guruhi
+102	   B guruhi
+*/
+# INNER JOIN ga misol:
+SELECT students.name,
+       groups.group_name
+FROM students
+INNER JOIN groups
+  ON students.group_id = groups.id;
+/* Natija:
+name	group_name
+Ali	    A guruhi
+Hasan	B guruhi
+Bobur	A guruhi
+*/
+
+#             Ma'lumotlarni yangilashda JOIN - UPDATE va JOIN
+# Boshqa jadval asosida bir jadvalni yangilash
+UPDATE jadval1
+JOIN jadval2
+  ON jadval1.common_column = jadval2.common_column
+SET jadval1.column_name = yangi_qiymat
+WHERE shartlar;
+
+/* Misol
+students (talabalar)
+id	name	group_id	scholarship
+1	Ali	    101	        200000
+2	Hasan	102	        250000
+3	Bobur	101	        200000
+
+groups (guruhlar)
+id  	group_name	bonus
+101	    A guruhi	50000
+102	    B guruhi	60000
+
+Agar har bir talabaga o'z guruhidagi `bonus` qiymatini
+`scholarship` (stipendiya) ustuniga qo'shmoqchi bo'lsak:
+ */
+UPDATE students
+JOIN groups
+  ON students.group_id = groups.id
+SET students.scholarship = students.scholarship + groups.bonus;
+/* Natija
+id	name	group_id	scholarship
+1	Ali	    101	        250000
+2	Hasan	102	        310000
+3	Bobur	101	        250000
+*/
+/* UPDATE JOIN turlari
+INNER JOIN - faqat mos keluvchi qatorlarni yangilaydi.
+LEFT JOIN  - chap jadvaldagi barchasini yangilaydi,
+             mos keluvchi ma'lumotlar topilmasa ham
+RIGHT JOIN - o'ng jadvaldagi barcha qatorlarni yangilaydi,
+             MySQL da kamdan-kam ishlatiladi
+*/
+
+# Ma'lumotlarni o'chirishda  - DELETE JOIN
