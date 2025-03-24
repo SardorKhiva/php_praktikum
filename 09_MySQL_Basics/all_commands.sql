@@ -557,4 +557,135 @@ RIGHT JOIN - o'ng jadvaldagi barcha qatorlarni yangilaydi,
              MySQL da kamdan-kam ishlatiladi
 */
 
-# Ma'lumotlarni o'chirishda  - DELETE JOIN
+# Bir nechta jadval asosida ma'lumotlarni o'chirish  - DELETE JOIN
+DELETE table1
+FROM table1     -- faqat shu jadvaldagi mos keluvchi qatorlarni o'chiradi
+JOIN table2
+  ON table1.common_column = table2.common_column
+WHERE condition;
+/* Misol:
+orders (buyurtmalar)
+id	customer_id	  product
+1	101	          Laptop
+2	102	          Phone
+3	103	          Tablet
+4	104	          Camera
+
+customers (mijozlar)
+id	name	is_active
+101	Ali	    1
+102	Hasan	0
+103	Bobur	0
+104	Salim	1
+ */
+#  customers jadvalidan is_active = 0 mijozlarni orders jadvalidan o'chirish uchun
+DELETE orders
+FROM orders
+JOIN customers
+  ON orders.customer_id = customers.id
+WHERE customers.is_active = 0;
+
+/* Natija
+id	customer_id	product
+1	101	        Laptop
+4	104	        Camera
+*/
+
+#     DELETE + LEFT JOIN
+DELETE orders
+FROM orders
+LEFT JOIN customers
+  ON orders.customer_id = customers.id
+WHERE customers.id IS NULL;
+# orders dan customers ga mos keluvchi yozuv bo'lmagan qatorlarni o'chiradi
+
+/*
+ DELETE + INNER JOIN -> mos keluvchi yozuvlarni o'chiradi,
+ DELETE + LEFT JOIN  -> boshqa jadvalda mos keluvchi qatori bo'lmagan youvlarni o'chiradi.
+ */
+
+#                                   SUBQUERY va EXISTS
+#           SELECT ichida - Bitta maydonni boshqa jadvaldan olish uchun
+# eng katta maosh olgan hodim:
+SELECT name, salary
+FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees); -- avval ichki so'rov keyin tashqi so'rov bajariladi
+
+#           FROM da (Derived Table)
+# har bir bo'lim uchun hodimlarning o'rtacha maoshi
+SELECT dept_id,
+       AVG(salary) AS avg_salary
+FROM (SELECT dept_id, salary FROM employees) AS temp -- subquery natijasini vaqtinchalik jadval sifatida ishlatish
+GROUP BY dept_id;
+
+#           WHERE da
+# sales jadvalidagi mijozlar customers jadvalida bor yo'qligini tekshirish
+SELECT name
+FROM customers
+WHERE id IN (SELECT customer_id FROM sales);
+
+#         EXISTS    bor yo'qligi
+SELECT select_list
+FROM a_table
+WHERE [NOT] EXISTS(subquery);
+
+SELECT customerNumber,
+       customerName
+FROM customers
+WHERE EXISTS(
+            SELECT 1
+            FROM orders
+            WHERE orders.customernumber = customers.customernumber);
+
+# sotib olmagan mijozlar ro'yhati
+SELECT customerNumber,
+       customerName
+FROM customers
+WHERE
+    NOT EXISTS(SELECT 1 FROM orders
+                        WHERE orders.customernumber = customers.customernumber);
+
+
+#             EXISTS da
+# hodimlari bor bo'limlarni chiqarish
+SELECT dept_name
+FROM departments d
+WHERE EXISTS (SELECT 1 FROM employees e WHERE e.dept_id = d.id);
+
+#             UPDATE da
+# max maosh olgan hodimni status ini Top Employee qilish
+UPDATE employees
+SET status = 'Top Employee'
+WHERE salary = (SELECT MAX(salary) FROM employees);
+
+#                 Ma'lumotlarni boshqa jadvalga asoslanib o'chirish - DELETE orqali
+# orders jadvalida yozuvi yo'q mijozlarni o'chirish (sotib olmagan mijozlarni o'chirish)
+DELETE
+FROM customers
+WHERE id NOT IN (SELECT DISTINCT customer_id FROM orders);
+
+
+#         UPDATE EXISTS
+SELECT employeenumber,
+       firstname,
+       lastname,
+       extension
+FROM employees
+WHERE EXISTS(
+    SELECT 1 FROM offices WHERE city = 'San Francisco'
+            AND offices.officeCode = employees.officeCode);
+
+
+/*
+ Xulosa
+  Subquery asosiy so‘rov ichida qo‘shimcha natija hosil qilish uchun ishlatiladi.
+  SELECT, FROM, WHERE, EXISTS, UPDATE, DELETE ichida ishlatish mumkin.
+  Bitta qiymat yoki bir nechta qator qaytarishi mumkin.
+ */
+
+#                    Jadvallarni (gorizontal) birlashtirish - UNION
+SELECT column_list
+FROM table1
+UNION [DISTINCT | ALL]
+SELECT column_list
+
