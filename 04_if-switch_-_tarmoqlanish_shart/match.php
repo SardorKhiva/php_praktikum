@@ -45,4 +45,3 @@ $amal = match ($a) {
     default => "bunday amal yo'q"
 };
 echo $amal;
-
