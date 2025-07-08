@@ -112,6 +112,7 @@ print_r($massiv1); // 2-indeksdan boshlab 3 ta elementni o'chirib, yangi massiv 
 
 // 3-holat:
 // 1-massivdan hech narsa o'chirmasdan, 2-massiv elementlarini qo'shadi
+/*
 $web_dasturlash = [
     'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'
 ];
@@ -125,3 +126,4 @@ print_r($web_dasturlash);
 array_splice($web_dasturlash, 1, 0, $yangi_dasturlash);
 echo "\n1-indeksdan boshlab yangi massiv elementlarini qo'shdi: \n";
 print_r($web_dasturlash); // 1-indeksdan boshlab yangi massiv elementlarini qo'shdi
+*/
