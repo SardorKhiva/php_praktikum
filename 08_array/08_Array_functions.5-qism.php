@@ -37,6 +37,7 @@ print_r($range_demo);
 */
 
 // sort(&array) - massivni o'sib borish tartibida saralaydi - asosiy massivni o'zgartiradi
+/*
 $massiv = range(1, 15); // 1 dan 15 gacha bo'lgan sonlar massivini hosil qiladi
 echo "Original massiv:\n";
 print_r($massiv);
@@ -48,3 +49,78 @@ print_r($massiv);
 echo "\nSaralangan massiv:\n";
 sort($massiv); // massivni o'sib borish tartibida saralash
 print_r($massiv);
+*/
+
+// rsort(&array) - revert sort, massivni kamayib borish tartibida saralaydi - asosiy massivni o'zgartiradi
+/*
+$massiv = range(1, 15);
+shuffle($massiv);
+echo "Aralashgan massiv:\n";
+print_r($massiv);
+
+echo "\nKamayib borish tartibida saralangan massiv:\n";
+rsort($massiv);
+print_r($massiv); // massivni kamayib borish tartibida saralash
+*/
+
+// asort(&array) - assotsiativ massivni qiymatlari bo'yicha
+// o'sib borish tartibida saralaydi - asosiy massivni o'zgartiradi
+/*
+$massiv = range(1, 15);
+shuffle($massiv);
+echo "Aralashgan massiv:\n";
+print_r($massiv);
+
+asort($massiv); // oldingi kalitlarni saqlab qoladi!
+echo "\nAssotsiativ massiv qiymatlarini o'sib borish tartibida saralangani:\n";
+print_r($massiv); // massivni qiymatlari bo'yicha o'sib borish tartibida saralash
+*/
+
+// arsort(&array) - oldingi funksiyani teskarisi,
+/*
+// assotsiativ massivni kalitlarini saqlab,
+// qiymatlari bo'yicha
+// kamayish tartibida saralaydi - asosiy massivni o'zgartiradi
+$massiv = range(1, 15);
+shuffle($massiv);
+echo "Aralashgan massiv:\n";
+print_r($massiv);
+
+arsort($massiv); // oldingi kalitlarni saqlab qoladi!
+echo "\nAssotsiativ massiv qiymatlarini kamayish tartibida saralangani:\n";
+print_r($massiv);
+*/
+
+// ksort(&array) - assotsiativ massivni kalitlari bo'yicha
+/*
+// o'sib borish tartibida saralaydi - asosiy massivni o'zgartiradi,
+// bunda kalit o'z elementidan ajralmaydi!
+$massiv = [
+    "b" => "red",
+    "c" => "blue",
+    "a" => "green",
+];
+
+ksort($massiv);
+echo "Assotsiativ massiv kalitlarini o'sib borish tartibida saralangani:\n";
+print_r($massiv); // massivni kalitlari bo'yicha o'sib borish tartibida saralash
+*/
+
+// krsort(&array) - assotsiativ massivni kalitlari bo'yicha
+/*
+// kamayish tartibida saralaydi - asosiy massivni o'zgartiradi,
+// bunda kalit o'z elementidan ajralmaydi!
+
+$colors = [
+    "b" => "red",
+    "c" => "blue",
+    "a" => "green",
+];
+echo "Original assotsiativ massiv:\n";
+print_r($colors);
+
+echo "Kalitlari kamayish tartibida saralangan assotsiativ massiv:\n";
+krsort($colors);
+print_r($colors);
+*/
+
