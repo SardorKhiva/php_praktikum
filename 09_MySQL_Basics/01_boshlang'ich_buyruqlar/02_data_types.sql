@@ -105,3 +105,143 @@ CREATE TABLE IF NOT EXISTS `categories`
 );
 
 # DATETIME
+CREATE TABLE `test_db`
+(
+    `id`         INT AUTO_INCREMENT PRIMARY KEY,
+    `created_at` DATETIME
+);
+
+INSERT INTO `test_db`(`created_at`)
+VALUES ('2019-12-10 14:29:36');
+
+# JSON
+
+/*
+CREATE TABLE IF NOT EXISTS `json_table_name`
+(
+    ...
+    json_column_name
+    JSON,
+    ...
+)
+*/
+# JSON turidagi ustunga DEFAULT qiymat berish mumkin emas.
+# INDEX qilish imkoni yo'q
+
+CREATE TABLE IF NOT EXISTS `events`
+(
+    `id`         INT AUTO_INCREMENT PRIMARY KEY,
+    `event_name` VARCHAR(255),
+    `visitor`    VARCHAR(255),
+    `properties` JSON,
+    `browser`    JSON
+);
+
+INSERT INTO `events`(`event_name`, `visitor`, `properties`, `browser`)
+VALUES ('pageview', '1',
+        '{
+          "page": "/"
+        }',
+        '{
+          "name": "Safari",
+          "OS": "Mac",
+          "resolution": {
+            "x": 1920,
+            "y": 1080
+          }
+        }'),
+       ('pageview', '2', '{
+         "page": "/contact"
+       }', '{
+         "name": "Firefox",
+         "OS": "Windows",
+         "resolution": {
+           "x": 2560,
+           "y": 1600
+         }
+       }'),
+       ('pageview', '1', '{
+         "page": "/products"
+       }',
+        '{
+          "name": "Safari",
+          "OS": "Mac",
+          "resolution": {
+            "x": 1920,
+            "y": 1080
+          }
+        }'),
+       ('purchase', '3', '{
+         "amount": 200
+       }',
+        '{
+          "name": "Firefox",
+          "OS": "Windows",
+          "resolution": {
+            "x": 1600,
+            "y": 900
+          }
+        }'),
+       ('purchase', '4',
+        '{
+          "amount": 150
+        }',
+        '{
+          "name": "Firefox",
+          "OS": "Windows",
+          "resolution": {
+            "x": 1280,
+            "y": 800
+          }
+        }'),
+       ('purchase', '4', '{
+         "amount": 500
+       }',
+        '{
+          "name": "Chrome",
+          "OS": "Windows",
+          "resolution": {
+            "x": 1680,
+            "y": 1050
+          }
+        }');
+
+SELECT *
+FROM `events`;
+
+# JSON ustunlaridan qiymatlarni olish uchun (->>) operatoridan foydalaniladi
+SELECT `id`,
+       `browser` -> '$.name'      browser,
+       `properties` -> '$.amount' amount
+FROM `events`;
+
+# https://www.digitalocean.com/community/tutorials/working-with-json-in-mysql
+
+# BOOLEAN
+CREATE TABLE `tasks`
+(
+    `id`        INT PRIMARY KEY AUTO_INCREMENT,
+    `title`     VARCHAR(255) NOT NULL,
+    `completed` BOOLEAN
+);
+
+# DECIMAL
+CREATE TABLE `materials`
+(
+    `id`          INT AUTO_INCREMENT PRIMARY KEY,
+    `description` VARCHAR(255),
+    `cost`        DECIMAL(19, 4) NOT NULL
+);
+
+INSERT INTO `materials`(`description`, `cost`)
+VALUES ('Bicycle', 500.34),
+       ('Seat', 10.23),
+       ('Break', 5.21);
+
+/*
+ DECIMAL(13, 4) - jami 13 ta raqam, 4 tasi verguldan keyingi sonlar
+ 999999999.9999 - yuqoridagining max qiymati
+
+DECIMAL(6, 4) - -99.9999 dan 99.9999
+UNSIGNED DECIMAL(6, 4) - 0.0000 dan 99.9999 gacha
+*/
