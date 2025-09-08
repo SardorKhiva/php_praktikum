@@ -61,3 +61,14 @@ USE `Xiva_Lolazor`;
 # bazani o'chirish
 DROP DATABASE `Xiva_Lolazor`;
 DROP DATABASE IF EXISTS `Xiva_Lolazor`;
+
+-- cd orqali console da joylashib turgan jilddagi sql faylni import qilish:
+# mysql -u root -p -e "SOURCE import_qilinadigan_db.sql";
+
+-- mysql -u root -h localhost -P 3306 -p
+/*
+ -u - user, foydalanuvchi,
+ -h - host, server nomi, adresi,
+ -P - port, serverning qaysi porti (binoning qaysi xonasi?),
+ -p - password, mysql baza paroli
+ */
