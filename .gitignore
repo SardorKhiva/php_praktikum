@@ -18,4 +18,5 @@
 *.xml
 /.fleet/
 /.run/
-.vscodeNotion/
+.vscode
+Notion/
