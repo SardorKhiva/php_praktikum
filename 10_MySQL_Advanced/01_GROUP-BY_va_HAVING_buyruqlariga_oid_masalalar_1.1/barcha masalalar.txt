@@ -1,0 +1,76 @@
+GROUP BY va HAVING buyruqlariga oid masalalar. 1.1
+Ushbu masalalarni ishlashda classicmodels jadvalidan foydalaning
+
+Terminlar
+-customerNumber - mijoz id si
+-order - zakaz
+-status - holati
+-orderDate - zakaz qilingan vaqti
+-shippedDate - yetkazilgan vaqti
+-reqiuredDate - yetkazish shart bo`lgan sana
+
+"products" jadvali:
+-productLine - Produkt turi
+-quantityInStock - maxsulotning soni
+-buy_price - narxi
+-quantityOrdered - nechta buyurtma qilingani soni
+
+
+
+Har bir masalaning so'rovini yozib yuboring.
+
+"orders" jadvalidan:
+1) - har bir mijoz jami nechtadan zakazni amalaga oshirgan
+2) - zakazlarning nechtasi "Shipped", nechtasi "Cancelled", nechtasi "In Process", nechtasi "On Hold", nechtasi "Resolved" , nechtasi "Disputed" .
+3) - kuniga nechtadan zakaz kelib tushganini aniqlang. Yani 2003-03-03 kuni 10,     2003-03-13 kuni 6 ta va hakazo.
+4) - 2003 - yilda qilingan buyurtmalarni hafta kunlari bo`yicha, nechtadan buyurtma bo`lganini aniqlang.
+
+Quyidagidek natija chiqishi kerak:
+
+       +---------------+------+
+        | kunlar       | soni |
+        +--------------+------+
+        | Friday       |   21 |
+        | Monday    |   18 |
+        | Saturday   |    5 |
+        | Sunday     |    4 |
+        | Thursday  |   17 |
+        | Tuesday   |   23 |
+        | Wednesday |   23 |
+        +-----------+------+
+5) - har yilda nechtadan buyurtma qilinganini aniqlang
+6) - har oyda nechtadan zakaz buyurtma qilinganini aniqlang
+7) - eng qisqa muddatda yetkazilgan buyurtmalarni guruhlang.
+Misol uchun: 1 kunni ichida yetkzailgan buyurtmalar soni 6 ta, 2 kunni ichida yetkzailgan buyurmalar soni 16 ta vhkz
+        +-----------------+------+
+        | yetkazilgan_kun | soni |
+        +-----------------+------+
+        |            NULL |   14 |
+        |               1 |   50 |
+        |               2 |   49 |
+        |               3 |   52 |
+        |               4 |   52 |
+        |               5 |   59 |
+        |               6 |   45 |
+        |               7 |    2 |
+        |               8 |    2 |
+        |              65 |    1 |
+        +-----------------+------+
+
+8) - 2004 - yilda qaysi oylarda 10 tadan kam zakaz bo`lgan bo`lsa shularni aniqlang. nechtadan zakaz bo`lganini ham ko`rsating
+        +---------+------+
+        | oylar   | soni |
+        +---------+------+
+        | January |    8 |
+        | March   |    8 |
+        | May     |    8 |
+        +---------+------+
+9) - customerNumber=141 bo`lgan mijoz, 2003, 2004,2005 - yillarda qilgan buyurtmalarining, nechtasi "Shipped" bo`lganini aniqlang.
+        +------+------+
+        | yil  | soni |
+        +------+------+
+        | 2003 |    8 |
+        | 2004 |    8 |
+        | 2005 |    6 |
+        +------+------+
+

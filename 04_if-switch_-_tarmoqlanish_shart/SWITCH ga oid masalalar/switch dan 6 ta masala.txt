@@ -1,0 +1,44 @@
+1-masala.
+Berilgan son(1 dan 10 gacha bolgan sonlar)ni so`zlar yordamida ifodalang.
+7 - yetti;
+
+2-masala.
+Berilgan son(1 dan 100 gacha bo`lgan sonlar)ni sozlar yordamida ifodalang
+67 - oltmish yetti
+
+3-masala.
+Berilgan son(1 dan 999 999  gacha bo`lgan sonlar)ni
+so`zlarda ifodalang.
+
+4-masala.
+Eshmatda N so`m puli bor.
+Bankomatga borib uni boshqa valyutaga almashtirmoqchi.
+Eshmat ni puli valyutalar kursi bo`yicha hisoblansin.
+Agar Eshmat Dollar ni tanlasa, dollar kursi bo`yicha, yevroni tanlasa yevro
+kursi bo`yicha hisoblasin.
+Dollar, Rubl, Euro, Tanga lardan bittasi bo`lishi mumkin.
+
+5-masala.
+Sodda kalkulyator qiling. Ikkita son berilgan A va B;
+Shu sonlar ustida qo`shish, ayirish, bo`lish, ko`paytirish amallarini bajaring.
+$amal = "-"; bo`lsa ayirsin, $amal = "*" bo`lsa, ikkita sonni kopaytirsin.
++ bo`lsa qo`shsin, / bo`lsa bo`lsin.
+
+6-masala.
+Ikkita burj vaqtlarini aniqlovchi butun son berilgan.
+D - kun. M - oy; 
+Misol: D=2; M=12; - bu degani 12->dekabr, 2->kun, 2-dekabr 
+Berilgan sana qaysi burjga kirishi aniqlansin.
+
+BUZOQ BURJI (20.04-20.05)
+EGIZAKLAR BURJI (21.05-21.06)
+QISQICHBAQA BURJI (22.06-22.07)
+ARSLON BURJI (23.07-23.08)
+SUMBULA BURJI (24.08-23.09)
+TAROZI BURJI (24.09-23.10)
+CHAYON BURJI (24.10-22.11)
+O’Q OTAR BURJI (23.11-22.12)
+TOG’ ECHKISI BURJI (22.12-20.01)
+QOVG’A BURJI (21.01-19.02)
+BALIQ BURJI (20.02-20.03)
+QO'Y BURJI ()21.03-19.04
