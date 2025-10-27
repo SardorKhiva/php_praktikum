@@ -1,0 +1,15 @@
+"payments" jadvalidan:
+- 2003 - yil, nechta to`lov bo`lgan va necha so`mlik bo`lganini
+- 2004 - yil dekabr oyida nechta to`lov bo`lgan va necha so`mlik bo`lganini
+- 2005 - yildagi barcha dushanba kunlariida, jami necha so`mlik xarid bo`lganini aniqlang
+- 2004 - yilda , yanvardan to mart oyining oxirigacha jami necha so`mlik xarid bo`lganini aniqlang
+
+"orderDate" - buyurtma qilingan sana
+"shippedDate" - yetkazilgan sana
+"requiredDate" - gacha yetkazilishi shart bo`lgan sana
+
+"orders" jadvalidan:
+- customerNumber=141 bo`lgan mijoz, 2005 - yilda qilgan buyurtmalarining, nechtasi "Shipped" bo`lganini aniqlang
+- 2003 - yilda eng uzoq vaqtda yetkazib berilgan 10 ta buyurtmani aniqlang
+- 2004 - yilda eng qisqa muddatda yetkazilgan 10 ta buyurtmani aniqlang
+- 2005 - yilda eng kam vaqtda yetkazilgan 10 ta buyurtmalarnini va necha kunda yetkazilganini chiqaring
