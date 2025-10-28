@@ -61,7 +61,8 @@ Java kursiga boradiganlar bor,
 HTML va JAVA kursiga boradiganlar ham bor.
 Umuman kursga bormaydiganlar ham bor.
 
-Bizga kim qaysi kursga borayotganligi haqida ma`lumotni olish uchun INNER JOIN dan foydalanamiz. Ya`ni ikkita jadvalda bir biriga mos bo`lgan ma`lumotlarni olish uchun INNER JOIN dan foydalanamiz.
+Bizga kim qaysi kursga borayotganligi haqida ma`lumotni olish uchun INNER JOIN dan foydalanamiz.
+Ya`ni ikkita jadvalda bir biriga mos bo`lgan ma`lumotlarni olish uchun INNER JOIN dan foydalanamiz.
 Agar 1-jadvalda ikkinchisiga bog`liq ma`lumot bo`lmasa ularni olmaydi.
 */
 
