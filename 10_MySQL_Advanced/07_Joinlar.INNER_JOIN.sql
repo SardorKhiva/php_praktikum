@@ -202,10 +202,12 @@ ORDER BY `student`.`id`;
 
 
 /*
-**JOIN** qilish uchun turli shartlar asosida bog'lanish mumkin. Quyida **JOIN** operatsiyasini amalga oshirishda ishlatiladigan ba'zi shartlar:
+**JOIN** qilish uchun turli shartlar asosida bog'lanish mumkin.
+Quyida **JOIN** operatsiyasini amalga oshirishda ishlatiladigan ba'zi shartlar:
 
 ### 1. **Egalik Sharti (`ON`)**
-Egalik sharti — bu eng keng tarqalgan **JOIN** shartidir. Bu shartda siz ikkita jadvalni bog'lash uchun ustunlarning tengligini ta'minlaysiz.
+Egalik sharti — bu eng keng tarqalgan **JOIN** shartidir.
+Bu shartda siz ikkita jadvalni bog'lash uchun ustunlarning tengligini ta'minlaysiz.
 
 #### Misol:
 Agar `orders` jadvalida `customerNumber` va `customers` jadvalida `customerNumber` mavjud bo'lsa:
@@ -236,7 +238,8 @@ Bu yerda `amount` ustuni `buyPrice` ustunidan katta bo'lishi kerak.
 Bir nechta shartni birlashtirish uchun **AND** yoki **OR** mantiqiy operatorlaridan foydalanishingiz mumkin.
 
 #### Misol:
-Agar `employees` va `departments` jadvallari bo'lsa, va siz xodimlar lavozimi `Manager` bo'lishi, shuningdek bo'lim kodi `1` bo'lishi kerak deb talab qilsangiz:
+Agar `employees` va `departments` jadvallari bo'lsa, va siz xodimlar lavozimi `Manager` bo'lishi,
+shuningdek bo'lim kodi `1` bo'lishi kerak deb talab qilsangiz:
 
 ```sql
 SELECT e.firstName, e.lastName, d.dept_name
@@ -245,7 +248,8 @@ JOIN departments d ON e.jobTitle = 'Manager' AND e.dept_no = d.dept_no;
 ```
 
 ### 4. **`IS NULL` yoki `IS NOT NULL`**
-Agar sizning maqsadingiz **NULL** qiymatlar bilan ishlash bo'lsa, masalan, ma'lum ustunda qiymat mavjud yoki yo'qligini tekshirish.
+Agar sizning maqsadingiz **NULL** qiymatlar bilan ishlash bo'lsa,
+masalan, ma'lum ustunda qiymat mavjud yoki yo'qligini tekshirish.
 
 #### Misol:
 Agar `employees` jadvalidagi `reportsTo` ustunida **NULL** bo'lmagan xodimlarni ko'rsatmoqchi bo'lsangiz:
@@ -257,10 +261,12 @@ JOIN employees m ON e.reportsTo = m.employeeNumber
 WHERE e.reportsTo IS NOT NULL;
 ```
 
-Bu yerda, `e.reportsTo` ustuni bo'yicha o'zaro bog'lanadi va `reportsTo` ustuni **NULL** bo'lmagan xodimlar chiqariladi.
+Bu yerda, `e.reportsTo` ustuni bo'yicha o'zaro bog'lanadi va
+`reportsTo` ustuni **NULL** bo'lmagan xodimlar chiqariladi.
 
 ### 5. **`BETWEEN` Shartlari**
-`BETWEEN` operatori ikki qiymat o'rtasidagi intervalni tekshiradi. Bu shartda siz sonli yoki sana turidagi ustunlar bilan ishlashingiz mumkin.
+`BETWEEN` operatori ikki qiymat o'rtasidagi intervalni tekshiradi.
+Bu shartda siz sonli yoki sana turidagi ustunlar bilan ishlashingiz mumkin.
 
 #### Misol:
 Agar sizda `orders` jadvali bo'lsa va buyurtma sanasi 2020-yil yanvar va fevral o'rtasida bo'lsa:
@@ -273,7 +279,8 @@ WHERE o.orderDate BETWEEN '2020-01-01' AND '2020-02-29';
 ```
 
 ### 6. **`LIKE` Operatoridan Foydalanish**
-Agar siz ma'lum bir naqshga mos keluvchi qiymatlarni qidirmoqchi bo'lsangiz, **LIKE** operatoridan foydalanishingiz mumkin.
+Agar siz ma'lum bir naqshga mos keluvchi qiymatlarni qidirmoqchi bo'lsangiz,
+**LIKE** operatoridan foydalanishingiz mumkin.
 
 #### Misol:
 Agar siz xodimlarning ismlari "A" harfi bilan boshlanayotganlarini qidirmoqchi bo'lsangiz:
@@ -291,7 +298,8 @@ Bu yerda `LIKE 'A%'` sharti faqat "A" bilan boshlanadigan ismlar uchun ishlaydi.
 Agar siz bir nechta qiymatni tekshirmoqchi bo'lsangiz, **IN** operatoridan foydalanishingiz mumkin.
 
 #### Misol:
-Agar siz `departments` jadvalidagi bo'limlardan faqat `1`, `2`, yoki `3` bo'lim kodiga ega xodimlarni ko'rsatmoqchi bo'lsangiz:
+Agar siz `departments` jadvalidagi bo'limlardan faqat `1`, `2`,
+yoki `3` bo'lim kodiga ega xodimlarni ko'rsatmoqchi bo'lsangiz:
 
 ```sql
 SELECT e.firstName, e.lastName, e.dept_no
@@ -304,7 +312,8 @@ WHERE e.dept_no IN (1, 2, 3);
 **`EXISTS`** operatori yordamida, ma'lum bir subquery mavjud bo'lsa, shartni qo'llashingiz mumkin.
 
 #### Misol:
-Agar sizda `employees` va `departments` jadvallari bo'lsa va faqat xodimlar mavjud bo'lgan bo'limlarni ko'rsatmoqchi bo'lsangiz:
+Agar sizda `employees` va `departments` jadvallari bo'lsa va
+faqat xodimlar mavjud bo'lgan bo'limlarni ko'rsatmoqchi bo'lsangiz:
 
 ```sql
 SELECT e.firstName, e.lastName
@@ -317,5 +326,7 @@ WHERE EXISTS (
 ```
 
 ### Xulosa:
-Siz **JOIN** operatsiyasini turli shartlar asosida amalga oshirishingiz mumkin: tenglik, qiyoslash, mantiqiy operatorlar, **NULL** tekshiruvi, va boshqa shartlar. Bu imkoniyatlar sizga jadvallarni kerakli tarzda bog'lash va ma'lumotlarni olishda moslashuvchanlik beradi.
- */
+Siz **JOIN** operatsiyasini turli shartlar asosida amalga oshirishingiz mumkin:
+tenglik, qiyoslash, mantiqiy operatorlar, **NULL** tekshiruvi, va boshqa shartlar.
+Bu imkoniyatlar sizga jadvallarni kerakli tarzda bog'lash va ma'lumotlarni olishda moslashuvchanlik beradi.
+*/
