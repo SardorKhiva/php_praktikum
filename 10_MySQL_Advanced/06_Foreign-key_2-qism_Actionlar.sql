@@ -422,3 +422,90 @@ FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE NO ACTION;
 - `SET NULL` — оставляет записи, но сбрасывает `NULL`.
 - `RESTRICT` / `NO ACTION` — запрещает удаление/обновление, если есть зависимые записи.
 */
+
+/*
+  CASCADE nima o‘zi?
+
+CASCADE — bu ota-jadvaldagi (parent table) yozuv o‘zgarganda yoki o‘chirilganda,
+farzand-jadvaldagi (child table) bog‘liq yozuvlar bilan nima qilish kerakligini belgilovchi qoidalar to‘plami.
+
+Ya’ni:
+
+FOREIGN KEY orqali bog‘langan yozuvga biror o‘zgarish kiritilsa — MySQL nimani qilishi kerak?
+
+🔗 Misol orqali tushunaylik
+1️⃣ Ota jadval (users)
+CREATE TABLE users (
+  user_id INT PRIMARY KEY,
+  name VARCHAR(50)
+);
+
+2️⃣ Farzand jadval (orders)
+CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+
+Bu yerda:
+
+orders.user_id → users.user_id ga bog‘langan.
+
+ON DELETE CASCADE — agar users jadvalidan foydalanuvchi o‘chirilsa, uning barcha buyurtmalari (orders) avtomatik o‘chadi.
+
+ON UPDATE CASCADE — agar users dagi user_id o‘zgarsa, orders dagi user_id ham mos ravishda yangilanadi.
+
+🔥 CASCADE action’lar turlari:
+Action turi	Tavsif	Misol
+CASCADE	Ota jadvaldagi o‘zgarish farzand jadvalga avtomatik qo‘llanadi	user o‘chsa — orders ham o‘chadi
+SET NULL	Ota jadvaldagi yozuv o‘chirilsa yoki yangilansa — farzanddagi chet kalit ustuni NULL bo‘ladi	user o‘chsa → orders.user_id = NULL
+SET DEFAULT	Ota jadvaldagi o‘zgarishda farzand ustuniga default qiymat beriladi	user_id o‘chsa → orders.user_id = 0
+RESTRICT (default)	Ota jadvaldagi yozuvni o‘chirish yoki o‘zgartirish taqiqlanadi, agar farzand jadvalda unga bog‘liq yozuv bo‘lsa	user o‘chmaydi, chunki u buyurtmalarga bog‘langan
+NO ACTION	RESTRICT bilan deyarli bir xil (faqat kechiktirilgan cheklovlarda farq qiladi)	O‘chirish ruxsat etilmaydi
+🧠 Esda tut:
+
+ON DELETE — ota jadvaldagi yozuv o‘chirilganda ishlaydi.
+
+ON UPDATE — ota jadvaldagi kalit yangilanganda ishlaydi.
+
+Har bir FOREIGN KEY uchun ularni alohida yoki birgalikda yozish mumkin.
+
+🧩 Tezkor misollar:
+✅ Har ikkala CASCADE bilan:
+FOREIGN KEY (user_id)
+  REFERENCES users(user_id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+❌ Faqat delete paytida:
+FOREIGN KEY (user_id)
+  REFERENCES users(user_id)
+  ON DELETE CASCADE;
+
+⛔ Taqiqlovchi:
+FOREIGN KEY (user_id)
+  REFERENCES users(user_id)
+  ON DELETE RESTRICT;
+
+💡 Hayotiy misol:
+
+Faraz qil:
+
+users jadvalida foydalanuvchi “Ali” bor.
+
+orders jadvalida Aliga tegishli 5 ta buyurtma bor.
+
+Agar users jadvalidan Alini o‘chir:
+
+DELETE FROM users WHERE user_id = 5;
+
+
+Agar ON DELETE CASCADE bo‘lsa — u bilan bog‘liq barcha buyurtmalar ham o‘chadi.
+
+Agar ON DELETE RESTRICT bo‘lsa — xato xabar chiqadi:
+
+Cannot delete or update a parent row: a foreign key constraint fails
+ */
