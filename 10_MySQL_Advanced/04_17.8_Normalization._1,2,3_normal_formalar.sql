@@ -93,3 +93,137 @@ Bu yerda **DekanIsmi** fakultetga bog‘liq, lekin asosiy kalitga emas. Uni 3NF 
 1. Ma'lumotlar takrorlanishi kamayadi.
 2. Ma'lumotlarni yangilash osonlashadi.
 3. Bo‘sh joy tejaladi va ma'lumotlar bazasining samaradorligi oshadi.
+
+🧩 4-bosqich: BCNF (Boyce–Codd Normal Form)
+🎯 Maqsad:
+
+3NF’dan keyin ham ba’zi hollarda murakkab kalitlar (ya’ni bir nechta ustunlardan tashkil topgan kalitlar) sababli takrorlanish qolishi mumkin.
+BCNF shularni ham tozalaydi.
+
+📊 Misol:
+Student	Course	Teacher
+Ali	Fizika	Karimov
+Ali	Matematika	Karimov
+Vali	Fizika	Qodirov
+
+Qoidalar:
+
+Har bir fan (Course) faqat bitta o‘qituvchi bilan bog‘langan
+
+Lekin o‘sha o‘qituvchi bir nechta fanni o‘qitishi mumkin
+
+Bu holatda “Course → Teacher” bog‘liqlik mavjud, lekin bu asosiy kalit (Student, Course) ga to‘liq bog‘liq emas.
+
+✅ BCNF ga keltiramiz:
+
+Uni ikkita jadvalga bo‘lamiz:
+
+Courses jadvali
+
+Course	Teacher
+Fizika	Karimov
+Matematika	Karimov
+Fizika	Qodirov
+
+Students jadvali
+
+Student	Course
+Ali	Fizika
+Ali	Matematika
+Vali	Fizika
+
+Endi takroriylik yo‘q, hamma narsa o‘z joyida.
+
+🧩 5-bosqich: 4NF (To‘rtinchi normal shakl)
+🎯 Maqsad:
+
+Agar bitta jadvalda bir nechta mustaqil ko‘p-ko‘p munosabatlar bo‘lsa, ularni ajratish kerak.
+Ya’ni, agar jadval bir vaqtning o‘zida ikki xil ro‘yxatni tutsa, bu xato.
+
+📊 Misol:
+Student	Language	Sport
+Ali	Ingliz tili	Futbol
+Ali	Rus tili	Basketbol
+
+Bu yerda Ali ikki xil yo‘nalishda ishtirok etyapti:
+
+tillar bo‘yicha (Language)
+
+sport bo‘yicha (Sport)
+
+Ammo tillar bilan sportlar bir-biriga bog‘liq emas!
+
+✅ 4NF ga keltiramiz:
+
+Bu jadvalni ikkiga ajratamiz:
+
+StudentLanguages
+
+Student	Language
+Ali	Ingliz tili
+Ali	Rus tili
+
+StudentSports
+
+Student	Sport
+Ali	Futbol
+Ali	Basketbol
+
+Endi ma’lumotlar takrorlanmaydi va har biri mustaqil ro‘yxat bo‘ldi.
+
+🧩 6-bosqich: 5NF (Beshinchi normal shakl, yoki Project-Join NF)
+🎯 Maqsad:
+
+Bu eng “tartibli” holat.
+Agar jadvaldagi ma’lumotlar faqat kerakli hollarda birlashtirilsa va sun’iy qayta tiklash zaruratini yo‘qotsa — demak u 5NF da.
+
+📊 Misol:
+Student	Course	Teacher
+Ali	Matematika	Hasanov
+Ali	Fizika	Karimov
+
+Endi faraz qilaylik:
+
+Ba’zi kurslar bir nechta o‘qituvchi bilan bo‘lishi mumkin
+
+Ba’zi o‘qituvchilar bir nechta kurs o‘qitadi
+
+Har bir talaba ham bir nechta o‘qituvchidan saboq oladi
+
+Bu holatda ma’lumotlarni “birlashtirish” orqali tiklash mumkin bo‘lgan qismlarga bo‘lish kerak.
+
+✅ 5NF ga keltiramiz:
+
+Uchta mustaqil jadval hosil qilamiz:
+
+Students
+
+Student
+Ali
+
+Courses
+
+Course
+Matematika
+Fizika
+
+Teachers
+
+Teacher
+Hasanov
+Karimov
+
+Keyin alohida bog‘lovchi jadvallar:
+
+StudentCourses
+
+CourseTeachers
+
+Bu orqali ma’lumotlarni kerak paytda JOIN bilan birlashtiramiz.
+
+🧠 Xulosa:
+Bosqich	    Qisqa mazmuni
+BCNF	    Murakkab kalitli bog‘liqliklarni ham tozalaydi
+4NF	        Mustaqil ko‘p-ko‘p bog‘lanishlarni ajratadi
+5NF	        Faqat zarur joylarda birlashtirishni saqlaydi — ortiqcha bog‘lanishlarni yo‘q qiladi
+*/
