@@ -15,7 +15,7 @@ $firstname = 'bu-ismm';     // bu qator ta'sir qilmaydi, bindParam() da ta'sir q
 execut($stmt);
 
 
-function execut(&$stmt)
+function execut(&$stmt): void
 {
     try {
         $stmt->execute();

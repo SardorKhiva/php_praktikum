@@ -7,7 +7,7 @@ $dbname = 'test';
 
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);
-//    echo 'mysqli orqali MySQL ga ulandi' . PHP_EOL;
+    echo 'mysqli orqali MySQL ga ulandi' . PHP_EOL;
 } catch (mysqli_sql_exception $e) {
 //    print_r($e);
     echo 'mysqli orqali MySQL ga ulanmadi: ' . $e->getMessage() . PHP_EOL;

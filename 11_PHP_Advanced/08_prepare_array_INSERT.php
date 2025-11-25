@@ -4,12 +4,11 @@ require '02_conn.php';
 
 $data = [
     ':firstname' => 'Alex',
-    ':lastname' => 'Bobbi',
-    ':email' => 'alexbobbi@gmail.com'
+    ':lastname' => 'Bobbi'
 ];
 
-$insert = "INSERT INTO test.talaba (firstname, lastname, email)
-            VALUES (:firstname, :lastname, :email);";
+$insert = "INSERT INTO test.talaba (firstname, lastname)
+            VALUES (:firstname, :lastname);";
 
 $stmt = $conn->prepare($insert);
 

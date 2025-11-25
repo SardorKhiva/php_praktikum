@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>cf360404-20fc-468d-be20-fe08fea6dc31.SCHEMA:classicmodels</OriginalElement>
+  <nodes>
+    <node x="129.03673903466358" y="445.61352648885884">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.productlines</node>
+    <node x="-108.85290894914942" y="936.5852392900536">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.products</node>
+    <node x="235.4995443077725" y="-175.79990889440123">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.offices</node>
+    <node x="172.8030816604112" y="1183.1080303268352">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orderdetails</node>
+    <node x="19.163876814676996" y="84.51973143429228">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.employees</node>
+    <node x="336.4406014984496" y="273.60125811649186">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.customers</node>
+    <node x="124.91473790233174" y="951.4495302488014">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.payments</node>
+    <node x="123.10322050286547" y="682.738105303652">cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orders</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.employees" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.offices" relationship="REFERENCES">
+      <point x="0.0" y="-116.0" />
+      <point x="96.663876814677" y="-47.79990889440123" />
+      <point x="-64.5" y="0.0" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.customers" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.employees" relationship="REFERENCES">
+      <point x="-108.5" y="-168.5" />
+      <point x="77.5" y="80.58152668219958" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orderdetails" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orders" relationship="REFERENCES">
+      <point x="-77.5" y="0.0" />
+      <point x="105.60322050286547" y="1263.1080303268352" />
+      <point x="105.60322050286547" y="786.738105303652" />
+      <point x="-76.5" y="0.0" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.products" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.productlines" relationship="REFERENCES">
+      <point x="0.0" y="-128.0" />
+      <point x="-23.852908949149423" y="513.6135264888588" />
+      <point x="-73.5" y="0.0" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orders" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.customers" relationship="REFERENCES">
+      <point x="76.49977949713454" y="-1.0530365193517355E-4" />
+      <point x="308.0" y="786.738" />
+      <point x="308.0" y="449.601" />
+      <point x="-108.49960149844961" y="-2.5811649186380237E-4" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.payments" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.customers" relationship="REFERENCES">
+      <point x="76.50026209766826" y="4.697511986933023E-4" />
+      <point x="308.0" y="1019.45" />
+      <point x="308.0" y="449.601" />
+      <point x="-108.49960149844961" y="-2.5811649186380237E-4" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.orderdetails" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.products" relationship="REFERENCES">
+      <point x="-77.5" y="15.0" />
+      <point x="-23.852908949149423" y="1278.1080303268352" />
+      <point x="0.0" y="128.0" />
+    </edge>
+    <edge source="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.employees" target="cf360404-20fc-468d-be20-fe08fea6dc31.TABLE:classicmodels.employees" relationship="REFERENCES">
+      <point x="15.0" y="-116.0" />
+      <point x="111.663876814677" y="67.01973143429228" />
+      <point x="191.663876814677" y="67.01973143429228" />
+      <point x="191.663876814677" y="200.51973143429228" />
+      <point x="77.5" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.4701298701298701" showDependencies="false" x="232.5" y="594.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

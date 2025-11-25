@@ -2,8 +2,8 @@
 
 require('02_conn.php');
 
-$sql_insert = "INSERT INTO test.talaba (firstname, lastname, email) 
-               VALUES ('Sardor', 'asdf', 'dszgfS')";
+$sql_insert = "INSERT INTO `test`.`talaba` (`firstname`, `lastname`) 
+               VALUES ('Sardor', 'asdqasf')";
 
 try {
     $conn->exec($sql_insert);
