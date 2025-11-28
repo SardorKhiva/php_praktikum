@@ -89,7 +89,7 @@ try {
     echo $e->getMessage();
 }
 
-resume:
+
 // fetchAll() - so'rov natijalarini hammasini oladi
 $firstname = 'Sardor';
 $sth = $pdo->prepare("SELECT * 
@@ -108,6 +108,7 @@ try {
     echo $e->getMessage();
 }
 
+
 // rowCount() - so'rov natijasidagi qatorlar soni
 $firstname = 'Sardor';
 $sth = $pdo->prepare("SELECT * 
@@ -122,8 +123,26 @@ try {
     echo $e->getMessage();
 }
 
+resume:
 // errorInfo()  -  SQL so'rov bajarilganda sodir bo'lgan xatoliklarni olish
+$firstname = 'Sardora';
 $sth = $pdo->prepare("SELECT * 
                             FROM `talaba` 
                             WHERE `firstname` = :ism;");
-$sth->bindValue(':ism', $firstname, PDO::PARAM_STR);
+try {
+    $sth->bindValue(':ism', $firstname, PDO::PARAM_STR);
+    $sth->execute();
+    $natijalar = $sth->fetchAll(PDO::FETCH_ASSOC);
+    echo "<pre>";
+    if (!empty($natijalar)) {
+        print_r($natijalar);
+    } else {
+
+        echo "natija null: \n";
+        print_r($sth->errorInfo());
+    }
+    echo "</pre>";
+} catch (PDOException $e) {
+//    $error = ;
+}
+
