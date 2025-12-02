@@ -419,13 +419,44 @@ $newName = time() . ".jpg";
 move_uploaded_file($tmp, "uploads/$newName");
 
 
-
 // pathinfo() - fayl haqida ma'lumotlarni olish
 $fayl = 'test.txt';
 $path_info = pathinfo($fayl);
 print_r($path_info);
 
 
-go:
 // readfile(string $filename): int|false
 // fayl mazmunini brauzerga chiqaradi
+$fayl = 'file.csv';
+readfile($fayl);  // darhol faylni chiqaradi
+
+// bu kod $fayl ni yuklaydi
+if (file_exists($fayl)) {
+    header("Content-Description: File Transfer");
+    header("Content-Type: application/octet-stream");
+    header('Content-Disposition: attachment; filename="' . basename($fayl) . '"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($fayl));
+    readfile($fayl);
+    exit;
+}
+
+
+// rename() - fayl yoki katalog nomini o'zgartiradi
+rename('test', 'test.bak');  // 1-si eski nom, 2-si yangi, test papkasi test.bak bo'ldi
+
+
+// rmdir() - papkani o'chiradi
+if (rmdir(is_dir('test.bak'))) {  // papkaligi aniq bo'lsa o'chirilsin
+    echo "test.bak folder deleted";
+}
+
+
+go:
+// unlink() - faylni o'chiradi
+
+if (unlink('test.txt')) {
+    echo 'test.txt deleted successfully';
+}
