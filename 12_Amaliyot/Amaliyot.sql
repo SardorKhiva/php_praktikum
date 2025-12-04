@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS `amaliyot`;
+DROP DATABASE IF EXISTS `news`;
 
 CREATE
-    DATABASE IF NOT EXISTS `amaliyot`;
+    DATABASE IF NOT EXISTS `news`;
 
-USE `amaliyot`;
+USE `news`;
 
-CREATE TABLE IF NOT EXISTS `amaliyot`.`users`
+CREATE TABLE IF NOT EXISTS `user`
 (
     `id`        int PRIMARY KEY AUTO_INCREMENT,
     `username`  varchar(255),
@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `amaliyot`.`users`
     `lastname`  varchar(255),
     `role`      varchar(255)
 );
+
 # RENAME TABLE `user` TO `users`;
 
 CREATE TABLE `category`
@@ -36,7 +37,7 @@ CREATE TABLE `post`
     FOREIGN KEY (`category_id`)
         REFERENCES `category` (`id`),
     FOREIGN KEY (`author_id`)
-        REFERENCES `amaliyot`.`users` (`id`)
+        REFERENCES `user` (`id`)
 );
 
 CREATE TABLE `tag`

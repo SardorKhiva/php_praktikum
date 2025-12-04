@@ -14,7 +14,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/yangiliklar.loc/index.php">Yangiliklar.uz</a>
+            <a class="navbar-brand" href="/admin">Yangiliklar.uz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,16 +22,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Asosiy sahifa</a>
+                        <a class="nav-link active" aria-current="page" href="/admin">Asosiy sahifa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/yangiliklar.loc/admin/category.php">Kategoriyalar</a>
+                        <a class="nav-link" href="/admin/category.php">Kategoriyalar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/yangiliklar.loc/admin/news.php">Yangiliklar</a>
+                        <a class="nav-link" href="/admin/news.php">Yangiliklar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/yangiliklar.loc/admin/tag.php">Teglar</a>
+                        <a class="nav-link" href="/admin/tag.php">Teglar</a>
                     </li>
                 </ul>
             </div>
