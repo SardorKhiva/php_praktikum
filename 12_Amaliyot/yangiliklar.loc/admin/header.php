@@ -6,15 +6,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Yangiliklar.uz</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!--    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" >-->
 
 </head>
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/admin">Yangiliklar.uz</a>
+            <a class="navbar-brand" href="../index.php">Yangiliklar.uz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,16 +25,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin">Asosiy sahifa</a>
+                        <a class="nav-link active" aria-current="page" href="../index.php">Asosiy sahifa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/category.php">Kategoriyalar</a>
+                        <a class="nav-link" href="category.php">Kategoriyalar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/news.php">Yangiliklar</a>
+                        <a class="nav-link" href="news.php">Yangiliklar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/tag.php">Teglar</a>
+                        <a class="nav-link" href="tag.php">Teglar</a>
                     </li>
                 </ul>
             </div>

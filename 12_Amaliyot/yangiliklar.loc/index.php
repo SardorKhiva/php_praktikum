@@ -1,1 +1,1 @@
-<h1>Bu users index</h1>
+<h1 class="container">Bu users index</h1>

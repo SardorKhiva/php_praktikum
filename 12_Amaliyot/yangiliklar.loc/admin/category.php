@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__ . "/../dbconnect.php";     // mysql bazaga ulanish
 
+/** @var object $pdo */
+
+require_once __DIR__ . "/../dbconnect.php";     // mysql bazaga ulanish
 require_once __DIR__ . '/header.php';
 
 try {
@@ -21,7 +23,7 @@ foreach ($natijalar as $natija) {
 
     <div class="container">
         <h1>Kategoriyalar ro'yhati</h1>
-        <a href="/admin/add_category.php" class="btn btn-success">Qo'shish</a>
+        <a href="category/add_category.php" class="btn btn-success">Qo'shish</a>
         <table class="table table-striped">
             <thead>
             <tr>
