@@ -49,14 +49,22 @@ function addCategory(string $title): void
         $statement = $pdo->prepare($sql_insert);
         $statement->bindparam(':title', $title);
         $statement->execute();
-        header('Location: ../category.php');   // 52-qator shu
+        if (headers_sent()) {
+            echo "<script>window.location.href = '../category.php';</script>";
+        } else {
+            header('Location: ../category.php');
+        }
         exit;
     } catch (PDOException $e) {
         echo "Kategoriya nomini kiritib bo'lmadi, qaytadan kiritib ko'ring!";
         echo "<br>";
         echo $e->getMessage();
         echo "<br>";
-        header('Location: add_category.php');
+        if (headers_sent()) {
+            echo "<script>window.location.href = 'add_category.php';</script>";
+        } else {
+            header('Location: add_category.php');
+        }
     }
 }
 

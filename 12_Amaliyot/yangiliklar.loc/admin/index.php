@@ -1,9 +1,9 @@
 <?php
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 ?>
     <div class="container">
-        <h1>Bu admin index</h1>
+        <h2>Bu admin index</h2>
     </div>
 
 <?php
-include_once __DIR__ . '/footer.php';
+require_once __DIR__ . '/footer.php';

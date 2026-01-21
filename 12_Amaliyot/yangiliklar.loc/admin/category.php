@@ -13,16 +13,10 @@ try {
     die($e->getMessage());
 }
 
-/*
-foreach ($natijalar as $natija) {
-    echo $natija['id'] . " - " . $natija['title'] . "<br>";
-}
-*/
-
 ?>
 
     <div class="container">
-        <h1>Kategoriyalar ro'yhati</h1>
+        <h2>Kategoriyalar ro'yhati</h2>
         <a href="category/add_category.php" class="btn btn-success">Qo'shish</a>
         <table class="table table-striped">
             <thead>

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../header.php';
 require_once __DIR__ . "/category_helper.php";     // mysql bazaga ulanish
+require_once __DIR__ . '/../header.php';
 
 $page = $_GET['page'] ?? 1;
 
@@ -9,10 +9,11 @@ $limit = $_POST['viewItemCount'] ?? $_GET['limit'] ?? 10;
 ?>
     <div class="container">
         <div class="row">
-            <h1>Kategoriyalar ro'yhati</h1>
+            <h2>Kategoriyalar ro'yhati</h2>
         </div>
         <div class="mt-3 mb-3">
-            <a href="../category/add_category.php" class="btn btn-success">Qo'shish</a>
+            <a href="<?= SITE_ROOT ?>admin/category/add_category.php"
+               class="btn btn-success">Qo'shish</a>
         </div>
         <table class="table table-dark table-hover table-striped">
             <thead>
@@ -28,9 +29,9 @@ $limit = $_POST['viewItemCount'] ?? $_GET['limit'] ?? 10;
                     <td> <?= $kategoriya['id'] ?> </td>
                     <td> <?= $kategoriya['title'] ?> </td>
                     <td>
-                        <a href="../category/edit_category.php?id=<?= $kategoriya['id']; ?>"
+                        <a href="<?= SITE_ROOT ?>admin/category/edit_category.php?id=<?= $kategoriya['id']; ?>"
                            class="btn btn-primary">Tahrirlash</a>
-                        <a href="../category/delete_category.php?id=<?= $kategoriya['id']; ?>"
+                        <a href="<?= SITE_ROOT ?>admin/category/delete_category.php?id=<?= $kategoriya['id']; ?>"
                            class="btn btn-danger">O'chirish</a>
                     </td>
                 </tr>
@@ -43,8 +44,8 @@ $limit = $_POST['viewItemCount'] ?? $_GET['limit'] ?? 10;
             <ul class="pagination justify-content-center">
                 <?php for ($sahifa = 1; $sahifa <= getPaginationCategory($limit, 'category'); $sahifa++): ?>
                     <li class="page-item">
-                        <a class="page-link <?php if ($sahifa == $_GET['page']) echo 'active'; ?>"
-                           href="../category/category.php?page= <?= $sahifa; ?>&limit=<?= $limit; ?>"> <?= $sahifa; ?>
+                        <a class="page-link <?php if ($sahifa == $page) echo 'active'; ?>"
+                           href="<?= SITE_ROOT ?>admin/category/category.php?page= <?= $sahifa; ?>&limit=<?= $limit; ?>"> <?= $sahifa; ?>
                         </a>
                     </li>
                 <?php endfor; ?>

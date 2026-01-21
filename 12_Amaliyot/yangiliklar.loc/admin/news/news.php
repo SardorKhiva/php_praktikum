@@ -9,7 +9,7 @@ $limit = $_POST['viewItemCount'] ?? $_GET['limit'] ?? 10;
 ?>
     <div class="container">
         <div class="row">
-            <h1>Yangiliklar ro'yhati</h1>
+            <h2>Yangiliklar ro'yhati</h2>
         </div>
         <div class="mt-3 mb-3">
             <a href="../news/add_news.php" class="btn btn-success">Qo'shish</a>

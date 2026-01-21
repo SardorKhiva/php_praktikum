@@ -1,6 +1,10 @@
+<?php
+require_once __DIR__ . "/configs/const_paths.php";
+?>
 <!doctype html>
 <html lang="uz">
 <head>
+    <!-- <base href="yangiliklar.loc"> -->
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -17,7 +21,9 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">Yangiliklar.uz</a>
+            <a class="navbar-brand"
+               href="<?= SITE_ROOT ?>index.php">
+                Yangiliklar.uz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,16 +31,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../index.php">Asosiy sahifa</a>
+                        <a class="nav-link active" aria-current="page"
+                           href="<?= SITE_ROOT ?>admin/index.php">
+                            Asosiy sahifa
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="category.php">Kategoriyalar</a>
+                        <a class="nav-link" href="<?= SITE_ROOT ?>admin/category/category.php">
+                            Kategoriyalar
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="news.php">Yangiliklar</a>
+                        <a class="nav-link" href="<?= SITE_ROOT ?>admin/news/news.php">
+                            Yangiliklar
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tag.php">Teglar</a>
+                        <a class="nav-link" href="<?= SITE_ROOT ?>admin/tags/tag.php">
+                            Teglar
+                        </a>
                     </li>
                 </ul>
             </div>

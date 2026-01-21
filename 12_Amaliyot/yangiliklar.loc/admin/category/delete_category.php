@@ -8,20 +8,21 @@ if (isset($_GET['id'])) {
     $category_row = getCategoryById($id);
     $title = $category_row['title'];
 
-    if ($_GET['confirm'] === 'yes') {
+    if ('yes' === $_GET['confirm']) {
         deleteCategory($id);
     }
 }
 ?>
     <div class="container">
-        <label for="cat_del_no" class="mt-3 mb-3">Rostdan ham <strong> <?= $title ?></strong> kategoriyasini
+        <label for="cat_del_no" class="mt-3 mb-3">
+            Rostdan ham <strong> <?= $title ?></strong> kategoriyasini
             o'chirmoqchimisiz?
             <br>
-            <a href="../category/delete_category.php?id=<?= $id ?>&confirm=yes"
+            <a href="<?= SITE_ROOT ?>admin/category/delete_category.php?id=<?= $id ?>&confirm=yes"
                id="cat_del_yes"
                class="btn btn-danger">Ha
             </a>
-            <a href="../category/category.php"
+            <a href="<?= SITE_ROOT ?>admin/category/category.php"
                id="cat_del_no"
                class="btn btn-primary">Yo'q
             </a>
